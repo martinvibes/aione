@@ -1,4 +1,4 @@
-import Image from "next/image";
+// import Image from "next/image";
 import React from "react";
 // import aiLogo from "../../../public/AI ONE Purple 1@2x.png";
 
