@@ -1,12 +1,6 @@
 name: Run Frontend Tests
 
-on:
-  push:
-    paths:
-      - 'frontend/**'
-  pull_request:
-    paths:
-      - 'frontend/**'
+on: [push, pull_request]
 
 jobs:
   test:
