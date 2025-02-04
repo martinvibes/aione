@@ -1,10 +1,13 @@
 name: Frontend & Backend CI
 
 on:
-  push:
-    branches: [main, dev]
+   paths:
+      - 'frontend/**'
+      - 'backend/**'
   pull_request:
-    branches: [main, dev]
+    paths:
+      - 'frontend/**'
+      - 'backend/**'
 
 jobs:
   frontend:
