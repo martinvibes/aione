@@ -4,7 +4,7 @@ import { mainnet, base } from "wagmi/chains";
 
 const config = getDefaultConfig({
   appName: "My RainbowKit App",
-  projectId: process.env.NEXT_PUBLIC_RAINBOWKIT_PROJECT_ID || "",
+  projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID || "",
   chains: [mainnet, base],
   ssr: true, // If your dApp uses server side rendering (SSR)
 });
