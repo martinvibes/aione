@@ -5,20 +5,22 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID: 374c6732fe50afb2f69e37d64b009c08
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
 
-    - name: Install dependencies
-      run: npm install
-      working-directory: frontend
+      - name: Install dependencies
+        run: npm install
+        working-directory: frontend
 
-    - name: Run build
-      run: npm run build
-      working-directory: frontend
+      - name: Run build
+        run: npm run build
+        working-directory: frontend
