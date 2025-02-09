@@ -20,7 +20,7 @@ const Chat = () => {
 
   useEffect(()=>{
     if(listening){
-      setChatInput(transcript)
+      setChatInput(userInput=>`${userInput} ${transcript}`)
     }
   },[listening,transcript,setChatInput])
   return (
@@ -36,6 +36,7 @@ const Chat = () => {
           type="text"
           name=""
           id=""
+          value={chatInput}
           placeholder="Type a message here"
           onChange={(e) => {
             setChatInput(e.target.value);
