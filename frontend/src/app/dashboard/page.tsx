@@ -1,60 +1,51 @@
 "use client";
-import { useContext, useEffect } from "react";
-import { Mic } from "lucide-react";
-import { useSpeech } from "../hooks/useSpeech";
+import { useContext } from "react";
+import {
+  MessageSquare,
+} from "lucide-react";
 import { ChatContext } from "../useContext/chatContex";
+import Swap from "../svg/swap";
+import SideNavBar from "./components/side-bar";
+import ChatInput from "./components/chat-input";
+import { Chatpage } from "./components/chat-page";
+import { useMessages } from "../useContext/message-context";
 const Chat = () => {
-  const { input: chatInput, setInput: setChatInput } = useContext(ChatContext);
   const {
-    listening,
-    browserSupportsSpeechRecognition,
-    startListening,
-    transcript,
-    SpeechRecognition
-  } = useSpeech();
-  function chatHandler(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    console.log(chatInput);
-  }
+    chatType,
+  } = useContext(ChatContext);
+  const {messages} = useMessages()
 
 
-  useEffect(()=>{
-    if(listening){
-      setChatInput(userInput=>`${userInput} ${transcript}`)
-    }
-  },[listening,transcript,setChatInput])
+
+
   return (
-    <section className="bg-white min-h-screen">
-      <p>Microphone: {listening ? "on" : "off"}</p>
-      <p>{transcript}r</p>
-      <form
-        onSubmit={chatHandler}
-        action=""
-        className="m-4 flex gap-3 items-center"
-      >
-        <input
-          type="text"
-          name=""
-          id=""
-          value={chatInput}
-          placeholder="Type a message here"
-          onChange={(e) => {
-            setChatInput(e.target.value);
-          }}
-          className="w-300px h-[40px] border bg-inherit m-2 outline-none text-black font-mono p-4 rounded-md"
-        />
-        {browserSupportsSpeechRecognition && (
-          <Mic
-            onMouseDown={startListening}
-            onMouseUp={SpeechRecognition.stopListening}
-            className="hover:text-green-300 "
-          />
-        )}
-        <button type="submit" className=" bg-gray-700 py-2  px-4 rounded-md">
-          send
-        </button>
-      </form>
-    </section>
+    <main className="bg-mainChatbg min-h-screen max-h-full text-whiteChatText flex overflow-hidden">
+      <SideNavBar/>
+      <section className="w-full max-h-full min-h-full p-6">
+        <header className="flex gap-4">
+          <button
+            className={`${
+              chatType === "ai-chat" ? "bg-aqwaGreen" : "bg-inherit"
+            } p-4 flex justify-between items-center w-fit rounded-[8px] transition-all duration-500 border-[#F7F9FC] border`}
+            type="button"
+          >
+            <MessageSquare />
+          </button>
+          <button
+            className={`${
+              chatType === "swap" ? "bg-aqwaGreen" : "bg-inherit"
+            } p-4 flex justify-between items-center w-fit rounded-[8px] transition-all duration-500 border-[#F7F9FC] border`}
+            type="button"
+          >
+            <Swap />
+          </button>
+        </header>
+        <div className="w-full h-[95%] items-center justify-center flex flex-col gap-2">
+          {messages.length > 0 && <Chatpage/> }
+         <ChatInput/>
+        </div>
+      </section>
+    </main>
   );
 };
 export default Chat;
