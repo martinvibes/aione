@@ -29,6 +29,7 @@ export default function ChatInput() {
         content: chatInput,
         sender: "user",
         id: (message.length + 1).toString(),
+        agentName:"user"
       },
     ]);
     setChatInput("")
@@ -41,6 +42,7 @@ export default function ChatInput() {
         content: content,
         sender: "user",
         id: (message.length + 1).toString(),
+        agentName:"user"
       },
     ]);
   }
@@ -56,7 +58,11 @@ export default function ChatInput() {
           Hi, Welcome to your AI AGENT
         </h1>
       )}
-      <div className="p-[40px] w-full bg-[#121826] max-w-7xl rounded-[8px] flex flex-col gap-[32px] mb-2">
+      <div
+        className={`${
+          messages.length ? "p-4" : "p-[40px] bg-[#121826]"
+        } w-full max-w-7xl rounded-[8px] flex flex-col gap-[32px]`}
+      >
         {!messages.length && (
           <div className="flex justify-center items-center gap-[10px]">
             <button
@@ -94,7 +100,9 @@ export default function ChatInput() {
         <form
           onSubmit={chatHandler}
           action=""
-          className="m-4 flex gap-4 items-center bg-darkishBlue rounded-[8px] px-4 py-2"
+          className={`${
+            messages.length ? "p-4" : "m-4 px-4 py-2"
+          } flex gap-4 items-center bg-darkishBlue rounded-[8px]`}
         >
           <input
             type="text"
@@ -109,7 +117,7 @@ export default function ChatInput() {
           />
           <button
             type="submit"
-            className=" bg-gray-700 py-2  px-4 rounded-md grid place-content-center"
+            className=" bg-inherit py-2  px-4 rounded-md grid place-content-center"
           >
             <SendIcon />
           </button>
