@@ -23,7 +23,9 @@ export default function ChatInput() {
     console.log(chatInput, "____________init__________");
 
     if (chatInput.length === 0) return;
+
     const newId = Date.now().toString();
+
     setMessages((message) => [
       ...message,
       {
@@ -39,6 +41,7 @@ export default function ChatInput() {
       console.log(airResponse);
       if (airResponse?.generalResponse) {
         const aiMessageId = (Date.now() + 1).toString();
+
         setMessages((message) => [
           ...message,
           {
