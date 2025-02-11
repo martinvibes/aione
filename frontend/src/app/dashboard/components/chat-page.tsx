@@ -6,7 +6,7 @@ export const Chatpage = () => {
   const { messages } = useMessages();
   return (
     <div
-      className={`text h-full w-full max-h-[525px] max-w-7xl chat-texts mx-auto p-4 rounded-lg space-y-4 flex flex-col-reverse overflow-y-auto scrollbar-hide scroll-smooth relative`}
+      className={`text h-[90%] w-full max-w-7xl chat-texts mx-auto p-4 rounded-lg space-y-4 flex flex-col-reverse overflow-y-auto scrollbar-hide scroll-smooth relative`}
     >
       {[...messages].reverse().map((message) => (
         <div
@@ -17,14 +17,30 @@ export const Chatpage = () => {
         >
           <div
             className={`${
-              message.sender === "user" ? "bg-gray-900" : "bg-gray-800"
-            } px-4 py-3 rounded-[24px] break-words overflow-wrap-anywhere lg:max-w-[700px] md:max-w-[500px] max-w-[300px]`}
+              message.sender === "user"
+                ? "rounded-[30px] rounded-ee-none"
+                : "rounded-[30px] rounded-es-none"
+            } p-5 break-words bg-[#1C2535] overflow-wrap-anywhere max-w-[50%]`}
           >
-            {message.sender !== "chart" && (
+            {message.sender == "user" && (
               <div
                 dangerouslySetInnerHTML={{ __html: message.content }}
-                className="message-content"
+                className="message-content relative"
               />
+            )}
+            {message.sender == "agent" && (
+              <div
+                className="message-content relative pl-3"
+              >
+                <div
+                  className={`${
+                    message.agentName === "zerepy" ? "bg-[#2D9CDB]" : ""
+                  } ${message.agentName === "allora" ? "bg-[#D8FFA1]" : ""} ${
+                    message.agentName === "debridge" ? "bg-[#E5C8FF]" : ""
+                  } w-3 h-3 absolute -left-1 rounded-full`}
+                />
+                {message.content}
+              </div>
             )}
           </div>
         </div>
