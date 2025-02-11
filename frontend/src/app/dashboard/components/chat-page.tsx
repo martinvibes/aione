@@ -25,20 +25,19 @@ export const Chatpage = () => {
             {message.sender == "user" && (
               <div
                 dangerouslySetInnerHTML={{ __html: message.content }}
-                className="message-content"
+                className="message-content relative"
               />
             )}
             {message.sender == "agent" && (
               <div
-                // dangerouslySetInnerHTML={{ __html: message.content }}
-                className="message-content flex gap-1"
+                className="message-content relative pl-3"
               >
                 <div
                   className={`${
                     message.agentName === "zerepy" ? "bg-[#2D9CDB]" : ""
                   } ${message.agentName === "allora" ? "bg-[#D8FFA1]" : ""} ${
                     message.agentName === "debridge" ? "bg-[#E5C8FF]" : ""
-                  } w-4 h-4 rounded-[50%]`}
+                  } w-3 h-3 absolute -left-1 rounded-full`}
                 />
                 {message.content}
               </div>
