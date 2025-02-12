@@ -10,17 +10,16 @@ import NewChat from "../../svg/new-chat-icon";
 import AsideIcon from "../../svg/aside-icon";
 import History from "./components/history";
 import { useLocalStorage } from "@/app/hooks/useLocalStorage";
-const Chat = ({
-  params,
-}: {
-  params: { chatid: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
-}) => {
+import { useParams } from "next/navigation";
+
+const Chat = () => {
   const { chatType, isHistoryOpen, setIsHistoryOpen } = useContext(ChatContext);
+  const params = useParams();
+  const chatId = params.chatid as string;
 
-  const { getMessagesFromStorage } = useLocalStorage(params.chatid);
+  const { getMessagesFromStorage } = useLocalStorage(chatId);
 
-  const  messages  = getMessagesFromStorage();
+  const messages = getMessagesFromStorage();
 
   function historyOpenHandle() {
     setIsHistoryOpen((prev) => !prev);
@@ -58,7 +57,7 @@ const Chat = ({
               <div className="flex justify-between items-center w-full max-w-7xl border-b-[#D6F3F7] border-b p-4">
                 <h2>AI CHAT</h2>
                 <div className="flex items-center gap-5">
-                  <NewChat /> 
+                  <NewChat />
                   <span onClick={historyOpenHandle}>
                     <AsideIcon />
                   </span>
