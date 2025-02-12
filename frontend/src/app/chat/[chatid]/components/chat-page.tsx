@@ -1,9 +1,15 @@
 "use client";
 import React from "react";
-import { useMessages } from "@/app/useContext/message-context";
+import { useLocalStorage } from "@/app/hooks/useLocalStorage";
+import { useParams } from "next/navigation";
 
 export const Chatpage = () => {
-  const { messages } = useMessages();
+  const params = useParams();
+  const chatId = params.chatid as string;
+  const { getMessagesFromStorage } =
+    useLocalStorage(chatId);
+  const messages = getMessagesFromStorage();
+  console.log("this is hte chat im getting from this id", messages)
   return (
     <div
       className={`text h-[90%] w-full max-w-7xl chat-texts mx-auto p-4 rounded-lg space-y-4 flex flex-col-reverse overflow-y-auto scrollbar-hide scroll-smooth relative`}
@@ -29,9 +35,7 @@ export const Chatpage = () => {
               />
             )}
             {message.sender == "agent" && (
-              <div
-                className="message-content relative pl-3"
-              >
+              <div className="message-content relative pl-3">
                 <div
                   className={`${
                     message.agentName === "zerepy" ? "bg-[#2D9CDB]" : ""

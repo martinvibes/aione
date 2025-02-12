@@ -1,17 +1,28 @@
 "use client";
+import { useLocalStorage } from "@/app/hooks/useLocalStorage";
 import { useSpeech } from "@/app/hooks/useSpeech";
 import SendIcon from "@/app/svg/send-icon";
 import { ChatContext } from "@/app/useContext/chatContex";
-import { useMessages } from "@/app/useContext/message-context";
 import { AudioLines } from "lucide-react";
 import { useContext, useEffect } from "react";
+import { useParams } from "next/navigation";
+
+interface Message {
+  id: string;
+  content: string;
+  sender: "user" | "agent" | "chart";
+  agentName: "zerepy" | "allora" | "user" | "debridge";
+}
 
 export default function ChatInput() {
-  const { setMessages,messages } = useMessages();
-  const {
-    input: chatInput,
-    setInput: setChatInput,
-  } = useContext(ChatContext);
+  const { input: chatInput, setInput: setChatInput } = useContext(ChatContext);
+  const params = useParams();
+  const chatId = params.chatid as string;
+  
+  const { setMessagesInStorage, getMessagesFromStorage } = useLocalStorage(chatId);
+
+  const  messages  = getMessagesFromStorage();
+  
   const {
     listening,
     browserSupportsSpeechRecognition,
@@ -19,32 +30,32 @@ export default function ChatInput() {
     transcript,
     SpeechRecognition,
   } = useSpeech();
+
   function chatHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (chatInput.length === 0) return;
 
-    if(chatInput.length === 0) return
-    setMessages((message) => [
-      ...message,
-      {
-        content: chatInput,
-        sender: "user",
-        id: (message.length + 1).toString(),
-        agentName:"user"
-      },
-    ]);
-    setChatInput("")
+    const newMessage: Message = {
+      content: chatInput,
+      sender: "user" as const,
+      id: (messages.length + 1).toString(),
+      agentName: "user",
+    };
+
+    setMessagesInStorage([...messages, newMessage]);
+    console.log("this is hte chat im getting from this id", messages)
+    setChatInput("");
   }
 
-  function aiSuggestionMessageHandle(content:string){
-    setMessages((message) => [
-      ...message,
-      {
-        content: content,
-        sender: "user",
-        id: (message.length + 1).toString(),
-        agentName:"user"
-      },
-    ]);
+  function aiSuggestionMessageHandle(content: string) {
+    const newMessage: Message = {
+      content: content,
+      sender: "user" as const,
+      id: (messages.length + 1).toString(),
+      agentName: "user",
+    };
+
+    setMessagesInStorage([...messages, newMessage]);
   }
   useEffect(() => {
     if (listening) {
@@ -136,4 +147,3 @@ export default function ChatInput() {
     </>
   );
 }
-

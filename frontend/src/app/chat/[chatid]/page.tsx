@@ -1,18 +1,26 @@
 "use client";
 import { useContext } from "react";
 import { MessageSquare } from "lucide-react";
-import { ChatContext } from "../useContext/chatContex";
-import Swap from "../svg/swap";
+import { ChatContext } from "../../useContext/chatContex";
+import Swap from "../../svg/swap";
 import SideNavBar from "./components/side-bar";
 import ChatInput from "./components/chat-input";
 import { Chatpage } from "./components/chat-page";
-import { useMessages } from "../useContext/message-context";
-import NewChat from "../svg/new-chat-icon";
-import AsideIcon from "../svg/aside-icon";
+import NewChat from "../../svg/new-chat-icon";
+import AsideIcon from "../../svg/aside-icon";
 import History from "./components/history";
-const Chat = () => {
+import { useLocalStorage } from "@/app/hooks/useLocalStorage";
+const Chat = ({
+  params,
+}: {
+  params: { chatid: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) => {
   const { chatType, isHistoryOpen, setIsHistoryOpen } = useContext(ChatContext);
-  const { messages } = useMessages();
+
+  const { getMessagesFromStorage } = useLocalStorage(params.chatid);
+
+  const  messages  = getMessagesFromStorage();
 
   function historyOpenHandle() {
     setIsHistoryOpen((prev) => !prev);
@@ -50,7 +58,7 @@ const Chat = () => {
               <div className="flex justify-between items-center w-full max-w-7xl border-b-[#D6F3F7] border-b p-4">
                 <h2>AI CHAT</h2>
                 <div className="flex items-center gap-5">
-                  <NewChat />
+                  <NewChat /> 
                   <span onClick={historyOpenHandle}>
                     <AsideIcon />
                   </span>
