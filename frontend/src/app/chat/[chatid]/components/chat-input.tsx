@@ -5,6 +5,7 @@ import SendIcon from "@/app/svg/send-icon";
 import { ChatContext } from "@/app/useContext/chatContex";
 import { AudioLines } from "lucide-react";
 import { useContext, useEffect } from "react";
+import { responseFromChatOpenAi } from "@/app/api/langchain";
 import { useParams } from "next/navigation";
 
 interface Message {
@@ -15,6 +16,8 @@ interface Message {
 }
 
 export default function ChatInput() {
+  const { setMessages, messages } = useMessages();
+  const { input: chatInput, setInput: setChatInput } = useContext(ChatContext);
   const { input: chatInput, setInput: setChatInput } = useContext(ChatContext);
   const params = useParams();
   const chatId = params.chatid as string;
@@ -31,10 +34,57 @@ export default function ChatInput() {
     SpeechRecognition,
   } = useSpeech();
 
-  function chatHandler(e: React.FormEvent<HTMLFormElement>) {
+
+  async function chatHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    console.log(chatInput, "____________init__________");
+
     if (chatInput.length === 0) return;
 
+    const newId = Date.now().toString();
+    if (chatInput.length === 0) return;
+
+    setMessages((message) => [
+      ...message,
+      {
+        content: chatInput,
+        sender: "user",
+        id: newId,
+        agentName: "user",
+      },
+    ]);
+
+    try {
+      const airResponse = await responseFromChatOpenAi(chatInput.toString());
+      console.log(airResponse);
+      if (airResponse?.generalResponse) {
+        const aiMessageId = (Date.now() + 1).toString();
+
+        setMessages((message) => [
+          ...message,
+          {
+            content: airResponse.generalResponse,
+            sender: "agent",
+            id: aiMessageId,
+            agentName: "user",
+            intent: airResponse.intent,
+          },
+        ]);
+      }
+    } catch (err) {
+      console.error(err);
+      setMessages((message) => [
+        ...message,
+        {
+          content: "Sorry, I encountered an error processing your request.",
+          sender: "agent",
+          id: message.length.toString(),
+          agentName: "user",
+        },
+      ]);
+    }
+
+    setChatInput("");
     const newMessage: Message = {
       content: chatInput,
       sender: "user" as const,
@@ -47,12 +97,12 @@ export default function ChatInput() {
     setChatInput("");
   }
 
-  function aiSuggestionMessageHandle(content: string) {
+  function aiSuggestionMessageHandle(content:  string)  {
     const newMessage: Message = {
       content: content,
       sender: "user" as const,
       id: (messages.length + 1).toString(),
-      agentName: "user",
+      agentName:  "user",,
     };
 
     setMessagesInStorage([...messages, newMessage]);

@@ -2,6 +2,8 @@
 import React from "react";
 import { useLocalStorage } from "@/app/hooks/useLocalStorage";
 import { useParams } from "next/navigation";
+import { useMessages } from "@/app/useContext/message-context";
+// app/api/chat/route.ts
 
 export const Chatpage = () => {
   const params = useParams();
@@ -35,10 +37,10 @@ export const Chatpage = () => {
               />
             )}
             {message.sender == "agent" && (
-              <div className="message-content relative pl-3">
+              <div key={message.id} className="message-content relative pl-3">
                 <div
                   className={`${
-                    message.agentName === "zerepy" ? "bg-[#2D9CDB]" : ""
+                    message.agentName === "zerepy" ? "bg-[#687d8a]" : ""
                   } ${message.agentName === "allora" ? "bg-[#D8FFA1]" : ""} ${
                     message.agentName === "debridge" ? "bg-[#E5C8FF]" : ""
                   } w-3 h-3 absolute -left-1 rounded-full`}

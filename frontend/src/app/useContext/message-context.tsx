@@ -12,9 +12,11 @@ interface Message {
   content: string;
   sender: "user" | "agent" | "chart";
   agentName: "zerepy" | "allora" | "user" | "debridge";
+  intent?: string;
+  //   balance: balance;
+  //   intent: string;
 }
 
- 
 type MessageContextType = {
   messages: Message[];
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
