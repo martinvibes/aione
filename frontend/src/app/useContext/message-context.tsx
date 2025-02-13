@@ -1,19 +1,12 @@
 "use client";
 
+import { Message } from "@/lib/types";
 import React, { createContext, useContext, useState } from "react";
 
 // type balance = {
 //   sol: number;
 //   usd: number;
 // };
-
-interface Message {
-  id: string;
-  content: string;
-  sender: "user" | "agent" | "chart";
-  agentName: "zerepy" | "allora" | "user" | "debridge";
-  intent?: string;
-}
 
 type MessageContextType = {
   messages: Message[];

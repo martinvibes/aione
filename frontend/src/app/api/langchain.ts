@@ -24,19 +24,24 @@ export async function responseFromChatOpenAi(question: string) {
   For swap requests:
   - If user mentions 'swap', ask for source and destination tokens
   - If user provides tokens in format like "swap 1 SOL for USDT", extract these details
+  - Keep responses concise
+  For price prediction
+  - If user mention 'pridiction', ask for token name 
+  - If user provide token in format like 'price pridiction of SOL' extract the token
   - Keep responses concise`;
 
   const generalResponseDesc = ` Examine the feedback provided by the user and craft a response that is easy to understand, addressing their prompt thoughtfully. Alo make it engaging and informative.`;
 
   const IntentSchema = z.object({
     intent: z
-      .enum(["swap", "checkBalance", "transfer", "normalChat", "unknown"])
+      .enum(["swap", "checkBalance", "transfer", "normalChat", "unknown","pridiction"])
       .describe(formatInstructions),
     amount: z.number().optional(),
     sourceToken: z.string().optional(),
     destinationToken: z.string().optional(),
     recipientAddress: z.string().optional(),
     transferCurrency: z.enum(["S", "USDT"]).optional(),
+    pridictTokenName:z.string().optional(),
     error: z.string().optional(),
     generalResponse: z.string().describe(generalResponseDesc),
   });

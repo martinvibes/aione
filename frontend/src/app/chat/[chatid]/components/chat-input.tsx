@@ -8,24 +8,18 @@ import { useContext, useEffect, useState } from "react";
 import { responseFromChatOpenAi } from "@/app/api/langchain";
 import { useParams } from "next/navigation";
 import { MessageContext } from "@/app/useContext/message-context";
+import { Message } from "@/lib/types";
+import { useAiResponse } from "@/app/hooks/useAiResponse";
 
-interface Message {
-  id: string;
-  content: string;
-  sender: "user" | "agent" | "chart";
-  agentName: "zerepy" | "allora" | "user" | "debridge";
-  intent?: string;
-}
 
 export default function ChatInput() {
   const { input: chatInput, setInput: setChatInput } = useContext(ChatContext);
   const [pendingMessage, setPendingMessage] = useState<string | null>(null);
-  const {messages, setMessages} = useContext(MessageContext);
+  const { messages, setMessages } = useContext(MessageContext);
   const params = useParams();
   const chatId = params.chatid as string;
-  const { setMessagesInStorage } =
-     useLocalStorage(chatId);
-   //const getLocalmessages = getMessagesFromStorage();
+  const { setMessagesInStorage } = useLocalStorage(chatId);
+  //const getLocalmessages = getMessagesFromStorage();
 
   const {
     listening,
@@ -47,52 +41,75 @@ export default function ChatInput() {
       agentName: "user",
     };
 
-    setMessages(messages=>[...messages,userMessage])
+    setMessages((messages) => [...messages, userMessage]);
     setMessagesInStorage([...messages, userMessage]);
     setPendingMessage(chatInput);
     setChatInput("");
   }
+  useAiResponse(pendingMessage,setPendingMessage)
 
-  useEffect(() => {
-    async function getAIResponse() {
-      if (!pendingMessage) return;
+  // useEffect(() => {
+  //   async function getAIResponse() {
+  //     if (!pendingMessage) return;
 
-      try {
-        const airResponse = await responseFromChatOpenAi(pendingMessage);
+  //     try {
+  //       const airResponse = await responseFromChatOpenAi(pendingMessage);
 
-        if (airResponse?.generalResponse) {
-          const aiMessage: Message = {
-            content: airResponse.generalResponse,
-            sender: "agent",
-            id: Date.now().toString(),
-            agentName: "user",
-            intent: airResponse.intent,
-          };
-          
-          
-          setMessagesInStorage([...messages, aiMessage]);
-          setMessages((messages) => [...messages, aiMessage]);
-          // console.log("this is the life we chose", aiMessage, airResponse);
-        }
-      } catch (err) {
-        console.error(err);
-        const errorMessage: Message = {
-          content: "Sorry, I encountered an error processing your request.",
-          sender: "agent",
-          id: Date.now().toString(),
-          agentName: "user",
-          intent: "None",
-        };
-        
-        setMessages((messages) => [...messages, errorMessage]);
-        setMessagesInStorage([...messages, errorMessage]);
-      }
+  //       switch (airResponse?.intent) {
+  //         case "swap":
+  //           break;
+  //         case "checkBalance":
+  //           break;
+  //         case "normalChat":
+  //           break;
+  //         case "pridiction":
+  //           break;
+  //         case "transfer":
+  //           break;
+  //         case "unknown":
+  //           break;
+  //         default:
+  //           const aiMessage: Message = {
+  //             content: airResponse?.generalResponse ?? "",
+  //             sender: "agent",
+  //             id: Date.now().toString(),
+  //             agentName: "user",
+  //             intent: airResponse?.intent,
+  //           };
+  //       }
 
-      setPendingMessage(null);
-    }
+  //       // if (airResponse?.generalResponse) {
+  //       //   const aiMessage: Message = {
+  //       //     content: airResponse.generalResponse,
+  //       //     sender: "agent",
+  //       //     id: Date.now().toString(),
+  //       //     agentName: "user",
+  //       //     intent: airResponse.intent,
+  //       //   };
 
-    getAIResponse();
-  }, [pendingMessage]);
+  //       //   setMessagesInStorage([...messages, aiMessage]);
+  //       //   setMessages((messages) => [...messages, aiMessage]);
+  //       //   // console.log("this is the life we chose", aiMessage, airResponse);
+  //       // }
+  //     } catch (err) {
+  //       console.error(err);
+  //       const errorMessage: Message = {
+  //         content: "Sorry, I encountered an error processing your request.",
+  //         sender: "agent",
+  //         id: Date.now().toString(),
+  //         agentName: "user",
+  //         intent: "None",
+  //       };
+
+  //       setMessages((messages) => [...messages, errorMessage]);
+  //       setMessagesInStorage([...messages, errorMessage]);
+  //     }
+
+  //     setPendingMessage(null);
+  //   }
+
+  //   getAIResponse();
+  // }, [pendingMessage]);
 
   function aiSuggestionMessageHandle(content: string) {
     const newMessage: Message = {

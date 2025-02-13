@@ -1,15 +1,9 @@
 import { useContext, useEffect } from "react";
 import { MessageContext } from "../useContext/message-context";
+import { Message } from "@/lib/types";
 
 export const useLocalStorage = (chatId: string) => {
    const {setMessages} = useContext(MessageContext);
-  interface Message {
-    id: string;
-    content: string;
-    sender: "user" | "agent" | "chart";
-    agentName: "zerepy" | "allora" | "user" | "debridge";
-    intent?: string;
-  }
 
   const getMessagesFromStorage: () => Message[] = () => {
     const stored = localStorage.getItem(chatId);
