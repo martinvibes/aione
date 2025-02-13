@@ -154,7 +154,7 @@ export default function ChatInput() {
               }
               className="bg-[#1C2535] p-2 rounded-[8px]"
             >
-              What's the gas fee right now?
+              What &apos; s the gas fee right now?
             </button>
           </div>
         )}

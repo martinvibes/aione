@@ -1,20 +1,9 @@
 "use client";
 import React, { useContext } from "react";
-import { useLocalStorage } from "@/app/hooks/useLocalStorage";
-import { useParams } from "next/navigation";
-import { useEffect } from "react";
 import { MessageContext } from "@/app/useContext/message-context";
 
 export const Chatpage = () => {
-  // const params = useParams();
-  // const chatId = params.chatid as string;
-  // const { getMessagesFromStorage } = useLocalStorage(chatId);
-  // const messages = getMessagesFromStorage();
   const {messages} = useContext(MessageContext);
-
-  // useEffect(() => {
-  //   messages && getMessagesFromStorage();
-  // }, [messages, getMessagesFromStorage]);
 
   return (
     <div
