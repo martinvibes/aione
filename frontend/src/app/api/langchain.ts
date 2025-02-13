@@ -9,7 +9,7 @@ export async function responseFromChatOpenAi(question: string) {
     model: "gpt-4o-mini",
     temperature: 0,
     openAIApiKey:
-      "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",
+      "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",
   });
 
   const formatInstructions = `
@@ -50,7 +50,6 @@ export async function responseFromChatOpenAi(question: string) {
         content: question,
       },
     ]);
-    console.log(response);
 
     return response;
   } catch (error) {
