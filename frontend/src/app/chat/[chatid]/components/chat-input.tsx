@@ -7,6 +7,7 @@ import { AudioLines } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import { responseFromChatOpenAi } from "@/app/api/langchain";
 import { useParams } from "next/navigation";
+import { MessageContext } from "@/app/useContext/message-context";
 
 interface Message {
   id: string;
@@ -19,12 +20,12 @@ interface Message {
 export default function ChatInput() {
   const { input: chatInput, setInput: setChatInput } = useContext(ChatContext);
   const [pendingMessage, setPendingMessage] = useState<string | null>(null);
+  const {messages, setMessages} = useContext(MessageContext);
   const params = useParams();
   const chatId = params.chatid as string;
-
-  const { setMessagesInStorage, getMessagesFromStorage } =
-    useLocalStorage(chatId);
-  const messages = getMessagesFromStorage();
+  const { setMessagesInStorage } =
+     useLocalStorage(chatId);
+   //const getLocalmessages = getMessagesFromStorage();
 
   const {
     listening,
@@ -46,6 +47,7 @@ export default function ChatInput() {
       agentName: "user",
     };
 
+    setMessages(messages=>[...messages,userMessage])
     setMessagesInStorage([...messages, userMessage]);
     setPendingMessage(chatInput);
     setChatInput("");
@@ -69,7 +71,8 @@ export default function ChatInput() {
           
           
           setMessagesInStorage([...messages, aiMessage]);
-          console.log("this is the life we chose", aiMessage, airResponse);
+          setMessages((messages) => [...messages, aiMessage]);
+          // console.log("this is the life we chose", aiMessage, airResponse);
         }
       } catch (err) {
         console.error(err);
@@ -81,6 +84,7 @@ export default function ChatInput() {
           intent: "None",
         };
         
+        setMessages((messages) => [...messages, errorMessage]);
         setMessagesInStorage([...messages, errorMessage]);
       }
 
@@ -98,7 +102,7 @@ export default function ChatInput() {
       agentName: "user",
     };
 
-    
+    setMessages((messages) => [...messages, newMessage]);
     setMessagesInStorage([...messages, newMessage]);
   }
 

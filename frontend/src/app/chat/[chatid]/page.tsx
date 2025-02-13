@@ -20,7 +20,6 @@ const Chat = () => {
   const { getMessagesFromStorage } = useLocalStorage(chatId);
 
   const messages = getMessagesFromStorage();
-
   function historyOpenHandle() {
     setIsHistoryOpen((prev) => !prev);
   }

@@ -24,7 +24,14 @@ type MessageContextType = {
   setTransactionType: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const MessageContext = createContext<MessageContextType | undefined>(undefined);
+export const MessageContext = createContext<MessageContextType>({
+   messages: [],
+  setMessages:()=>{},
+  isLoading:false,
+  setIsLoading:()=>{},
+  transactionType: "",
+  setTransactionType:()=>{},
+});
 
 export function MessageProvider({ children }: { children: React.ReactNode }) {
   const [messages, setMessages] = useState<Message[]>([]);

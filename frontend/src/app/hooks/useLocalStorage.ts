@@ -1,5 +1,8 @@
+import { useContext, useEffect } from "react";
+import { MessageContext } from "../useContext/message-context";
 
 export const useLocalStorage = (chatId: string) => {
+   const {setMessages} = useContext(MessageContext);
   interface Message {
     id: string;
     content: string;
@@ -16,6 +19,8 @@ export const useLocalStorage = (chatId: string) => {
   const setMessagesInStorage = (messages: Message[]) => {
     localStorage.setItem(chatId, JSON.stringify(messages));
   };
-
+  useEffect(()=>{
+    setMessages(getMessagesFromStorage)
+  },[])
   return { setMessagesInStorage, getMessagesFromStorage };
 };
