@@ -2,8 +2,6 @@
 import React from "react";
 import { useLocalStorage } from "@/app/hooks/useLocalStorage";
 import { useParams } from "next/navigation";
-import { useMessages } from "@/app/useContext/message-context";
-// app/api/chat/route.ts
 
 export const Chatpage = () => {
   const params = useParams();
@@ -11,7 +9,11 @@ export const Chatpage = () => {
   const { getMessagesFromStorage } =
     useLocalStorage(chatId);
   const messages = getMessagesFromStorage();
-  console.log("this is hte chat im getting from this id", messages)
+
+  React.useEffect(() => {
+    messages && messages.length > 0 && getMessagesFromStorage();
+  }, [messages, getMessagesFromStorage]);
+  
   return (
     <div
       className={`text h-[90%] w-full max-w-7xl chat-texts mx-auto p-4 rounded-lg space-y-4 flex flex-col-reverse overflow-y-auto scrollbar-hide scroll-smooth relative`}

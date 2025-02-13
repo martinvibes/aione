@@ -5,15 +5,16 @@ export const useLocalStorage = (chatId: string) => {
     content: string;
     sender: "user" | "agent" | "chart";
     agentName: "zerepy" | "allora" | "user" | "debridge";
+    intent?: string;
   }
+
+  const getMessagesFromStorage: () => Message[] = () => {
+    const stored = localStorage.getItem(chatId);
+    return stored ? JSON.parse(stored) : [];
+  };
 
   const setMessagesInStorage = (messages: Message[]) => {
     localStorage.setItem(chatId, JSON.stringify(messages));
-  };
-
-  const getMessagesFromStorage = (): Message[] => {
-    const stored = localStorage.getItem(chatId);
-    return stored ? JSON.parse(stored) : [];
   };
 
   return { setMessagesInStorage, getMessagesFromStorage };
