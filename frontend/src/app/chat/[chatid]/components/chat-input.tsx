@@ -5,7 +5,6 @@ import SendIcon from "@/app/svg/send-icon";
 import { ChatContext } from "@/app/useContext/chatContex";
 import { AudioLines } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
-import { responseFromChatOpenAi } from "@/app/api/langchain";
 import { useParams } from "next/navigation";
 import { MessageContext } from "@/app/useContext/message-context";
 import { Message } from "@/lib/types";
@@ -47,69 +46,6 @@ export default function ChatInput() {
     setChatInput("");
   }
   useAiResponse(pendingMessage,setPendingMessage)
-
-  // useEffect(() => {
-  //   async function getAIResponse() {
-  //     if (!pendingMessage) return;
-
-  //     try {
-  //       const airResponse = await responseFromChatOpenAi(pendingMessage);
-
-  //       switch (airResponse?.intent) {
-  //         case "swap":
-  //           break;
-  //         case "checkBalance":
-  //           break;
-  //         case "normalChat":
-  //           break;
-  //         case "pridiction":
-  //           break;
-  //         case "transfer":
-  //           break;
-  //         case "unknown":
-  //           break;
-  //         default:
-  //           const aiMessage: Message = {
-  //             content: airResponse?.generalResponse ?? "",
-  //             sender: "agent",
-  //             id: Date.now().toString(),
-  //             agentName: "user",
-  //             intent: airResponse?.intent,
-  //           };
-  //       }
-
-  //       // if (airResponse?.generalResponse) {
-  //       //   const aiMessage: Message = {
-  //       //     content: airResponse.generalResponse,
-  //       //     sender: "agent",
-  //       //     id: Date.now().toString(),
-  //       //     agentName: "user",
-  //       //     intent: airResponse.intent,
-  //       //   };
-
-  //       //   setMessagesInStorage([...messages, aiMessage]);
-  //       //   setMessages((messages) => [...messages, aiMessage]);
-  //       //   // console.log("this is the life we chose", aiMessage, airResponse);
-  //       // }
-  //     } catch (err) {
-  //       console.error(err);
-  //       const errorMessage: Message = {
-  //         content: "Sorry, I encountered an error processing your request.",
-  //         sender: "agent",
-  //         id: Date.now().toString(),
-  //         agentName: "user",
-  //         intent: "None",
-  //       };
-
-  //       setMessages((messages) => [...messages, errorMessage]);
-  //       setMessagesInStorage([...messages, errorMessage]);
-  //     }
-
-  //     setPendingMessage(null);
-  //   }
-
-  //   getAIResponse();
-  // }, [pendingMessage]);
 
   function aiSuggestionMessageHandle(content: string) {
     const newMessage: Message = {

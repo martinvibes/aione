@@ -25,7 +25,7 @@ export const Chatpage = () => {
           >
             {message.sender == "user" && (
               <div
-                dangerouslySetInnerHTML={{ __html: message.content }}
+                dangerouslySetInnerHTML={{ __html: `${message.content}` }}
                 className="message-content relative"
               />
             )}

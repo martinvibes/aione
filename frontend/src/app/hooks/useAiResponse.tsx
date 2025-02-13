@@ -64,7 +64,7 @@ export function useAiResponse(pendingMessage: string|null, setPendingMessage:(e:
             break;
           case "transfer":
              aiMessage = {
-               content: airResponse?. ?? "",
+               content: airResponse?.generalResponse ?? "",
                sender: "agent",
                id: Date.now().toString(),
                agentName: "user",
