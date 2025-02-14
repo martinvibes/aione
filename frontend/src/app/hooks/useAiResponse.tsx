@@ -5,7 +5,10 @@ import { MessageContext } from "../useContext/message-context";
 import { useParams } from "next/navigation";
 import { useLocalStorage } from "./useLocalStorage";
 
-export function useAiResponse(pendingMessage: string|null, setPendingMessage:(e:null)=>void) {
+export function useAiResponse(
+  pendingMessage: string | null,
+  setPendingMessage: (e: null) => void
+) {
   const { messages, setMessages } = useContext(MessageContext);
   const params = useParams();
   const chatId = params.chatid as string;
@@ -19,7 +22,7 @@ export function useAiResponse(pendingMessage: string|null, setPendingMessage:(e:
 
         switch (airResponse?.intent) {
           case "swap":
-            let aiMessage: Message = {
+            const aiMessage: Message = {
               content: airResponse?.generalResponse ?? "",
               sender: "agent",
               id: Date.now().toString(),
@@ -30,72 +33,71 @@ export function useAiResponse(pendingMessage: string|null, setPendingMessage:(e:
             setMessages((messages) => [...messages, aiMessage]);
             break;
           case "checkBalance":
-              aiMessage = {
-                content: airResponse?.amount ?? "",
-                sender: "agent",
-                id: Date.now().toString(),
-                agentName: "user",
-                intent: "checkBalance",
-              };
-              setMessagesInStorage([...messages, aiMessage]);
-              setMessages((messages) => [...messages, aiMessage]);
+            const aicheckbalance: Message = {
+              content: airResponse?.amount ?? "",
+              sender: "agent",
+              id: Date.now().toString(),
+              agentName: "user",
+              intent: "checkBalance",
+            };
+            setMessagesInStorage([...messages, aicheckbalance]);
+            setMessages((messages) => [...messages, aicheckbalance]);
             break;
           case "normalChat":
-            aiMessage = {
+            const aiNormlChat: Message = {
               content: airResponse?.generalResponse ?? "",
               sender: "agent",
               id: Date.now().toString(),
               agentName: "user",
               intent: "normalChat",
             };
-            setMessagesInStorage([...messages, aiMessage]);
-            setMessages((messages) => [...messages, aiMessage]);
+            setMessagesInStorage([...messages, aiNormlChat]);
+            setMessages((messages) => [...messages, aiNormlChat]);
             break;
           case "pridiction":
-             aiMessage = {
-               content: airResponse?.pridictTokenName ?? "",
-               sender: "agent",
-               id: Date.now().toString(),
-               agentName: "user",
-               intent: "pridiction",
-             };
-             setMessagesInStorage([...messages, aiMessage]);
-             setMessages((messages) => [...messages, aiMessage]);
+            const aiPridiction: Message = {
+              content: airResponse?.generalResponse ?? "",
+              sender: "agent",
+              id: Date.now().toString(),
+              agentName: "user",
+              intent: "pridiction",
+            };
+            setMessagesInStorage([...messages, aiPridiction]);
+            setMessages((messages) => [...messages, aiPridiction]);
             break;
           case "transfer":
-             aiMessage = {
-               content: airResponse?.generalResponse ?? "",
-               sender: "agent",
-               id: Date.now().toString(),
-               agentName: "user",
-               intent: "transfer",
-             };
-             setMessagesInStorage([...messages, aiMessage]);
-             setMessages((messages) => [...messages, aiMessage]);
+            const aiTransfer: Message = {
+              content: airResponse?.generalResponse ?? "",
+              sender: "agent",
+              id: Date.now().toString(),
+              agentName: "user",
+              intent: "transfer",
+            };
+            setMessagesInStorage([...messages, aiTransfer]);
+            setMessages((messages) => [...messages, aiTransfer]);
             break;
           case "unknown":
-             aiMessage = {
-               content: airResponse?.generalResponse ?? "",
-               sender: "agent",
-               id: Date.now().toString(),
-               agentName: "user",
-               intent: "unknown",
-             };
-             setMessagesInStorage([...messages, aiMessage]);
-             setMessages((messages) => [...messages, aiMessage]);
+            const aiUnKnownMessage: Message = {
+              content: airResponse?.generalResponse ?? "",
+              sender: "agent",
+              id: Date.now().toString(),
+              agentName: "user",
+              intent: "unknown",
+            };
+            setMessagesInStorage([...messages, aiUnKnownMessage]);
+            setMessages((messages) => [...messages, aiUnKnownMessage]);
             break;
           default:
-             aiMessage = {
+            const aiDefaultMessage: Message = {
               content: airResponse?.generalResponse ?? "",
               sender: "agent",
               id: Date.now().toString(),
               agentName: "user",
               intent: "normalChat",
             };
-            setMessagesInStorage([...messages, aiMessage]);
-            setMessages((messages) => [...messages, aiMessage]);
+            setMessagesInStorage([...messages, aiDefaultMessage]);
+            setMessages((messages) => [...messages, aiDefaultMessage]);
         }
-          
       } catch (err) {
         console.error(err);
         const errorMessage: Message = {
