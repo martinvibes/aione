@@ -1,10 +1,10 @@
 "use client";
-import React from "react";
-import { useMessages } from "@/app/useContext/message-context";
-// app/api/chat/route.ts
+import React, { useContext } from "react";
+import { MessageContext } from "@/app/useContext/message-context";
 
 export const Chatpage = () => {
-  const { messages } = useMessages();
+  const {messages} = useContext(MessageContext);
+
   return (
     <div
       className={`text h-[90%] w-full max-w-7xl chat-texts mx-auto p-4 rounded-lg space-y-4 flex flex-col-reverse overflow-y-auto scrollbar-hide scroll-smooth relative`}
@@ -25,7 +25,7 @@ export const Chatpage = () => {
           >
             {message.sender == "user" && (
               <div
-                dangerouslySetInnerHTML={{ __html: message.content }}
+                dangerouslySetInnerHTML={{ __html: `${message.content}` }}
                 className="message-content relative"
               />
             )}

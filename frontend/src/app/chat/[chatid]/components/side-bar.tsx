@@ -5,7 +5,7 @@ import CommunityIcon from "@/app/svg/community-icon";
 import Swap from "@/app/svg/swap";
 import { AlignJustify, ChevronRight, MessageSquare, Settings } from "lucide-react";
 import Image from "next/image";
-import logo from "../../../../public/side-bar-logo.svg";
+import logo from "../../../../../public/side-bar-logo.svg";
 import { ChatContext } from "@/app/useContext/chatContex";
 import { useContext } from "react";
 import ClipBoard from "@/app/svg/clip-board";

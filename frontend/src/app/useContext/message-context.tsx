@@ -1,21 +1,12 @@
 "use client";
 
+import { Message } from "@/lib/types";
 import React, { createContext, useContext, useState } from "react";
 
 // type balance = {
 //   sol: number;
 //   usd: number;
 // };
-
-interface Message {
-  id: string;
-  content: string;
-  sender: "user" | "agent" | "chart";
-  agentName: "zerepy" | "allora" | "user" | "debridge";
-  intent?: string;
-  //   balance: balance;
-  //   intent: string;
-}
 
 type MessageContextType = {
   messages: Message[];
@@ -26,7 +17,14 @@ type MessageContextType = {
   setTransactionType: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const MessageContext = createContext<MessageContextType | undefined>(undefined);
+export const MessageContext = createContext<MessageContextType>({
+   messages: [],
+  setMessages:()=>{},
+  isLoading:false,
+  setIsLoading:()=>{},
+  transactionType: "",
+  setTransactionType:()=>{},
+});
 
 export function MessageProvider({ children }: { children: React.ReactNode }) {
   const [messages, setMessages] = useState<Message[]>([]);

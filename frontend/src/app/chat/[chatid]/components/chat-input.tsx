@@ -1,15 +1,25 @@
 "use client";
+import { useLocalStorage } from "@/app/hooks/useLocalStorage";
 import { useSpeech } from "@/app/hooks/useSpeech";
 import SendIcon from "@/app/svg/send-icon";
 import { ChatContext } from "@/app/useContext/chatContex";
-import { useMessages } from "@/app/useContext/message-context";
 import { AudioLines } from "lucide-react";
-import { useContext, useEffect } from "react";
-import { responseFromChatOpenAi } from "@/app/api/langchain";
+import { useContext, useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import { MessageContext } from "@/app/useContext/message-context";
+import { Message } from "@/lib/types";
+import { useAiResponse } from "@/app/hooks/useAiResponse";
+
 
 export default function ChatInput() {
-  const { setMessages, messages } = useMessages();
   const { input: chatInput, setInput: setChatInput } = useContext(ChatContext);
+  const [pendingMessage, setPendingMessage] = useState<string | null>(null);
+  const { messages, setMessages } = useContext(MessageContext);
+  const params = useParams();
+  const chatId = params.chatid as string;
+  const { setMessagesInStorage } = useLocalStorage(chatId);
+  //const getLocalmessages = getMessagesFromStorage();
+
   const {
     listening,
     browserSupportsSpeechRecognition,
@@ -18,73 +28,43 @@ export default function ChatInput() {
     SpeechRecognition,
   } = useSpeech();
 
-  async function chatHandler(e: React.FormEvent<HTMLFormElement>) {
+  function chatHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(chatInput, "____________init__________");
 
-    if (chatInput.length === 0) return;
+    if (chatInput.trim().length === 0) return;
 
-    const newId = Date.now().toString();
+    const userMessage: Message = {
+      content: chatInput,
+      sender: "user",
+      id: Date.now().toString(),
+      agentName: "user",
+    };
 
-    setMessages((message) => [
-      ...message,
-      {
-        content: chatInput,
-        sender: "user",
-        id: newId,
-        agentName: "user",
-      },
-    ]);
-
-    try {
-      const airResponse = await responseFromChatOpenAi(chatInput.toString());
-      console.log(airResponse);
-      if (airResponse?.generalResponse) {
-        const aiMessageId = (Date.now() + 1).toString();
-
-        setMessages((message) => [
-          ...message,
-          {
-            content: airResponse.generalResponse,
-            sender: "agent",
-            id: aiMessageId,
-            agentName: "user",
-            intent: airResponse.intent,
-          },
-        ]);
-      }
-    } catch (err) {
-      console.error(err);
-      setMessages((message) => [
-        ...message,
-        {
-          content: "Sorry, I encountered an error processing your request.",
-          sender: "agent",
-          id: message.length.toString(),
-          agentName: "user",
-        },
-      ]);
-    }
-
+    setMessages((messages) => [...messages, userMessage]);
+    setMessagesInStorage([...messages, userMessage]);
+    setPendingMessage(chatInput);
     setChatInput("");
   }
+  useAiResponse(pendingMessage,setPendingMessage)
 
   function aiSuggestionMessageHandle(content: string) {
-    setMessages((message) => [
-      ...message,
-      {
-        content: content,
-        sender: "user",
-        id: (message.length + 1).toString(),
-        agentName: "user",
-      },
-    ]);
+    const newMessage: Message = {
+      content,
+      sender: "user",
+      id: Date.now().toString(),
+      agentName: "user",
+    };
+
+    setMessages((messages) => [...messages, newMessage]);
+    setMessagesInStorage([...messages, newMessage]);
   }
+
   useEffect(() => {
     if (listening) {
       setChatInput(transcript);
     }
-  }, [listening, transcript, setChatInput]);
+  }, [listening, transcript]);
+
   return (
     <>
       {!messages.length && (
@@ -123,35 +103,30 @@ export default function ChatInput() {
             </button>
             <button
               onClick={() =>
-                aiSuggestionMessageHandle("What’s the gas fee right now?")
+                aiSuggestionMessageHandle("What's the gas fee right now?")
               }
               className="bg-[#1C2535] p-2 rounded-[8px]"
             >
-              What’s the gas fee right now?
+              What &apos; s the gas fee right now?
             </button>
           </div>
         )}
         <form
           onSubmit={chatHandler}
-          action=""
           className={`${
             messages.length ? "p-4" : "m-4 px-4 py-2"
           } flex gap-4 items-center bg-darkishBlue rounded-[8px]`}
         >
           <input
             type="text"
-            name=""
-            id=""
             value={chatInput}
             placeholder="Type a message here"
-            onChange={(e) => {
-              setChatInput(e.target.value);
-            }}
+            onChange={(e) => setChatInput(e.target.value)}
             className="w-full border-none bg-inherit outline-none text-whiteChatText font-mono rounded-md"
           />
           <button
             type="submit"
-            className=" bg-inherit py-2  px-4 rounded-md grid place-content-center"
+            className="bg-inherit py-2 px-4 rounded-md grid place-content-center"
           >
             <SendIcon />
           </button>
@@ -160,7 +135,7 @@ export default function ChatInput() {
               onMouseDown={startListening}
               onMouseUp={SpeechRecognition.stopListening}
               type="button"
-              className="hover:text-green-300 "
+              className="hover:text-green-300"
             >
               <AudioLines />
             </button>

@@ -1,19 +1,25 @@
 "use client";
 import { useContext } from "react";
 import { MessageSquare } from "lucide-react";
-import { ChatContext } from "../useContext/chatContex";
-import Swap from "../svg/swap";
+import { ChatContext } from "../../useContext/chatContex";
+import Swap from "../../svg/swap";
 import SideNavBar from "./components/side-bar";
 import ChatInput from "./components/chat-input";
 import { Chatpage } from "./components/chat-page";
-import { useMessages } from "../useContext/message-context";
-import NewChat from "../svg/new-chat-icon";
-import AsideIcon from "../svg/aside-icon";
+import NewChat from "../../svg/new-chat-icon";
+import AsideIcon from "../../svg/aside-icon";
 import History from "./components/history";
+import { useLocalStorage } from "@/app/hooks/useLocalStorage";
+import { useParams } from "next/navigation";
+
 const Chat = () => {
   const { chatType, isHistoryOpen, setIsHistoryOpen } = useContext(ChatContext);
-  const { messages } = useMessages();
+  const params = useParams();
+  const chatId = params.chatid as string;
 
+  const { getMessagesFromStorage } = useLocalStorage(chatId);
+
+  const messages = getMessagesFromStorage();
   function historyOpenHandle() {
     setIsHistoryOpen((prev) => !prev);
   }
