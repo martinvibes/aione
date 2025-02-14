@@ -6,14 +6,13 @@ import { useParams } from "next/navigation";
 export const Chatpage = () => {
   const params = useParams();
   const chatId = params.chatid as string;
-  const { getMessagesFromStorage } =
-    useLocalStorage(chatId);
+  const { getMessagesFromStorage } = useLocalStorage(chatId);
   const messages = getMessagesFromStorage();
 
   React.useEffect(() => {
     messages && messages.length > 0 && getMessagesFromStorage();
   }, [messages, getMessagesFromStorage]);
-  
+
   return (
     <div
       className={`text h-[90%] w-full max-w-7xl chat-texts mx-auto p-4 rounded-lg space-y-4 flex flex-col-reverse overflow-y-auto scrollbar-hide scroll-smooth relative`}

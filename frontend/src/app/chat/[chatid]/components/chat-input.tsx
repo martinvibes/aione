@@ -7,6 +7,7 @@ import { AudioLines } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import { responseFromChatOpenAi } from "@/app/api/langchain";
 import { useParams } from "next/navigation";
+import AgentController from "./AgentController";
 
 interface Message {
   id: string;
@@ -66,8 +67,7 @@ export default function ChatInput() {
             agentName: "user",
             intent: airResponse.intent,
           };
-          
-          
+
           setMessagesInStorage([...messages, aiMessage]);
           console.log("this is the life we chose", aiMessage, airResponse);
         }
@@ -80,7 +80,7 @@ export default function ChatInput() {
           agentName: "user",
           intent: "None",
         };
-        
+
         setMessagesInStorage([...messages, errorMessage]);
       }
 
@@ -98,7 +98,6 @@ export default function ChatInput() {
       agentName: "user",
     };
 
-    
     setMessagesInStorage([...messages, newMessage]);
   }
 
