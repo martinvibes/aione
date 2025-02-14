@@ -5,27 +5,20 @@ import SendIcon from "@/app/svg/send-icon";
 import { ChatContext } from "@/app/useContext/chatContex";
 import { AudioLines } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
-import { responseFromChatOpenAi } from "@/app/api/langchain";
 import { useParams } from "next/navigation";
 import AgentController from "./AgentController";
-
-interface Message {
-  id: string;
-  content: string;
-  sender: "user" | "agent" | "chart";
-  agentName: "zerepy" | "allora" | "user" | "debridge";
-  intent?: string;
-}
+import { MessageContext } from "@/app/useContext/message-context";
+import { Message } from "@/lib/types";
+import { useAiResponse } from "@/app/hooks/useAiResponse";
 
 export default function ChatInput() {
   const { input: chatInput, setInput: setChatInput } = useContext(ChatContext);
   const [pendingMessage, setPendingMessage] = useState<string | null>(null);
+  const { messages, setMessages } = useContext(MessageContext);
   const params = useParams();
   const chatId = params.chatid as string;
-
-  const { setMessagesInStorage, getMessagesFromStorage } =
-    useLocalStorage(chatId);
-  const messages = getMessagesFromStorage();
+  const { setMessagesInStorage } = useLocalStorage(chatId);
+  //const getLocalmessages = getMessagesFromStorage();
 
   const {
     listening,
@@ -47,48 +40,12 @@ export default function ChatInput() {
       agentName: "user",
     };
 
+    setMessages((messages) => [...messages, userMessage]);
     setMessagesInStorage([...messages, userMessage]);
     setPendingMessage(chatInput);
     setChatInput("");
   }
-
-  useEffect(() => {
-    async function getAIResponse() {
-      if (!pendingMessage) return;
-
-      try {
-        const airResponse = await responseFromChatOpenAi(pendingMessage);
-
-        if (airResponse?.generalResponse) {
-          const aiMessage: Message = {
-            content: airResponse.generalResponse,
-            sender: "agent",
-            id: Date.now().toString(),
-            agentName: "user",
-            intent: airResponse.intent,
-          };
-
-          setMessagesInStorage([...messages, aiMessage]);
-          console.log("this is the life we chose", aiMessage, airResponse);
-        }
-      } catch (err) {
-        console.error(err);
-        const errorMessage: Message = {
-          content: "Sorry, I encountered an error processing your request.",
-          sender: "agent",
-          id: Date.now().toString(),
-          agentName: "user",
-          intent: "None",
-        };
-
-        setMessagesInStorage([...messages, errorMessage]);
-      }
-
-      setPendingMessage(null);
-    }
-
-    getAIResponse();
-  }, [pendingMessage]);
+  useAiResponse(pendingMessage, setPendingMessage);
 
   function aiSuggestionMessageHandle(content: string) {
     const newMessage: Message = {
@@ -98,6 +55,7 @@ export default function ChatInput() {
       agentName: "user",
     };
 
+    setMessages((messages) => [...messages, newMessage]);
     setMessagesInStorage([...messages, newMessage]);
   }
 
@@ -109,6 +67,7 @@ export default function ChatInput() {
 
   return (
     <>
+      <AgentController />;
       {!messages.length && (
         <h1 className="text-[28px] font-bold leading-[37.8px] mb-5">
           Hi, Welcome to your AI AGENT
@@ -149,7 +108,7 @@ export default function ChatInput() {
               }
               className="bg-[#1C2535] p-2 rounded-[8px]"
             >
-              What's the gas fee right now?
+              What &apos; s the gas fee right now?
             </button>
           </div>
         )}

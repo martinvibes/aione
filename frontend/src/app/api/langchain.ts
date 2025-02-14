@@ -9,7 +9,7 @@ export async function responseFromChatOpenAi(question: string) {
     model: "gpt-4o-mini",
     temperature: 0,
     openAIApiKey:
-      "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",
+      "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",
   });
 
   const formatInstructions = `
@@ -24,19 +24,31 @@ export async function responseFromChatOpenAi(question: string) {
   For swap requests:
   - If user mentions 'swap', ask for source and destination tokens
   - If user provides tokens in format like "swap 1 SOL for USDT", extract these details
+  - Keep responses concise
+  For price prediction
+  - If user mention 'pridiction', ask for token name 
+  - If user provide token in format like 'price pridiction of SOL' extract the token
   - Keep responses concise`;
 
   const generalResponseDesc = ` Examine the feedback provided by the user and craft a response that is easy to understand, addressing their prompt thoughtfully. Alo make it engaging and informative.`;
 
   const IntentSchema = z.object({
     intent: z
-      .enum(["swap", "checkBalance", "transfer", "normalChat", "unknown"])
+      .enum([
+        "swap",
+        "checkBalance",
+        "transfer",
+        "normalChat",
+        "unknown",
+        "pridiction",
+      ])
       .describe(formatInstructions),
     amount: z.number().optional(),
     sourceToken: z.string().optional(),
     destinationToken: z.string().optional(),
     recipientAddress: z.string().optional(),
     transferCurrency: z.enum(["S", "USDT"]).optional(),
+    pridictTokenName: z.string().optional(),
     error: z.string().optional(),
     generalResponse: z.string().describe(generalResponseDesc),
   });
@@ -50,7 +62,7 @@ export async function responseFromChatOpenAi(question: string) {
         content: question,
       },
     ]);
-    console.log(response);
+    // console.log(response);
 
     return response;
   } catch (error) {
