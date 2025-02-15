@@ -26,8 +26,8 @@ export async function responseFromChatOpenAi(question: string) {
   - If user provides tokens in format like "swap 1 SOL for USDT", extract these details
   - Keep responses concise
   For price prediction
-  - If user mention 'pridiction', ask for token name 
-  - If user provide token in format like 'price pridiction of SOL' extract the token
+  - If user mention 'prediction', ask for token name 
+  - If user provide token in format like 'price prediction of SOL' extract the token
   - Keep responses concise`;
 
   const generalResponseDesc = ` Examine the feedback provided by the user and craft a response that is easy to understand, addressing their prompt thoughtfully. Alo make it engaging and informative.`;
@@ -40,7 +40,7 @@ export async function responseFromChatOpenAi(question: string) {
         "transfer",
         "normalChat",
         "unknown",
-        "pridiction",
+        "prediction",
       ])
       .describe(formatInstructions),
     amount: z.number().optional(),

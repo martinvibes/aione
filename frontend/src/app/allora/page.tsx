@@ -14,8 +14,15 @@ const page = ()=>{
       console.log(topics);
 
       //Fetch topic inference by ID
-      const ethPrice5m = await alloraClient.getInferenceByTopicID(5);
-      console.log(ethPrice5m);
+      const ethPrice5m = await alloraClient.getInferenceByTopicID(37);
+      const USDollar = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      });
+      const d = Number(ethPrice5m?.inference_data?.network_inference_normalized);
+      console.log(
+        USDollar.format(d)
+      );
       //console.log("btc 8h")
       const btc8h = await alloraClient.getPriceInference(
         PriceInferenceToken.BTC,
