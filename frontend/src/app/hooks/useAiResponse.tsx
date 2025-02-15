@@ -4,6 +4,7 @@ import { Message } from "@/lib/types";
 import { MessageContext } from "../useContext/message-context";
 import { useParams } from "next/navigation";
 import { useLocalStorage } from "./useLocalStorage";
+import { pricePridictionHandle } from "@/lib/allora";
 
 export function useAiResponse(
   pendingMessage: string | null,
@@ -13,6 +14,7 @@ export function useAiResponse(
   const params = useParams();
   const chatId = params.chatid as string;
   const { setMessagesInStorage } = useLocalStorage(chatId);
+
   useEffect(() => {
     async function getAIResponse() {
       if (!pendingMessage) return;
@@ -54,16 +56,16 @@ export function useAiResponse(
             setMessagesInStorage([...messages, aiNormlChat]);
             setMessages((messages) => [...messages, aiNormlChat]);
             break;
-          case "pridiction":
-            const aiPridiction: Message = {
-              content: airResponse?.generalResponse ?? "",
-              sender: "agent",
-              id: Date.now().toString(),
-              agentName: "user",
-              intent: "pridiction",
-            };
-            setMessagesInStorage([...messages, aiPridiction]);
-            setMessages((messages) => [...messages, aiPridiction]);
+          case "prediction":
+            console.log(airResponse);
+            pricePridictionHandle(
+              airResponse.pridictTokenName ?? "",
+              airResponse.generalResponse,
+              messages,
+              setMessages,
+              setMessagesInStorage
+            );
+
             break;
           case "transfer":
             const aiTransfer: Message = {
