@@ -63,7 +63,7 @@ export default function ChatInput() {
     if (listening) {
       setChatInput(transcript);
     }
-  }, [listening, transcript]);
+  }, [listening, transcript, setChatInput]);
 
   return (
     <>

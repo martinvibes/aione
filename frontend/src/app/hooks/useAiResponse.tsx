@@ -7,6 +7,7 @@ import { useLocalStorage } from "./useLocalStorage";
 import { pricePridictionHandle } from "@/lib/allora";
 import { checkBalance } from "./useBalanceResponse";
 import { getTokenTickerData } from "./useGetTokensSticker";
+import { rugcheck } from "@/lib/rugcheck";
 
 export function useAiResponse(
   pendingMessage: string | null,
@@ -38,7 +39,6 @@ export function useAiResponse(
             setMessages((messages) => [...messages, aiMessage]);
             break;
           case "checkBalance":
-            // If no token specified, ask which token they want to check
             if (!airResponse.sourceToken) {
               const promptMessage: Message = {
                 content:
@@ -50,9 +50,7 @@ export function useAiResponse(
               };
               setMessagesInStorage([...messages, promptMessage]);
               setMessages((messages) => [...messages, promptMessage]);
-            }
-            // For S token, show balance directly
-            else if (airResponse.sourceToken.toUpperCase() === "S") {
+            } else if (airResponse.sourceToken.toUpperCase() == "S") {
               const balanceData = await checkBalance();
               const balanceMessage: Message = {
                 content: balanceData?.result
@@ -65,9 +63,7 @@ export function useAiResponse(
               };
               setMessagesInStorage([...messages, balanceMessage]);
               setMessages((messages) => [...messages, balanceMessage]);
-            }
-            // For other tokens, ask for the addresses
-            else {
+            } else {
               const promptMessage: Message = {
                 content: `For checking ${airResponse.sourceToken} balance, please provide:\n1. Wallet address\n2. Token contract address\n\nFormat: wallet:YOUR_WALLET_ADDRESS token:TOKEN_CONTRACT_ADDRESS`,
                 sender: "agent",
@@ -103,7 +99,7 @@ export function useAiResponse(
             if (!airResponse.sourceToken) {
               const promptMessage: Message = {
                 content:
-                  "Please provide the token name for which you would like to get the ticker (e.g., ANON, BTC, etc.)",
+                  "Please provide the token name for which you would like to get the ticker (e.g., ANON, S, WAGMI, etc.)",
                 sender: "agent",
                 id: Date.now().toString(),
                 agentName: "zerepy",
@@ -111,9 +107,7 @@ export function useAiResponse(
               };
               setMessagesInStorage([...messages, promptMessage]);
               setMessages((messages) => [...messages, promptMessage]);
-            }
-            // If token is specified, get the ticker
-            else {
+            } else {
               try {
                 const tokenTickerData = await getTokenTickerData(
                   airResponse.sourceToken
@@ -159,6 +153,17 @@ export function useAiResponse(
             pricePridictionHandle(
               airResponse.pridictTokenName ?? "",
               airResponse.generalResponse,
+              messages,
+              setMessages,
+              setMessagesInStorage
+            );
+
+            break;
+          case "rugcheck":
+            console.log(airResponse);
+            rugcheck(
+              airResponse.tokenaddresstorugcheck ?? "",
+              chatId,
               messages,
               setMessages,
               setMessagesInStorage
@@ -216,5 +221,12 @@ export function useAiResponse(
     }
 
     getAIResponse();
-  }, [pendingMessage]);
+  }, [
+    pendingMessage,
+    chatId,
+    messages,
+    setMessages,
+    setMessagesInStorage,
+    setPendingMessage,
+  ]);
 }
