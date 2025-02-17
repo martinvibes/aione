@@ -70,7 +70,7 @@ export async function responseFromChatOpenAi(question: string) {
   }
 }
 
-responseFromChatOpenAi("will nigeria be great again");
+// responseFromChatOpenAi("will nigeria be great again");
 
 // const llm = new ChatOpenAI({
 //   model: "gpt-4o-mini",
