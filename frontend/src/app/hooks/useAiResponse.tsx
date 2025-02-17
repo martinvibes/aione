@@ -5,6 +5,7 @@ import { MessageContext } from "../useContext/message-context";
 import { useParams } from "next/navigation";
 import { useLocalStorage } from "./useLocalStorage";
 import { pricePridictionHandle } from "@/lib/allora";
+import { rugcheck } from "@/lib/rugcheck";
 
 export function useAiResponse(
   pendingMessage: string | null,
@@ -67,6 +68,17 @@ export function useAiResponse(
             );
 
             break;
+          case "rugcheck":
+            console.log(airResponse);
+            rugcheck(
+              airResponse.tokenaddresstorugcheck ?? "",
+              chatId,
+              messages,
+              setMessages,
+              setMessagesInStorage
+            );
+
+            break;
           case "transfer":
             const aiTransfer: Message = {
               content: airResponse?.generalResponse ?? "",
@@ -118,5 +130,5 @@ export function useAiResponse(
     }
 
     getAIResponse();
-  }, [pendingMessage]);
+  }, [pendingMessage, chatId, messages, setMessages, setMessagesInStorage, setPendingMessage]);
 }
