@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 // const BASE_API_URL = "https://zerepy-2.onrender.com/agents/sonic/load";
 
@@ -158,7 +158,7 @@ const AgentController = () => {
       const actionData = {
         connection: "sonic",
         action: "get-balance",
-        params: [],
+        params: ["0x11CaeF1EF6FAd2A9e8987051Ca5bfC869F11dE7A"],
       };
 
       const actionDataGetSticker = {

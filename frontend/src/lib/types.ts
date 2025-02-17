@@ -9,5 +9,7 @@ export interface Message {
     | "transfer"
     | "normalChat"
     | "unknown"
-    | "pridiction";
+    | "pridiction"
+    | "getTokenTicker";
+  tokenName?: string | number;
 }

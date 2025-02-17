@@ -18,7 +18,6 @@ export async function pricePridictionHandle(
   setMessages: (data: Message[]) => void,
   setMessagesInStorage: (data: Message[]) => void
 ) {
-
   // price pridiction function
   async function alloraPricePridiction(id: number) {
     const pridictedPriceIn8h = await alloraClient.getInferenceByTopicID(id);
