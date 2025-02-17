@@ -1,5 +1,3 @@
-import { ReactElement } from "react";
-
 export interface Message {
   id: string;
   content: string | number;
@@ -15,6 +13,7 @@ export interface Message {
     | "rugcheck";
   component?: {
     type: string;
+    /* eslint-disable  @typescript-eslint/no-explicit-any */
     props: any;
   };
 }

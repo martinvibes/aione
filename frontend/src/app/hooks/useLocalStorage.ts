@@ -15,6 +15,6 @@ export const useLocalStorage = (chatId: string) => {
   };
   useEffect(()=>{
     setMessages(getMessagesFromStorage)
-  },[])
+  },[ getMessagesFromStorage, setMessages])
   return { setMessagesInStorage, getMessagesFromStorage };
 };

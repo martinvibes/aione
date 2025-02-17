@@ -130,5 +130,5 @@ export function useAiResponse(
     }
 
     getAIResponse();
-  }, [pendingMessage]);
+  }, [pendingMessage, chatId, messages, setMessages, setMessagesInStorage, setPendingMessage]);
 }

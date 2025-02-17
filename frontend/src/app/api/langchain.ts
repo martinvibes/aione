@@ -9,7 +9,7 @@ export async function responseFromChatOpenAi(question: string) {
     model: "gpt-4o-mini",
     temperature: 0,
     openAIApiKey:
-      "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",
+      "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",
   });
 
   const formatInstructions = `

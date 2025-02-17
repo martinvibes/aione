@@ -1,6 +1,4 @@
 import { Message } from "@/lib/types";
-import { createElement } from "react";
-import RugCheckComponent from "@/app/chat/[chatid]/components/rug-check";
 import {RugCheckData} from "@/lib/types";
 
 export async function rugcheck(
