@@ -41,6 +41,7 @@ export async function responseFromChatOpenAi(question: string) {
         "normalChat",
         "unknown",
         "prediction",
+        "rugcheck",
       ])
       .describe(formatInstructions),
     amount: z.number().optional(),
@@ -51,6 +52,7 @@ export async function responseFromChatOpenAi(question: string) {
     pridictTokenName: z.string().optional(),
     error: z.string().optional(),
     generalResponse: z.string().describe(generalResponseDesc),
+    tokenaddresstorugcheck: z.string().optional(),
   });
 
   const llmStructured = llm.withStructuredOutput(IntentSchema);

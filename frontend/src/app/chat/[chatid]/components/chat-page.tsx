@@ -1,6 +1,7 @@
 "use client";
-import React, { useContext } from "react";
+import React, { useContext, cloneElement } from "react";
 import { MessageContext } from "@/app/useContext/message-context";
+import RugCheckComponent from "./rug-check";
 
 export const Chatpage = () => {
   const { messages } = useContext(MessageContext);
@@ -39,6 +40,13 @@ export const Chatpage = () => {
                   } w-3 h-3 absolute -left-1 rounded-full`}
                 />
                 {message.content}
+                {message.component && (
+                  <div className="mt-4">
+                    {message.component.type === "RugCheck" && (
+                      <RugCheckComponent {...message.component.props} />
+                    )}{" "}
+                  </div>
+                )}
               </div>
             )}
           </div>
