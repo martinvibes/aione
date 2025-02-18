@@ -67,7 +67,7 @@ export default function ChatInput() {
 
   return (
     <>
-      <AgentController />
+      {/* <AgentController /> */}
       {!messages.length && (
         <h1 className="text-[28px] font-bold leading-[37.8px] mb-5">
           Hi, Welcome to your AI AGENT

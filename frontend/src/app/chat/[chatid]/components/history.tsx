@@ -16,10 +16,11 @@ export default function History() {
     <AnimatePresence initial={false}>
       {isOpen && (
         <motion.div
-          className="transition-all duration-500 rounded-[8px] bg-[#141A2A] h-full overflow-y-auto scrollbar-hide scroll-smooth "
-          exit={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          initial={{ opacity: 0, scale: 0 }}
+          className="rounded-[8px] bg-[#141A2A] h-full overflow-y-auto scrollbar-hide scroll-smooth "
+          exit={{ opacity: 0, width: "0%" }}
+          animate={{ opacity: 1, scale: 1, width: "30%" }}
+          initial={{ opacity: 0, width: "0%" }}
+          transition={{ease:"linear"}}
         >
           <h2 className="border-b-[#D6F3F7] border-b p-4 text-center">
             Chat History
@@ -30,7 +31,7 @@ export default function History() {
               return (
                 <Link
                   href={`/chat/${data.id}`}
-                  className="border p-4 rounded-md"
+                  className="border p-4 rounded-md text-sm font-semibold"
                   key={index}
                 >
                   {stringSlice(data.data)}
