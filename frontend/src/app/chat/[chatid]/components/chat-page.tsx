@@ -2,6 +2,7 @@
 import React, { useContext } from "react";
 import { MessageContext } from "@/app/useContext/message-context";
 import RugCheckComponent from "./rug-check";
+//import SkeletonCard from "@/components/ui/skeleton";
 
 export const Chatpage = () => {
   const { messages } = useContext(MessageContext);
@@ -50,6 +51,9 @@ export const Chatpage = () => {
               </div>
             )}
           </div>
+          {/* <div className="">
+            <SkeletonCard />
+          </div> */}
         </div>
       ))}
     </div>
