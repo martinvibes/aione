@@ -4,6 +4,7 @@ import "./globals.css";
 import ChatContextProvider from "./useContext/chatContex";
 import { MessageProvider } from "./useContext/message-context";
 import { Providers } from "./Providers";
+import { AgentLoadProvider } from "./useContext/agent-load-context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,9 +32,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          <MessageProvider>
-            <ChatContextProvider>{children}</ChatContextProvider>
-          </MessageProvider>
+          <AgentLoadProvider>
+            <MessageProvider>
+              <ChatContextProvider>{children}</ChatContextProvider>
+            </MessageProvider>
+          </AgentLoadProvider>
         </Providers>
       </body>
     </html>

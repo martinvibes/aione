@@ -10,7 +10,9 @@ export interface Message {
     | "normalChat"
     | "unknown"
     | "pridiction"
+    | "getTokenTicker"
     | "rugcheck";
+  tokenName?: string | number;
   component?: {
     type: string;
     /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -19,7 +21,6 @@ export interface Message {
 }
 
 export interface RugCheckProps {
-
   data: RugCheckData;
   mint: string;
 }
