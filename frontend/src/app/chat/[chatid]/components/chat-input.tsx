@@ -6,7 +6,6 @@ import { ChatContext } from "@/app/useContext/chatContex";
 import { AudioLines } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import AgentController from "./AgentController";
 import { MessageContext } from "@/app/useContext/message-context";
 import { Message } from "@/lib/types";
 import { useAiResponse } from "@/app/hooks/useAiResponse";
@@ -67,7 +66,6 @@ export default function ChatInput() {
 
   return (
     <>
-      <AgentController />
       {!messages.length && (
         <h1 className="text-[28px] font-bold leading-[37.8px] mb-5">
           Hi, Welcome to your AI AGENT

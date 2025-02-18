@@ -8,6 +8,8 @@ import { pricePridictionHandle } from "@/lib/allora";
 import { checkBalance } from "./useBalanceResponse";
 import { getTokenTickerData } from "./useGetTokensSticker";
 import { rugcheck } from "@/lib/rugcheck";
+import { swapTokenData } from "./useSwapAction";
+import { transferTokenData } from "./useTransferAction";
 
 export function useAiResponse(
   pendingMessage: string | null,
@@ -28,15 +30,14 @@ export function useAiResponse(
 
         switch (airResponse?.intent) {
           case "swap":
-            const aiMessage: Message = {
-              content: airResponse?.generalResponse ?? "",
-              sender: "agent",
-              id: Date.now().toString(),
-              agentName: "user",
-              intent: "swap",
-            };
-            setMessagesInStorage([...messages, aiMessage]);
-            setMessages((messages) => [...messages, aiMessage]);
+            await swapTokenData(
+              airResponse.sourceToken,
+              airResponse.destinationToken,
+              airResponse.amount,
+              messages,
+              setMessages,
+              setMessagesInStorage
+            );
             break;
           case "checkBalance":
             if (!airResponse.sourceToken) {
@@ -171,15 +172,13 @@ export function useAiResponse(
 
             break;
           case "transfer":
-            const aiTransfer: Message = {
-              content: airResponse?.generalResponse ?? "",
-              sender: "agent",
-              id: Date.now().toString(),
-              agentName: "user",
-              intent: "transfer",
-            };
-            setMessagesInStorage([...messages, aiTransfer]);
-            setMessages((messages) => [...messages, aiTransfer]);
+            transferTokenData(
+              airResponse.recipientAddress,
+              airResponse.amount,
+              messages,
+              setMessages,
+              setMessagesInStorage
+            );
             break;
           case "unknown":
             const aiUnKnownMessage: Message = {

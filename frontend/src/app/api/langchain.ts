@@ -13,9 +13,18 @@ export async function responseFromChatOpenAi(question: string) {
   });
 
   const formatInstructions = `
-  For transfer requests:
-  - If user mentions 'transfer', ask for amount and recipient address
-  - If user provides amount and address in format like "transfer 1 SOL to address", extract these details
+ For transfer requests:
+  - If user mentions 'transfer', or "I want to swap"   - If user just says "swap" or "I want to swap" without details:
+  * set intent: "transfer"
+  * don't set any other fields
+  - If user provides transfer details like "transfer 1 sonic to 0x0123"
+  * set intent: "transfer"
+  * set recipientAddress: (to recipient address)
+  * set amount: (the amount to transfer)
+  - If user provides addresses in format "transferto:ADDRESS amount:NUMBER":
+    * set intent: "transfer"
+    * set recipientAddress: (to address)
+    * set amount: (the specified amount)
   - Keep responses concise
  For balance check requests:
   - If user says "check balance" or similar without specifying token, set intent: "checkBalance" and sourceToken: null
@@ -26,15 +35,26 @@ export async function responseFromChatOpenAi(question: string) {
     * walletAddress: (the wallet address)
     * tokenAddress: (the token address)
   - Keep all responses concise
-  For swap requests:
-  - If user mentions 'swap', ask for source and destination tokens
-  - If user provides tokens in format like "swap 1 SOL for USDT", extract these details
+ For swap requests:
+  - If user just says "swap" or "I want to swap" without details:
+    * set intent: "swap"
+    * don't set any other fields
+  - If user provides swap details like "swap 1 ETH for USDT":
+    * set intent: "swap"
+    * set sourceToken: (from token address)
+    * set destinationToken: (to token address)
+    * set amount: (the amount to swap)
+  - If user provides addresses in format "swapfrom:ADDRESS swapto:ADDRESS amount:NUMBER":
+    * set intent: "swap"
+    * set sourceToken: (from address)
+    * set destinationToken: (to address)
+    * set amount: (the specified amount)
   - Keep responses concise
-  For price prediction
+ For price prediction
   - If user mention 'prediction', ask for token name 
   - If user provide token in format like 'price prediction of SOL' extract the token
   - Keep responses concise
-  For get token by ticker requests:
+ For get token by ticker requests:
   - If user says "get token ticker" without specifics, set intent: "getTokenTicker" with no sourceToken
   - If user provides token name (e.g., "get token ticker for ANON"), set:
     * intent: "getTokenTicker"

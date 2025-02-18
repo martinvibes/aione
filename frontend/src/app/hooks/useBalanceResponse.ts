@@ -1,4 +1,3 @@
-// hooks/useBalanceResponse.ts
 interface BalanceResponse {
   status: string;
   result: number | string | null;
