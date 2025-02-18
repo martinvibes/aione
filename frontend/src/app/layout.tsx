@@ -4,6 +4,7 @@ import "./globals.css";
 import ChatContextProvider from "./useContext/chatContex";
 import { MessageProvider } from "./useContext/message-context";
 import { Providers } from "./Providers";
+import CoinContextProvider from "./useContext/coinContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +33,9 @@ export default function RootLayout({
       >
         <Providers>
           <MessageProvider>
-            <ChatContextProvider>{children}</ChatContextProvider>
+            <ChatContextProvider>
+              <CoinContextProvider>{children}</CoinContextProvider>
+            </ChatContextProvider>
           </MessageProvider>
         </Providers>
       </body>
