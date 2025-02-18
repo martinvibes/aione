@@ -1,7 +1,14 @@
-import type { NextConfig } from "next";
+import { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: "https://zerepy-2.onrender.com/:path*",
+      },
+    ];
+  },
 };
 
 export default nextConfig;

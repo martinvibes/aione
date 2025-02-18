@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import ChatContextProvider from "./useContext/chatContex";
+import { MessageProvider } from "./useContext/message-context";
+import { Providers } from "./Providers";
+import { AgentLoadProvider } from "./useContext/agent-load-context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +31,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Providers>
+          <AgentLoadProvider>
+            <MessageProvider>
+              <ChatContextProvider>{children}</ChatContextProvider>
+            </MessageProvider>
+          </AgentLoadProvider>
+        </Providers>
       </body>
     </html>
   );
