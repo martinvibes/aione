@@ -2,7 +2,11 @@
 import React, { useContext } from "react";
 import { MessageContext } from "@/app/useContext/message-context";
 import RugCheckComponent from "./rug-check";
+
+import TradingInfo from "./trading-info";
+
 import SkeletonCard from "@/app/components/ui/skeleton";
+
 
 export const Chatpage = () => {
   const { messages, isLoading } = useContext(MessageContext);
@@ -13,7 +17,6 @@ export const Chatpage = () => {
         className={`text h-[90%] w-full max-w-7xl chat-texts mx-auto p-4 rounded-lg space-y-4 flex flex-col-reverse overflow-y-auto scrollbar-hide scroll-smooth  relative  z-[555]`}
       >
         {[...messages].reverse().map((message) => (
-          <div
             key={message.id}
             className={`flex items-center my-2 ${
               message.sender === "user" ? "justify-end" : ""
@@ -42,15 +45,17 @@ export const Chatpage = () => {
                     } w-3 h-3 absolute -left-1 rounded-full`}
                   />
                   {message.content}
-                  {message.component && (
-                    <>
-                      <div className="mt-4">
-                        {message.component.type === "RugCheck" && (
-                          <RugCheckComponent {...message.component.props} />
-                        )}
-                      </div>
-                    </>
-                  )}
+                
+                                  {message.component && (
+                  <div className="mt-4">
+                    {message.component.type === "RugCheck" && (
+                      <RugCheckComponent {...message.component.props} />
+                    )}
+                    {message.component.type === "chart" && (
+                      <TradingInfo {...message.component.props} />
+                    )}
+                  </div>
+                )}
                 </div>
               )}
             </div>
