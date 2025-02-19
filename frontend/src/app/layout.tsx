@@ -5,6 +5,7 @@ import ChatContextProvider from "./useContext/chatContex";
 import { MessageProvider } from "./useContext/message-context";
 import { Providers } from "./Providers";
 import CoinContextProvider from "./useContext/coinContext";
+import { AgentLoadProvider } from "./useContext/agent-load-context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +38,14 @@ export default function RootLayout({
               <CoinContextProvider>{children}</CoinContextProvider>
             </ChatContextProvider>
           </MessageProvider>
+          <AgentLoadProvider>
+            <MessageProvider>
+              <ChatContextProvider>
+                            <CoinContextProvider>{children}</CoinContextProvider>
+
+              </ChatContextProvider>
+            </MessageProvider>
+          </AgentLoadProvider>
         </Providers>
       </body>
     </html>

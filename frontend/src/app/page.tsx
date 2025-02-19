@@ -3,16 +3,26 @@
 import { useContext } from "react";
 import Navbar from "./components/Navbar";
 import { CoinContext } from "./useContext/coinContext";
+//import { BackgroundLines } from "./components/ui/background-lines";
+import Squares from "./components/ui/Squares";
 
 export default function Home() {
   const { allCoin } = useContext(CoinContext);
   console.log(allCoin);
 
   return (
-    <div className="">
+    <>
+      <div className="fixed h-screen w-full">
+        <Squares
+          speed={0.5}
+          squareSize={40}
+          direction="diagonal" // up, down, left, right, diagonal
+          borderColor="#72CCD7"
+          hoverFillColor="#1A1A19"
+        />
+      </div>
       <Navbar />
 
-      
-    </div>
+    </>
   );
 }

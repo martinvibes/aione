@@ -30,7 +30,7 @@ export default function SideNavBar() {
     <nav
       className={`${
         isSideBarOpen ? "w-[90px]" : "w-[315px]"
-      } min-h-full bg-sideNavBg px-4 py-6 flex flex-col gap-8 transition-all duration-500 relative`}
+      } min-h-full bg-sideNavBg px-4 py-6 flex flex-col gap-8 transition-all duration-500 relative z-[555]`}
     >
       <button
         className="bg-darkishBlue p-4 flex justify-between items-center w-full rounded-[8px] mx-auto"
