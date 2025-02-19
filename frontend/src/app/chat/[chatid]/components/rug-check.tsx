@@ -1,11 +1,19 @@
-import {RugCheckProps} from "@/lib/types";
-
-export default function RugCheckComponent({
-  data,
-  mint,
-}: RugCheckProps ) {
+import useFetchCoinInfo from "@/app/hooks/useCoinGeckoGetTokenInfo";
+import { RugCheckProps } from "@/lib/types";
+import Image from "next/image";
+interface CoinInfo {
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  id: any;
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  image: any;
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  description: any;
+}
+export default function RugCheckComponent({ data, mint }: RugCheckProps) {
   const formattedRiskLevel =
     data.score >= 0 ? `+${data.score}` : `${data.score}`;
+  const coin_info = useFetchCoinInfo(mint) as CoinInfo;
+  console.log("it is", coin_info, coin_info?.id || "");
   return (
     <div className="max-w-md">
       <div className="mb-4 text-sm">
@@ -63,32 +71,47 @@ export default function RugCheckComponent({
         </div>
       </div>
       <h2 className="mb-2 text-sm text-gray-400">Rug report</h2>
-      <div className="rounded-2xl bg-[#0F1117] p-6">
+      <div className="rounded-2xl bg-[#0F1117] p-6  grid-cols-[2fr,1fr] gap-6 ">
         <div className="flex items-start justify-between">
-          <div>
-            <div className="flex items-center gap-2">
-              <h3 className="text-xl font-semibold text-white">Name</h3>
-              {/* {subtitle && (
-                <span className="text-sm text-gray-400">{subtitle}</span>
-              )} */} Astf
-            </div>
-            <div className="mt-4">
-              <div className="text-sm text-gray-400">Current Price</div>
-              <div className="text-2xl font-bold text-white">
-                {/* {currentPrice.toLocaleString()} */}
-                $0.003
+          <div className="space-y-4">
+            <div className="flex items-center gap-4">
+              <div className="relative w-12 h-12 rounded-full overflow-hidden ring-2 ring-gray-700">
+                <Image
+                  src={coin_info?.image?.thumb || "/fallback-token-image.png"}
+                  alt="Token icon"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-2xl font-bold text-white">
+                    {coin_info?.id || "Unknown Token"}
+                  </h3>
+                </div>
+                <p className="text-sm text-gray-400 mt-1 max-w-[300px] truncate">
+                  {(coin_info?.description?.en || "No description available")
+                    .split(" ")
+                    .slice(0, 20)
+                    .join(" ") +
+                    (coin_info?.description?.en?.split(" ").length > 20
+                      ? "..."
+                      : "")}
+                </p>
               </div>
             </div>
           </div>
-          <div>
-            <div className="text-sm text-gray-400">Risk Level:</div>
-            <div
-              className={`text-2xl font-bold ${
-                data.score >= 0 ? "text-green-400" : "text-red-400"
-              }`}
-            >
-              {formattedRiskLevel}
-            </div>
+        </div>
+        <br />
+        <div>
+          <div className="0">Risk Level:</div>
+          <div
+            className={`text-2xl font-bold ${
+              data.score >= 0 ? "text-green-400" : "text-red-400"
+            }`}
+          >
+            {formattedRiskLevel}
           </div>
         </div>
       </div>

@@ -5,6 +5,8 @@ export const options = {
   legend: "none",
   backgroundColor: {
     fill: "#1a1a1a",
+    stroke: "#1a1a1a",
+    strokeWidth: 0,
   },
   candlestick: {
     fallingColor: { strokeWidth: 1, fill: "#FF4444", stroke: "#FF4444" },
@@ -46,9 +48,9 @@ const CandleChart = ({ token }: CandleChartProps) => {
           "x-cg-demo-api-key": "CG-HegMGgBnFAC7MhLyNewUBT5f",
         },
       };
-
+      console.log("token", token);
       fetch(
-        `https://api.coingecko.com/api/v3/coins/${token.toLowerCase()}/market_chart?vs_currency=usd&days=45`,
+        `https://api.coingecko.com/api/v3/coins/${token}/market_chart?vs_currency=usd&days=45`,
         options
       )
         .then((res) => res.json())
@@ -83,10 +85,10 @@ const CandleChart = ({ token }: CandleChartProps) => {
     Object.entries(dailyData).forEach(([dateStr, prices]) => {
       formattedData.push([
         new Date(dateStr).toLocaleDateString(),
-        Math.min(...prices),
-        prices[0],
-        prices[prices.length - 1],
-        Math.max(...prices),
+        String(Math.min(...prices)),
+        String(prices[0]),
+        String(prices[prices.length - 1]),
+        String(Math.max(...prices)),
       ]);
     });
 

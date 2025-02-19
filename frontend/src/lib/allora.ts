@@ -41,7 +41,7 @@ export async function pricePridictionHandle(
       case "sol":
         const sol8h = await alloraPricePridiction(38);
 
-        const solprice = await fetchCoinGeckoPrice("sol");
+        const solprice = await fetchCoinGeckoPrice("solana");
         console.log(solprice);
         const aiPridictionSol8h: Message = {
           content: pridictionConsiseAnswer(sol8h, "SOL/USD", "8h"),
@@ -55,9 +55,10 @@ export async function pricePridictionHandle(
               token: "sol",
               pair: "USDT",
               timeLeft: "8h",
-              currentPrice: solprice?.sol.usd,
-              marketCap: solprice?.sol.usd_market_cap,
+              currentPrice: solprice?.solana.usd,
+              marketCap: solprice?.solana.usd_market_cap,
               forecastedPrice: sol8h,
+              chartToken: "solana",
             },
           },
         };
@@ -66,7 +67,8 @@ export async function pricePridictionHandle(
         break;
       case "btc":
         const btc8h = await alloraPricePridiction(42);
-        const btcprice = await fetchCoinGeckoPrice("btc");
+        const btcprice = await fetchCoinGeckoPrice("bitcoin");
+        console.log("lorem ", btcprice);
         const aiPridictionBtc8h: Message = {
           content: pridictionConsiseAnswer(btc8h, "BTC/USD", "8h"),
           sender: "agent",
@@ -79,9 +81,10 @@ export async function pricePridictionHandle(
               token: "btc",
               pair: "USDT",
               timeLeft: "8h",
-              currentPrice: btcprice?.btc.usd,
-              marketCap: btcprice?.btc.usd_market_cap,
+              currentPrice: btcprice?.bitcoin.usd,
+              marketCap: btcprice?.bitcoin.usd_market_cap,
               forecastedPrice: btc8h,
+              chartToken: "bitcoin",
             },
           },
         };
@@ -90,7 +93,7 @@ export async function pricePridictionHandle(
         break;
       case "eth":
         const eth8h = await alloraPricePridiction(41);
-        const ethprice = await fetchCoinGeckoPrice("eth");
+        const ethprice = await fetchCoinGeckoPrice("ethereum");
         const aiPridictionEth8h: Message = {
           content: pridictionConsiseAnswer(eth8h, "ETH/USD", "8h"),
           sender: "agent",
@@ -103,9 +106,10 @@ export async function pricePridictionHandle(
               token: "eth",
               pair: "USDT",
               timeLeft: "8h",
-              currentPrice: ethprice?.eth.usd,
-              marketCap: ethprice?.eth.usd_market_cap,
+              currentPrice: ethprice?.ethereum.usd,
+              marketCap: ethprice?.ethereum.usd_market_cap,
               forecastedPrice: eth8h,
+              chartToken: "ethereum",
             },
           },
         };
@@ -114,7 +118,7 @@ export async function pricePridictionHandle(
         break;
       case "luna":
         const luna8h = await alloraPricePridiction(33);
-        const lunaprice = await fetchCoinGeckoPrice("luna");
+        const lunaprice = await fetchCoinGeckoPrice("terra-luna");
         const aiPridictionLuna8h: Message = {
           content: pridictionConsiseAnswer(luna8h, "Luna/USDT", "8h"),
           sender: "agent",
@@ -127,9 +131,10 @@ export async function pricePridictionHandle(
               token: "luna",
               pair: "USDT",
               timeLeft: "8h",
-              currentPrice: lunaprice?.luna.usd,
-              marketCap: lunaprice?.luna.usd_market_cap,
+              currentPrice: lunaprice?.["terra-luna"]?.usd,
+              marketCap: lunaprice?.["terra-luna"]?.usd_market_cap,
               forecastedPrice: luna8h,
+              chartToken: "terra-luna",
             },
           },
         };
@@ -138,7 +143,7 @@ export async function pricePridictionHandle(
         break;
       case "virtual":
         const virtual8h = await alloraPricePridiction(31);
-        const virtualprice = await fetchCoinGeckoPrice("virtual");
+        const virtualprice = await fetchCoinGeckoPrice("virtual-protocol");
         const aiPridictionVirtual8h: Message = {
           content: pridictionConsiseAnswer(virtual8h, "Virtual/USDT", "8h"),
           sender: "agent",
@@ -151,9 +156,10 @@ export async function pricePridictionHandle(
               token: "virtual",
               pair: "USDT",
               timeLeft: "8h",
-              currentPrice: virtualprice?.virtual.usd,
-              marketCap: virtualprice?.virtual.usd_market_cap,
+              currentPrice: virtualprice?.["virtual-protocol"].usd,
+              marketCap: virtualprice?.["virtual-protocol"].usd_market_cap,
               forecastedPrice: virtual8h,
+              chartToken: "virtual-protocol",
             },
           },
         };
@@ -162,7 +168,7 @@ export async function pricePridictionHandle(
         break;
       case "sekoia":
         const sekoia8h = await alloraPricePridiction(36);
-        const sekoiaprice = await fetchCoinGeckoPrice("sekoia");
+        const sekoiaprice = await fetchCoinGeckoPrice("sekoia-by-virtuals");
         const aiPridictionSekoia8h: Message = {
           content: pridictionConsiseAnswer(sekoia8h, "Sekoia/USDT", "8h"),
           sender: "agent",
@@ -175,9 +181,11 @@ export async function pricePridictionHandle(
               token: "sekoia",
               pair: "USDT",
               timeLeft: "8h",
-              currentPrice: sekoiaprice?.sekoia.usd,
-              marketCap: sekoiaprice?.sekoia.usd_market_cap,
+              currentPrice: sekoiaprice?.["sekoia-by-virtuals"].usd ?? 0,
+              marketCap:
+                sekoiaprice?.["sekoia-by-virtuals"].usd_market_cap ?? 0,
               forecastedPrice: sekoia8h,
+              chartToken: "sekoia-by-virtuals",
             },
           },
         };
@@ -186,7 +194,7 @@ export async function pricePridictionHandle(
         break;
       case "game":
         const game8h = await alloraPricePridiction(35);
-        const gameprice = await fetchCoinGeckoPrice("game");
+        const gameprice = await fetchCoinGeckoPrice("yield-guild-games");
         const aiPridictionGame8h: Message = {
           content: pridictionConsiseAnswer(game8h, "Game/USDT", "8h"),
           sender: "agent",
@@ -199,9 +207,10 @@ export async function pricePridictionHandle(
               token: "game",
               pair: "USDT",
               timeLeft: "8h",
-              currentPrice: gameprice?.game.usd,
-              marketCap: gameprice?.game.usd_market_cap,
+              currentPrice: gameprice?.["yield-guild-games"].usd,
+              marketCap: gameprice?.["yield-guild-games"].usd_market_cap,
               forecastedPrice: game8h,
+              chartToken: "yield-guild-games",
             },
           },
         };
@@ -210,7 +219,7 @@ export async function pricePridictionHandle(
         break;
       case "vaderai":
         const vaderai8h = await alloraPricePridiction(34);
-        const vaderaiprice = await fetchCoinGeckoPrice("vaderai");
+        const vaderaiprice = await fetchCoinGeckoPrice("vaderai-by-virtuals");
         const aiPridictionVaderai8h: Message = {
           content: pridictionConsiseAnswer(vaderai8h, "VaderAi/USDT", "8h"),
           sender: "agent",
@@ -223,9 +232,10 @@ export async function pricePridictionHandle(
               token: "vaderai",
               pair: "USDT",
               timeLeft: "8h",
-              currentPrice: vaderaiprice?.vaderai.usd,
-              marketCap: vaderaiprice?.vaderai.usd_market_cap,
+              currentPrice: vaderaiprice?.["vaderai-by-virtuals"].usd,
+              marketCap: vaderaiprice?.["vaderai-by-virtuals"].usd_market_cap,
               forecastedPrice: vaderai8h,
+              chartToken: "vaderai-by-virtuals",
             },
           },
         };
@@ -284,7 +294,7 @@ export async function pricePridictionHandle(
         break;
       case "arb":
         const arb8h = await alloraPricePridiction(9);
-        const arbprice = await fetchCoinGeckoPrice("arb");
+        const arbprice = await fetchCoinGeckoPrice("arbitrum");
         const aiPridictionArb8h: Message = {
           content: pridictionConsiseAnswer(arb8h, "Arb", "20m"),
           sender: "agent",
@@ -297,9 +307,10 @@ export async function pricePridictionHandle(
               token: "arb",
               pair: "USDT",
               timeLeft: "8h",
-              currentPrice: arbprice?.arb.usd,
-              marketCap: arbprice?.arb.usd_market_cap,
+              currentPrice: arbprice?.arbitrum.usd,
+              marketCap: arbprice?.arbitrum.usd_market_cap,
               forecastedPrice: arb8h,
+              chartToken: "arbitrum",
             },
           },
         };
@@ -308,7 +319,7 @@ export async function pricePridictionHandle(
         break;
       case "memecoin":
         const memecoin8h = await alloraPricePridiction(10);
-        const memecoinprice = await fetchCoinGeckoPrice("memecoin");
+        const memecoinprice = await fetchCoinGeckoPrice("meme");
         const aiPridictionMemecoin8h: Message = {
           content: pridictionConsiseAnswer(memecoin8h, "Memecoin", "1h"),
           sender: "agent",
@@ -321,9 +332,10 @@ export async function pricePridictionHandle(
               token: "memecoin",
               pair: "USDT",
               timeLeft: "8h",
-              currentPrice: memecoinprice?.memecoin.usd,
-              marketCap: memecoinprice?.memecoin.usd_market_cap,
+              currentPrice: memecoinprice?.meme.usd,
+              marketCap: memecoinprice?.meme.usd_market_cap,
               forecastedPrice: memecoin8h,
+              chartToken: "meme",
             },
           },
         };

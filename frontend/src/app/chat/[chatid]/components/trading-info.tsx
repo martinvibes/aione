@@ -7,6 +7,7 @@ interface TradingInfoProps {
   currentPrice: number;
   marketCap: number;
   forecastedPrice: string;
+  chartToken: string;
 }
 
 export default function TradingInfo({
@@ -16,7 +17,18 @@ export default function TradingInfo({
   currentPrice,
   marketCap,
   forecastedPrice,
+  chartToken,
 }: TradingInfoProps) {
+  console.log(
+    "TradingInfo",
+    token,
+    pair,
+    timeLeft,
+    currentPrice,
+    marketCap,
+    forecastedPrice,
+    chartToken
+  );
   const formatCurrency = (value: number) => {
     if (value < 0.01) {
       return new Intl.NumberFormat("en-US", {
@@ -85,7 +97,7 @@ export default function TradingInfo({
       <div className="w-full rounded-2xl bg-[#0F1117] p-6">
         <div className="text-lg text-gray-400">Current Chart for {token}</div>
         <br />
-        <CandleChart token={token.toLowerCase()} />
+        <CandleChart token={chartToken} />
       </div>
     </div>
   );
