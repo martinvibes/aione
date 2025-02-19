@@ -1,5 +1,5 @@
 import Navbar from "./components/Navbar";
-import { BackgroundLines } from "./components/ui/background-lines";
+//import { BackgroundLines } from "./components/ui/background-lines";
 import Squares from "./components/ui/Squares";
 
 export default function Home() {
@@ -10,7 +10,7 @@ export default function Home() {
           speed={0.5}
           squareSize={40}
           direction="diagonal" // up, down, left, right, diagonal
-          borderColor="#1A1A19"
+          borderColor="#72CCD7"
           hoverFillColor="#1A1A19"
         />
       </div>

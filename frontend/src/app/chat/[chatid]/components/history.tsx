@@ -16,11 +16,11 @@ export default function History() {
     <AnimatePresence initial={false}>
       {isOpen && (
         <motion.div
-          className="rounded-[8px] bg-[#141A2A] h-full overflow-y-auto scrollbar-hide scroll-smooth "
+          className="rounded-[8px] bg-[#141A2A] h-full overflow-y-auto scrollbar-hide scroll-smooth  relative  z-[555]"
           exit={{ opacity: 0, width: "0%" }}
           animate={{ opacity: 1, scale: 1, width: "30%" }}
           initial={{ opacity: 0, width: "0%" }}
-          transition={{ease:"linear"}}
+          transition={{ ease: "linear" }}
         >
           <h2 className="border-b-[#D6F3F7] border-b p-4 text-center">
             Chat History
