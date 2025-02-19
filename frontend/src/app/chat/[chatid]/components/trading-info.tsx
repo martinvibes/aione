@@ -18,7 +18,7 @@ export default function TradingInfo({
   marketCap,
   forecastedPrice,
   chartToken,
-}: TradingInfoProps) {
+}: TradingInfoProps ) {
   console.log(
     "TradingInfo",
     token,
@@ -27,7 +27,7 @@ export default function TradingInfo({
     currentPrice,
     marketCap,
     forecastedPrice,
-    chartToken
+    chartToken,"thats all"
   );
   const formatCurrency = (value: number) => {
     if (value < 0.01) {

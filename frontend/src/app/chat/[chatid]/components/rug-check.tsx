@@ -15,12 +15,13 @@ export default function RugCheckComponent({ data, mint }: RugCheckProps) {
   const coin_info = useFetchCoinInfo(mint) as CoinInfo;
   console.log("it is", coin_info, coin_info?.id || "");
   return (
-    <div className="max-w-md">
+    <div className="w-full">
       <div className="mb-4 text-sm">
         <div className="flex items-center gap-2 mb-2">
           <span className="text-red-500">🚨</span>
           <span className="font-semibold">
-            Rug Check Report for Token {mint}
+            Rug Check Report for Token{" "}
+            {`${mint.slice(0, 4)}...${mint.slice(-4)}`}
           </span>
         </div>
 
@@ -59,50 +60,45 @@ export default function RugCheckComponent({ data, mint }: RugCheckProps) {
           </div>
         </div>
 
-        <div className="mt-4 p-3 bg-red-900/20 rounded-lg border border-red-500/20">
-          <div className="flex items-center gap-2">
-            <span>⚠️</span>
-            <span className="text-red-400">
-              Warning: This token has a high-risk profile due to significant
-              ownership concentration. Exercise caution before interacting with
-              it.
-            </span>
-          </div>
-        </div>
+        <div className="mt-4 p-3 bg-red-900/20 rounded-lg border border-red-500/20"></div>
       </div>
       <h2 className="mb-2 text-sm text-gray-400">Rug report</h2>
       <div className="rounded-2xl bg-[#0F1117] p-6  grid-cols-[2fr,1fr] gap-6 ">
-        <div className="flex items-start justify-between">
-          <div className="space-y-4">
-            <div className="flex items-center gap-4">
-              <div className="relative w-12 h-12 rounded-full overflow-hidden ring-2 ring-gray-700">
-                <Image
-                  src={coin_info?.image?.thumb || "/fallback-token-image.png"}
-                  alt="Token icon"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <h3 className="text-2xl font-bold text-white">
-                    {coin_info?.id || "Unknown Token"}
-                  </h3>
+        {coin_info?.id ? (
+          <div className="flex items-start justify-between">
+            <div className="space-y-4">
+              <div className="flex items-center gap-4">
+                <div className="relative w-12 h-12 rounded-full overflow-hidden ring-2 ring-gray-700">
+                  <Image
+                    src={coin_info?.image?.thumb || "/fallback-token-image.png"}
+                    alt="Token icon"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
                 </div>
-                <p className="text-sm text-gray-400 mt-1 max-w-[300px] truncate">
-                  {(coin_info?.description?.en || "No description available")
-                    .split(" ")
-                    .slice(0, 20)
-                    .join(" ") +
-                    (coin_info?.description?.en?.split(" ").length > 20
-                      ? "..."
-                      : "")}
-                </p>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-2xl font-bold text-white">
+                      {coin_info.id}
+                    </h3>
+                  </div>
+                  <p className="text-sm text-gray-400 mt-1 max-w-[300px] truncate">
+                    {(coin_info?.description?.en || "No description available")
+                      .split(" ")
+                      .slice(0, 20)
+                      .join(" ") +
+                      (coin_info?.description?.en?.split(" ").length > 20
+                        ? "..."
+                        : "")}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <p className="text-sm text-gray-400">Coin not found on CoinGecko</p>
+        )}
         <br />
         <div>
           <div className="0">Risk Level:</div>

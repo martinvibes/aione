@@ -47,6 +47,7 @@ export const Chatpage = () => {
                       {message.component.type === "RugCheck" && (
                         <RugCheckComponent {...message.component.props} />
                       )}
+                      
                       {message.component.type === "chart" && (
                         <TradingInfo {...message.component.props} />
                       )}

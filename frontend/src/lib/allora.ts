@@ -88,6 +88,8 @@ export async function pricePridictionHandle(
             },
           },
         };
+        console.log("Debug - chartToken being set:", aiPridictionBtc8h);
+
         setMessagesInStorage([...messages, aiPridictionBtc8h]);
         setMessages([...messages, aiPridictionBtc8h]);
         break;
