@@ -38,6 +38,7 @@ export function useAiResponse(
               setMessages,
               setMessagesInStorage
             );
+            setIsLoading(false);
             break;
           case "checkBalance":
             if (!airResponse.sourceToken) {
@@ -183,6 +184,7 @@ export function useAiResponse(
               setMessages,
               setMessagesInStorage
             );
+            setIsLoading(false);
             break;
           case "unknown":
             const aiUnKnownMessage: Message = {
