@@ -67,14 +67,14 @@ export default function ChatInput() {
   return (
     <>
       {!messages.length && (
-        <h1 className="text-[28px] font-bold leading-[37.8px] mb-5">
+        <h1 className="text-[28px] font-bold leading-[37.8px] mb-5  relative  z-[555] w-fit mx-auto">
           Hi, Welcome to your AI AGENT
         </h1>
       )}
       <div
         className={`${
           messages.length ? "p-4" : "p-[40px] bg-[#121826]"
-        } w-full max-w-7xl rounded-[8px] flex flex-col gap-[32px]`}
+        } w-full max-w-7xl rounded-[8px] flex flex-col gap-[32px]  relative  z-[555]`}
       >
         {!messages.length && (
           <div className="flex justify-center items-center gap-[10px]">

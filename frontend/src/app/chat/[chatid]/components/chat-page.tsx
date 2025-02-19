@@ -2,56 +2,62 @@
 import React, { useContext } from "react";
 import { MessageContext } from "@/app/useContext/message-context";
 import RugCheckComponent from "./rug-check";
+import SkeletonCard from "@/app/components/ui/skeleton";
 
 export const Chatpage = () => {
-  const { messages } = useContext(MessageContext);
+  const { messages, isLoading } = useContext(MessageContext);
 
   return (
-    <div
-      className={`text h-[90%] w-full max-w-7xl chat-texts mx-auto p-4 rounded-lg space-y-4 flex flex-col-reverse overflow-y-auto scrollbar-hide scroll-smooth relative`}
-    >
-      {[...messages].reverse().map((message) => (
-        <div
-          key={message.id}
-          className={`flex items-center my-2 ${
-            message.sender === "user" ? "justify-end" : ""
-          }`}
-        >
+    <>
+      <div
+        className={`text h-[90%] w-full max-w-7xl chat-texts mx-auto p-4 rounded-lg space-y-4 flex flex-col-reverse overflow-y-auto scrollbar-hide scroll-smooth  relative  z-[555]`}
+      >
+        {[...messages].reverse().map((message) => (
           <div
-            className={`${
-              message.sender === "user"
-                ? "rounded-[30px] rounded-ee-none"
-                : "rounded-[30px] rounded-es-none"
-            } p-5 break-words bg-[#1C2535] overflow-wrap-anywhere max-w-[50%]`}
+            key={message.id}
+            className={`flex items-center my-2 ${
+              message.sender === "user" ? "justify-end" : ""
+            }  relative  z-[555]`}
           >
-            {message.sender == "user" && (
-              <div
-                dangerouslySetInnerHTML={{ __html: `${message.content}` }}
-                className="message-content relative"
-              />
-            )}
-            {message.sender == "agent" && (
-              <div key={message.id} className="message-content relative pl-3">
+            <div
+              className={`${
+                message.sender === "user"
+                  ? "rounded-[30px] rounded-ee-none"
+                  : "rounded-[30px] rounded-es-none"
+              } p-5 break-words bg-[#1C2535] overflow-wrap-anywhere max-w-[50%]`}
+            >
+              {message.sender == "user" && (
                 <div
-                  className={`${
-                    message.agentName === "zerepy" ? "bg-[#687d8a]" : ""
-                  } ${message.agentName === "allora" ? "bg-[#D8FFA1]" : ""} ${
-                    message.agentName === "debridge" ? "bg-[#E5C8FF]" : ""
-                  } w-3 h-3 absolute -left-1 rounded-full`}
+                  dangerouslySetInnerHTML={{ __html: `${message.content}` }}
+                  className="message-content relative h-fit"
                 />
-                {message.content}
-                {message.component && (
-                  <div className="mt-4">
-                    {message.component.type === "RugCheck" && (
-                      <RugCheckComponent {...message.component.props} />
-                    )}{" "}
-                  </div>
-                )}
-              </div>
-            )}
+              )}
+              {message.sender == "agent" && (
+                <div key={message.id} className="message-content relative pl-3">
+                  <div
+                    className={`${
+                      message.agentName === "zerepy" ? "bg-[#687d8a]" : ""
+                    } ${message.agentName === "allora" ? "bg-[#D8FFA1]" : ""} ${
+                      message.agentName === "debridge" ? "bg-[#E5C8FF]" : ""
+                    } w-3 h-3 absolute -left-1 rounded-full`}
+                  />
+                  {message.content}
+                  {message.component && (
+                    <>
+                      <div className="mt-4">
+                        {message.component.type === "RugCheck" && (
+                          <RugCheckComponent {...message.component.props} />
+                        )}
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+      {isLoading && <SkeletonCard />}
+    </>
   );
 };
