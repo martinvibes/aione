@@ -9,6 +9,7 @@ import { useParams } from "next/navigation";
 import { MessageContext } from "@/app/useContext/message-context";
 import { Message } from "@/lib/types";
 import { useAiResponse } from "@/app/hooks/useAiResponse";
+// import TransactionHistory from "./TransactionHistory";
 
 export default function ChatInput() {
   const { input: chatInput, setInput: setChatInput } = useContext(ChatContext);
@@ -66,6 +67,7 @@ export default function ChatInput() {
 
   return (
     <>
+      {/* <TransactionHistory /> */}
       {!messages.length && (
         <h1 className="text-[28px] font-bold leading-[37.8px] mb-5  relative  z-[555] w-fit mx-auto">
           Hi, Welcome to your AI AGENT

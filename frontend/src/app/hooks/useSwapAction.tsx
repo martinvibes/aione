@@ -1,4 +1,4 @@
-import { Message } from "@/lib/types";
+import { Message, TransactionHistory } from "@/lib/types";
 
 interface SwapResponse {
   status: string;
@@ -9,9 +9,11 @@ export async function swapTokenData(
   sourceToken: string | undefined,
   destinationToken: string | undefined,
   amount: number | undefined,
+  chatId: string,
   messages: Message[],
   setMessages: (messages: Message[]) => void,
-  setMessagesInStorage: (messages: Message[]) => void
+  setMessagesInStorage: (messages: Message[]) => void,
+  saveTransaction: (transaction: TransactionHistory) => void
 ) {
   if (!sourceToken || !destinationToken || !amount) {
     const promptMessage: Message = {
@@ -52,6 +54,21 @@ export async function swapTokenData(
     }
 
     const data: SwapResponse = await response.json();
+
+    const transaction: TransactionHistory = {
+      id: Date.now().toString(),
+      chatid: chatId,
+      type: "swap",
+      timestamp: Date.now(),
+      status: data?.result ? "success" : "failed",
+      txHash: data?.result ? String(data.result) : null,
+      details: {
+        fromToken: sourceToken,
+        toToken: destinationToken,
+        amount: amount.toString(),
+      },
+    };
+    saveTransaction(transaction);
 
     const swapMessage: Message = {
       content: data?.result

@@ -34,3 +34,22 @@ export interface RugCheckData {
     description: string;
   }[];
 }
+
+export interface TransactionHistory {
+  id: string;
+  chatid: string;
+  type: "swap" | "transfer";
+  timestamp: number;
+  status: "success" | "failed";
+  txHash: string | undefined | null;
+  details: {
+    fromToken?: string;
+    toToken?: string;
+    amount?: string;
+    recipientAddress?: string;
+  };
+}
+
+export interface TransactionStore {
+  transactions: TransactionHistory[];
+}

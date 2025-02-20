@@ -10,15 +10,17 @@ import { getTokenTickerData } from "./useGetTokensSticker";
 import { rugcheck } from "@/lib/rugcheck";
 import { swapTokenData } from "./useSwapAction";
 import { transferTokenData } from "./useTransferAction";
+import { useTransactionHistory } from "./useTransactionHistory";
 
 export function useAiResponse(
   pendingMessage: string | null,
   setPendingMessage: (e: null) => void
 ) {
-  const { messages, setMessages,setIsLoading } = useContext(MessageContext);
+  const { messages, setMessages, setIsLoading } = useContext(MessageContext);
   const params = useParams();
   const chatId = params.chatid as string;
   const { setMessagesInStorage } = useLocalStorage(chatId);
+  const { saveTransaction } = useTransactionHistory();
 
   useEffect(() => {
     async function getAIResponse() {
@@ -34,9 +36,11 @@ export function useAiResponse(
               airResponse.sourceToken,
               airResponse.destinationToken,
               airResponse.amount,
+              chatId,
               messages,
               setMessages,
-              setMessagesInStorage
+              setMessagesInStorage,
+              saveTransaction
             );
             setIsLoading(false);
             break;
@@ -52,7 +56,7 @@ export function useAiResponse(
               };
               setMessagesInStorage([...messages, promptMessage]);
               setMessages((messages) => [...messages, promptMessage]);
-               setIsLoading(false);
+              setIsLoading(false);
             } else if (airResponse.sourceToken.toUpperCase() == "S") {
               const balanceData = await checkBalance();
               const balanceMessage: Message = {
@@ -96,7 +100,7 @@ export function useAiResponse(
               };
               setMessagesInStorage([...messages, balanceMessage]);
               setMessages((messages) => [...messages, balanceMessage]);
-               setIsLoading(false);
+              setIsLoading(false);
             }
             break;
           case "getTokenTicker":
@@ -111,7 +115,7 @@ export function useAiResponse(
               };
               setMessagesInStorage([...messages, promptMessage]);
               setMessages((messages) => [...messages, promptMessage]);
-               setIsLoading(false);
+              setIsLoading(false);
             } else {
               try {
                 const tokenTickerData = await getTokenTickerData(
@@ -152,7 +156,7 @@ export function useAiResponse(
             };
             setMessagesInStorage([...messages, aiNormlChat]);
             setMessages((messages) => [...messages, aiNormlChat]);
-             setIsLoading(false);
+            setIsLoading(false);
             break;
           case "prediction":
             console.log(airResponse);
@@ -163,7 +167,7 @@ export function useAiResponse(
               setMessages,
               setMessagesInStorage
             );
-             setIsLoading(false);
+            setIsLoading(false);
             break;
           case "rugcheck":
             console.log(airResponse);
@@ -174,15 +178,17 @@ export function useAiResponse(
               setMessages,
               setMessagesInStorage
             );
-             setIsLoading(false);
+            setIsLoading(false);
             break;
           case "transfer":
             transferTokenData(
               airResponse.recipientAddress,
               airResponse.amount,
+              chatId,
               messages,
               setMessages,
-              setMessagesInStorage
+              setMessagesInStorage,
+              saveTransaction
             );
             setIsLoading(false);
             break;
@@ -196,7 +202,7 @@ export function useAiResponse(
             };
             setMessagesInStorage([...messages, aiUnKnownMessage]);
             setMessages((messages) => [...messages, aiUnKnownMessage]);
-             setIsLoading(false);
+            setIsLoading(false);
             break;
           default:
             const aiDefaultMessage: Message = {
@@ -208,7 +214,7 @@ export function useAiResponse(
             };
             setMessagesInStorage([...messages, aiDefaultMessage]);
             setMessages((messages) => [...messages, aiDefaultMessage]);
-             setIsLoading(false);
+            setIsLoading(false);
         }
       } catch (err) {
         console.error(err);
@@ -224,12 +230,12 @@ export function useAiResponse(
         setMessagesInStorage([...messages, errorMessage]);
         setIsLoading(false);
       }
-       setIsLoading(false);
+      setIsLoading(false);
       setPendingMessage(null);
     }
 
     getAIResponse();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     pendingMessage,
     // chatId,

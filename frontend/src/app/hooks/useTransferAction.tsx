@@ -1,4 +1,4 @@
-import { Message } from "@/lib/types";
+import { Message, TransactionHistory } from "@/lib/types";
 
 interface TransferResponse {
   status: string;
@@ -8,9 +8,11 @@ interface TransferResponse {
 export async function transferTokenData(
   recipientAddress: string | undefined,
   amount: number | undefined,
+  chatId: string,
   messages: Message[],
   setMessages: (messages: Message[]) => void,
-  setMessagesInStorage: (messages: Message[]) => void
+  setMessagesInStorage: (messages: Message[]) => void,
+  saveTransaction: (transaction: TransactionHistory) => void
 ) {
   if (!recipientAddress || !amount) {
     const promptMessage: Message = {
@@ -50,6 +52,20 @@ export async function transferTokenData(
     }
 
     const data: TransferResponse = await response.json();
+
+    const transaction: TransactionHistory = {
+      id: Date.now().toString(),
+      chatid: chatId,
+      type: "transfer",
+      timestamp: Date.now(),
+      status: data?.result ? "success" : "failed",
+      txHash: data?.result ? String(data.result) : null,
+      details: {
+        recipientAddress: recipientAddress,
+        amount: amount.toString(),
+      },
+    };
+    saveTransaction(transaction);
 
     const transferMessage: Message = {
       content: data?.result

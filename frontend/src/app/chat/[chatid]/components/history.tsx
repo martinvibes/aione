@@ -1,17 +1,18 @@
-import { useLocalStorage } from "@/app/hooks/useLocalStorage";
-import { stringSlice } from "@/lib/helper";
-import Link from "next/link";
-import { useParams } from "next/navigation";
-import {AnimatePresence,motion} from "motion/react"
+// import { useLocalStorage } from "@/app/hooks/useLocalStorage";
+// import { stringSlice } from "@/lib/helper";
+// import Link from "next/link";
+// import { useParams } from "next/navigation";
+import { AnimatePresence, motion } from "motion/react";
 import { ChatContext } from "@/app/useContext/chatContex";
 import { useContext } from "react";
+import TransactionHistory from "./TransactionHistory";
 
 export default function History() {
-   const {isHistoryOpen:isOpen } = useContext(ChatContext);
-  const params = useParams();
-  const chatId = params.chatid as string;
-  const { getAllHistoryData } = useLocalStorage(chatId);
-  const historyData = getAllHistoryData();
+  const { isHistoryOpen: isOpen } = useContext(ChatContext);
+  // const params = useParams();
+  // const chatId = params.chatid as string;
+  // const { getAllHistoryData } = useLocalStorage(chatId);
+  // const historyData = getAllHistoryData();
   return (
     <AnimatePresence initial={false}>
       {isOpen && (
@@ -22,7 +23,7 @@ export default function History() {
           initial={{ opacity: 0, width: "0%" }}
           transition={{ ease: "linear" }}
         >
-          <h2 className="border-b-[#D6F3F7] border-b p-4 text-center">
+          {/* <h2 className="border-b-[#D6F3F7] border-b p-4 text-center">
             Chat History
           </h2>
 
@@ -38,7 +39,9 @@ export default function History() {
                 </Link>
               );
             })}
-          </div>
+          </div> */}
+
+          <TransactionHistory />
         </motion.div>
       )}
     </AnimatePresence>
