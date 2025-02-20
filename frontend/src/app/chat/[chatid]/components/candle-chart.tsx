@@ -29,15 +29,17 @@ export const options = {
     },
   },
 };
+
 interface CandleChartProps {
   token: string;
 }
-const CandleChart = ({ token }: CandleChartProps) => {
-  const [chartData, setChartData] = useState<{
-    prices: [number, number][];
-  } | null>(null);
 
-  // const { allCoin } = useContext(CoinContext);
+type ChartDataType = {
+  prices: [number, number][];
+};
+
+const CandleChart = ({ token }: CandleChartProps) => {
+  const [chartData, setChartData] = useState<ChartDataType | null>(null);
 
   useEffect(() => {
     async function fetchChartData() {
@@ -48,23 +50,22 @@ const CandleChart = ({ token }: CandleChartProps) => {
           "x-cg-demo-api-key": "CG-HegMGgBnFAC7MhLyNewUBT5f",
         },
       };
-      console.log("token", token);
-      fetch(
-        `https://api.coingecko.com/api/v3/coins/${token}/market_chart?vs_currency=usd&days=45`,
-        options
-      )
-        .then((res) => res.json())
-        .then((res) => {
-          setChartData(res);
-        })
-        .catch((err) => console.error(err));
+
+      try {
+        const response = await fetch(
+          `https://api.coingecko.com/api/v3/coins/${token}/market_chart?vs_currency=usd&days=45`,
+          options
+        );
+        const data = await response.json();
+        setChartData(data);
+      } catch (err) {
+        console.error(err);
+      }
     }
     fetchChartData();
   }, [token]);
 
-  console.log(chartData);
-
-  const transformData = () => {
+  const transformData = (): (string | number)[][] => {
     if (!chartData?.prices) return [["Date", "Low", "Open", "Close", "High"]];
 
     const dailyData: { [key: string]: number[] } = {};
@@ -80,15 +81,17 @@ const CandleChart = ({ token }: CandleChartProps) => {
       }
     });
 
-    const formattedData = [["Date", "Low", "Open", "Close", "High"]];
+    const formattedData: (string | number)[][] = [
+      ["Date", "Low", "Open", "Close", "High"],
+    ];
 
     Object.entries(dailyData).forEach(([dateStr, prices]) => {
       formattedData.push([
         new Date(dateStr).toLocaleDateString(),
-        String(Math.min(...prices)),
-        String(prices[0]),
-        String(prices[prices.length - 1]),
-        String(Math.max(...prices)),
+        Number(Math.min(...prices)),
+        Number(prices[0]),
+        Number(prices[prices.length - 1]),
+        Number(Math.max(...prices)),
       ]);
     });
 
@@ -96,7 +99,7 @@ const CandleChart = ({ token }: CandleChartProps) => {
   };
 
   return (
-    <div className=" h-fit overflow-hidden bg-[#1a1a1a] w-full rounded-xl border  border-[#384A61] p-2">
+    <div className="h-96 overflow-hidden bg-[#1a1a1a] w-full rounded-xl border border-[#384A61] p-2">
       <Chart
         chartType="CandlestickChart"
         width="100%"
