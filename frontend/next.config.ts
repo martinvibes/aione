@@ -9,6 +9,13 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  pwa: {
+    disable: true,
+    dest: "public",
+  },
+  images: {
+    domains: ["coin-images.coingecko.com"],
+  },
 };
 
 export default nextConfig;

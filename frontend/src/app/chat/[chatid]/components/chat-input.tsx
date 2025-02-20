@@ -1,7 +1,6 @@
 "use client";
 import { useLocalStorage } from "@/app/hooks/useLocalStorage";
 import { useSpeech } from "@/app/hooks/useSpeech";
-import SendIcon from "@/app/svg/send-icon";
 import { ChatContext } from "@/app/useContext/chatContex";
 import { AudioLines } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
@@ -10,11 +9,15 @@ import { MessageContext } from "@/app/useContext/message-context";
 import { Message } from "@/lib/types";
 import { useAiResponse } from "@/app/hooks/useAiResponse";
 // import TransactionHistory from "./TransactionHistory";
+import BlockSendLoader, {
+  SendBtnIcon,
+} from "@/app/components/ui/block-sender-loader";
 
 export default function ChatInput() {
   const { input: chatInput, setInput: setChatInput } = useContext(ChatContext);
   const [pendingMessage, setPendingMessage] = useState<string | null>(null);
-  const { messages, setMessages } = useContext(MessageContext);
+  const { messages, setMessages, isLoading, setIsLoading } =
+    useContext(MessageContext);
   const params = useParams();
   const chatId = params.chatid as string;
   const { setMessagesInStorage } = useLocalStorage(chatId);
@@ -26,13 +29,14 @@ export default function ChatInput() {
     startListening,
     transcript,
     SpeechRecognition,
+    resetTranscript,
   } = useSpeech();
 
   function chatHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     if (chatInput.trim().length === 0) return;
-
+    setIsLoading(true);
     const userMessage: Message = {
       content: chatInput,
       sender: "user",
@@ -46,7 +50,7 @@ export default function ChatInput() {
     setChatInput("");
   }
   useAiResponse(pendingMessage, setPendingMessage);
-
+  console.log(isLoading);
   function aiSuggestionMessageHandle(content: string) {
     const newMessage: Message = {
       content,
@@ -57,6 +61,7 @@ export default function ChatInput() {
 
     setMessages((messages) => [...messages, newMessage]);
     setMessagesInStorage([...messages, newMessage]);
+    setPendingMessage(content);
   }
 
   useEffect(() => {
@@ -64,7 +69,7 @@ export default function ChatInput() {
       setChatInput(transcript);
     }
   }, [listening, transcript, setChatInput]);
-
+  //console.log(transcript)
   return (
     <>
       {/* <TransactionHistory /> */}
@@ -127,14 +132,19 @@ export default function ChatInput() {
           />
           <button
             type="submit"
-            className="bg-inherit py-2 px-4 rounded-md grid place-content-center"
+            className="bg-inherit px-4 rounded-md grid place-content-center"
           >
-            <SendIcon />
+            {!isLoading && !listening && <SendBtnIcon />}
+            {isLoading && <BlockSendLoader />}
+            {listening && <BlockSendLoader />}
           </button>
-          {browserSupportsSpeechRecognition && (
+          {!isLoading && browserSupportsSpeechRecognition && (
             <button
               onMouseDown={startListening}
-              onMouseUp={SpeechRecognition.stopListening}
+              onMouseUp={() => {
+                SpeechRecognition.stopListening();
+                resetTranscript();
+              }}
               type="button"
               className="hover:text-green-300"
             >

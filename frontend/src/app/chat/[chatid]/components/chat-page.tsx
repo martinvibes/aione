@@ -2,6 +2,7 @@
 import React, { useContext } from "react";
 import { MessageContext } from "@/app/useContext/message-context";
 import RugCheckComponent from "./rug-check";
+import TradingInfo from "./trading-info";
 import SkeletonCard from "@/app/components/ui/skeleton";
 
 export const Chatpage = () => {
@@ -9,15 +10,13 @@ export const Chatpage = () => {
 
   return (
     <>
-      <div
-        className={`text h-[90%] w-full max-w-7xl chat-texts mx-auto p-4 rounded-lg space-y-4 flex flex-col-reverse overflow-y-auto scrollbar-hide scroll-smooth  relative  z-[555]`}
-      >
+      <div className="text h-[90%] w-full max-w-7xl chat-texts mx-auto p-4 rounded-lg space-y-4 flex flex-col-reverse overflow-y-auto scrollbar-hide scroll-smooth relative z-[555]">
         {[...messages].reverse().map((message) => (
           <div
             key={message.id}
             className={`flex items-center my-2 ${
               message.sender === "user" ? "justify-end" : ""
-            }  relative  z-[555]`}
+            } relative z-[555]`}
           >
             <div
               className={`${
@@ -26,13 +25,13 @@ export const Chatpage = () => {
                   : "rounded-[30px] rounded-es-none"
               } p-5 break-words bg-[#1C2535] overflow-wrap-anywhere max-w-[50%]`}
             >
-              {message.sender == "user" && (
+              {message.sender === "user" && (
                 <div
                   dangerouslySetInnerHTML={{ __html: `${message.content}` }}
                   className="message-content relative h-fit"
                 />
               )}
-              {message.sender == "agent" && (
+              {message.sender === "agent" && (
                 <div key={message.id} className="message-content relative pl-3">
                   <div
                     className={`${
@@ -42,14 +41,17 @@ export const Chatpage = () => {
                     } w-3 h-3 absolute -left-1 rounded-full`}
                   />
                   {message.content}
+                  
                   {message.component && (
-                    <>
-                      <div className="mt-4">
-                        {message.component.type === "RugCheck" && (
-                          <RugCheckComponent {...message.component.props} />
-                        )}
-                      </div>
-                    </>
+                    <div className="mt-4">
+                      {message.component.type === "RugCheck" && (
+                        <RugCheckComponent {...message.component.props} />
+                      )}
+                      
+                      {message.component.type === "chart" && (
+                        <TradingInfo {...message.component.props} />
+                      )}
+                    </div>
                   )}
                 </div>
               )}

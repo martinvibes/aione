@@ -1,5 +1,5 @@
 "use client";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { MessageSquare } from "lucide-react";
 import { ChatContext } from "../../useContext/chatContex";
 import SideNavBar from "./components/side-bar";
@@ -25,6 +25,9 @@ const Chat = () => {
     setIsHistoryOpen((prev) => !prev);
   }
 
+  useEffect(()=>{
+    setIsHistoryOpen(false)
+  },[setIsHistoryOpen,params])
   return (
     <div className="bg-mainChatbg h-screen">
       <div className="fixed h-screen w-full z-50">

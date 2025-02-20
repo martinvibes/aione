@@ -170,9 +170,9 @@ export function useAiResponse(
             setIsLoading(false);
             break;
           case "rugcheck":
-            console.log(airResponse);
+            console.log("the ai response is", airResponse);
             await rugcheck(
-              airResponse.tokenaddresstorugcheck ?? "",
+              airResponse.tokenAddress ?? "",
               chatId,
               messages,
               setMessages,

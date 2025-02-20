@@ -1,8 +1,15 @@
+"use client";
+
+import { useContext } from "react";
 import Navbar from "./components/Navbar";
+import { CoinContext } from "./useContext/coinContext";
 //import { BackgroundLines } from "./components/ui/background-lines";
 import Squares from "./components/ui/Squares";
 
 export default function Home() {
+  const { allCoin } = useContext(CoinContext);
+  console.log(allCoin);
+
   return (
     <>
       <div className="fixed h-screen w-full">
@@ -15,6 +22,7 @@ export default function Home() {
         />
       </div>
       <Navbar />
+
     </>
   );
 }
