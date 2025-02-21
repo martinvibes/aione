@@ -33,11 +33,6 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          <MessageProvider>
-            <ChatContextProvider>
-              <CoinContextProvider>{children}</CoinContextProvider>
-            </ChatContextProvider>
-          </MessageProvider>
           <AgentLoadProvider>
             <MessageProvider>
               <ChatContextProvider>
