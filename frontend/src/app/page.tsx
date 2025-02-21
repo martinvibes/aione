@@ -10,8 +10,6 @@ import alloraBg from "../../public/allora.svg";
 //import Squares from "./components/ui/Squares";
 
 export default function Home() {
-  const { allCoin } = useContext(CoinContext);
-  console.log(allCoin);
 
   return (
     <div>
