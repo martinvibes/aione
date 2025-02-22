@@ -50,7 +50,6 @@ export default function ChatInput() {
     setChatInput("");
   }
   useAiResponse(pendingMessage, setPendingMessage);
-  console.log(isLoading);
   function aiSuggestionMessageHandle(content: string) {
     const newMessage: Message = {
       content,
