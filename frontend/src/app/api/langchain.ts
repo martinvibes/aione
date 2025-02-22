@@ -8,8 +8,7 @@ export async function responseFromChatOpenAi(question: string) {
   const llm = new ChatOpenAI({
     model: "gpt-4o-mini",
     temperature: 0,
-    openAIApiKey:
-      "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",
+    openAIApiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
   });
 
   const formatInstructions = `
