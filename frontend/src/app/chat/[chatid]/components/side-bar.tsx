@@ -16,7 +16,7 @@ import { useContext } from "react";
 import ClipBoard from "@/app/svg/clip-board";
 
 export default function SideNavBar() {
-  const { chatType, isSideBarOpen, setIsSideBarOpen, setChatType } =
+  const { chatType, isSideBarOpen, setIsSideBarOpen, setChatType,setIsChatHistoryOpen} =
     useContext(ChatContext);
 
   function handleSideBar() {
@@ -128,12 +128,12 @@ export default function SideNavBar() {
               : " bg-darkishBlue"
           } bg-darkishBlue p-4 flex border border-transparent justify-between items-center w-full rounded-[8px] transition-all duration-500 hover:bg-aqwaGreen mx-auto`}
           type="button"
-          onClick={() => chatTypeHandle("active-agent")}
+          onClick={() => setIsChatHistoryOpen(state=>!state)}
         >
           <div className="flex items-center gap-3">
             <ActiveAgentIcon />
             <span className={isSideBarOpen ? "hidden" : "block"}>
-              Active agent
+              Chat History
             </span>
           </div>
         </button>

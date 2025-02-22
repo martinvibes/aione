@@ -6,8 +6,7 @@ import demoChatScreen from "../../public/chat-screen.jpg";
 import coinGecoBg from "../../public/coingeco.png";
 import debridgeBg from "../../public/debridge.png";
 import alloraBg from "../../public/allora.svg";
-//import { BackgroundLines } from "./components/ui/background-lines";
-//import Squares from "./components/ui/Squares";
+
 
 export default function Home() {
 

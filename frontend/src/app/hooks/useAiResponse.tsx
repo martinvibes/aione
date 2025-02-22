@@ -97,6 +97,12 @@ export function useAiResponse(
                 id: Date.now().toString(),
                 agentName: "zerepy",
                 intent: "checkBalance",
+                component: {
+                  type: "balance",
+                  props: {
+                    data: balanceData?.result,
+                  },
+                },
               };
               setMessagesInStorage([...messages, balanceMessage]);
               setMessages((messages) => [...messages, balanceMessage]);

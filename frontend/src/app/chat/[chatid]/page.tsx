@@ -12,6 +12,7 @@ import { useLocalStorage } from "@/app/hooks/useLocalStorage";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import Squares from "@/app/components/ui/Squares";
+import ChatHistory from "./components/chat-history";
 
 const Chat = () => {
   const { chatType, setIsHistoryOpen } = useContext(ChatContext);
@@ -43,6 +44,7 @@ const Chat = () => {
       <main className="bg-mainChatbg min-h-screen max-h-full text-whiteChatText flex overflow-hidden">
         <SideNavBar />
         <section className="w-full max-h-screen min-h-full p-6 relative max-w-7xl mx-auto">
+          <ChatHistory/>
           <header className="flex gap-4 mb-2 relative  z-[555] w-fit">
             <button
               className={`${

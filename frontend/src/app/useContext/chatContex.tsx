@@ -7,6 +7,8 @@ export const ChatContext = createContext<{
   isSideBarOpen: boolean;
   chatType: string;
   isHistoryOpen:boolean,
+  isChatHistoryOpen:boolean,
+  setIsChatHistoryOpen:Dispatch<SetStateAction<boolean>>;
   setIsHistoryOpen:Dispatch<SetStateAction<boolean>>;
   setIsSideBarOpen: Dispatch<SetStateAction<boolean>>;
   setChatType: Dispatch<SetStateAction<string>>;
@@ -15,6 +17,8 @@ export const ChatContext = createContext<{
   isSideBarOpen: false,
   chatType: "",
   isHistoryOpen:false,
+  isChatHistoryOpen:false,
+  setIsChatHistoryOpen:()=>{},
   setIsHistoryOpen:()=>{},
   setInput: () => {},
   setIsSideBarOpen: () => {},
@@ -30,10 +34,12 @@ const ChatContextProvider = ({
   const [input, setInput] = useState("");
   //main menu side bar
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
-  //chatType  = ai-chat | swap | account | analysis | active-agent
+  //chatType  = ai-chat | swap | account | analysis 
   const [chatType, setChatType] = useState("chat");
   // chat history visibility state
   const [isHistoryOpen,setIsHistoryOpen] = useState(false)
+  // chat history visibility state
+  const [isChatHistoryOpen,setIsChatHistoryOpen] = useState(false)
 
   return (
     <ChatContext.Provider
@@ -45,7 +51,9 @@ const ChatContextProvider = ({
         setChatType,
         setIsSideBarOpen,
         isHistoryOpen,
-        setIsHistoryOpen
+        setIsHistoryOpen,
+        isChatHistoryOpen,
+        setIsChatHistoryOpen,
       }}
     >
       {children}
