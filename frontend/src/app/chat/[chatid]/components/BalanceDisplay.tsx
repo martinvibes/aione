@@ -19,12 +19,10 @@ const BalanceDisplay: React.FC<BalanceDisplayProps> = ({
 
   return (
     <div className="relative w-full max-w-md">
-      {/* Animated background effects */}
       <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 rounded-xl animate-gradient-x" />
       <div className="absolute inset-0 bg-[url('/noise.png')] opacity-20 mix-blend-overlay" />
 
       <div className="relative bg-gradient-to-r from-slate-900/90 to-slate-800/90 p-6 rounded-xl border border-white/10 backdrop-blur-sm">
-        {/* Token Icon and Balance */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-3">
             <div className="relative">
@@ -53,7 +51,6 @@ const BalanceDisplay: React.FC<BalanceDisplayProps> = ({
           </div>
         </div>
 
-        {/* Additional Details */}
         {(walletAddress || tokenAddress) && (
           <div className="space-y-3 text-sm">
             {walletAddress && (
@@ -102,7 +99,6 @@ const BalanceDisplay: React.FC<BalanceDisplayProps> = ({
           </div>
         )}
 
-        {/* Live Price Indicator */}
         <div className="mt-4 flex items-center space-x-2">
           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
           <span className="text-xs text-gray-400">Live Balance</span>

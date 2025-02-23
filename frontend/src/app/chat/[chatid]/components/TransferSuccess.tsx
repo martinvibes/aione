@@ -45,11 +45,9 @@ const TransferSuccess: React.FC<TransferSuccessProps> = ({
 
   return (
     <div className="relative w-full max-w-md">
-      {/* Animated success ring */}
       <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-500 rounded-xl blur-xl opacity-20 animate-pulse" />
 
       <div className="relative bg-gradient-to-b from-slate-900 to-slate-800 rounded-xl p-6 border border-emerald-500/20 shadow-xl backdrop-blur-sm">
-        {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-3">
             <div className="relative">
@@ -69,7 +67,6 @@ const TransferSuccess: React.FC<TransferSuccessProps> = ({
             </div>
           </div>
 
-          {/* Animated success badge */}
           <div className="h-14 w-14 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 p-[1px] animate-spin-slow">
             <div className="h-full w-full rounded-full bg-slate-900 flex items-center justify-center">
               <CheckCircle2 className="w-6 h-6 text-emerald-500" />
@@ -77,7 +74,6 @@ const TransferSuccess: React.FC<TransferSuccessProps> = ({
           </div>
         </div>
 
-        {/* Transfer amount */}
         <div className="bg-slate-800/50 rounded-xl p-4 mb-4 border border-emerald-500/10">
           <span className="text-gray-400 text-sm">Amount Sent</span>
           <div className="flex items-baseline space-x-2 mt-1">
@@ -88,7 +84,6 @@ const TransferSuccess: React.FC<TransferSuccessProps> = ({
           </div>
         </div>
 
-        {/* Transfer details */}
         <div className="space-y-3">
           <div className="flex justify-between items-center bg-slate-800/30 p-3 rounded-lg border border-emerald-500/10">
             <span className="text-gray-400">To</span>
@@ -135,7 +130,6 @@ const TransferSuccess: React.FC<TransferSuccessProps> = ({
           </div>
         </div>
 
-        {/* Timestamp */}
         <div className="mt-4 flex items-center justify-between text-xs text-gray-400">
           <div className="flex items-center space-x-1">
             <Clock className="w-3 h-3" />

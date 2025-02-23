@@ -23,11 +23,9 @@ const SwapFailed: React.FC<SwapFailedProps> = ({
 
   return (
     <div className="relative">
-      {/* Animated red glow effect */}
       <div className="absolute inset-0 bg-red-500/20 blur-xl animate-pulse rounded-xl" />
 
       <div className="relative bg-gradient-to-r from-red-950/90 to-red-900/90 rounded-xl p-6 min-w-[300px] border border-red-500/20 shadow-lg backdrop-blur-sm">
-        {/* Header with warning icon */}
         <div className="flex items-center space-x-3 mb-6">
           <div className="relative">
             <div className="absolute inset-0 bg-red-500 blur-sm rounded-full animate-ping" />
@@ -45,7 +43,6 @@ const SwapFailed: React.FC<SwapFailedProps> = ({
           </div>
         </div>
 
-        {/* Transaction details */}
         <div className="space-y-3 text-sm">
           <div className="flex justify-between items-center bg-red-950/50 p-3 rounded-lg border border-red-500/10">
             <span className="text-red-200/60">Amount</span>
@@ -67,7 +64,6 @@ const SwapFailed: React.FC<SwapFailedProps> = ({
             </div>
           </div>
 
-          {/* Error message */}
           {error && (
             <div className="bg-red-500/10 p-4 rounded-lg border border-red-500/20">
               <div className="flex items-start space-x-2">
@@ -77,7 +73,6 @@ const SwapFailed: React.FC<SwapFailedProps> = ({
             </div>
           )}
 
-          {/* Retry button */}
           {onRetry && (
             <button
               onClick={onRetry}

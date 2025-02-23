@@ -56,7 +56,6 @@ export async function swapTokenData(
     const data: SwapResponse = await response.json();
 
     if (!data?.result) {
-      // Handle failed swap with new UI
       const failedMessage: Message = {
         content: "",
         sender: "agent",

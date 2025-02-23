@@ -30,11 +30,9 @@ const TransferFailed: React.FC<TransferFailedProps> = ({
 
   return (
     <div className="relative w-full max-w-md">
-      {/* Animated failed effect */}
       <div className="absolute -inset-1 bg-gradient-to-r from-red-500/50 via-red-800/50 to-red-500/50 rounded-xl blur-lg opacity-20 animate-pulse" />
 
       <div className="relative bg-gradient-to-b from-slate-900 to-slate-800/95 rounded-xl p-6 border border-red-500/20 shadow-xl backdrop-blur-sm">
-        {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-3">
             <div className="relative">
@@ -52,7 +50,6 @@ const TransferFailed: React.FC<TransferFailedProps> = ({
             </div>
           </div>
 
-          {/* Animated failed badge */}
           <div className="h-14 w-14 rounded-full bg-gradient-to-r from-red-500 via-red-600 to-red-500 p-[1px]">
             <div className="h-full w-full rounded-full bg-slate-900 flex items-center justify-center relative">
               <Ban className="w-6 h-6 text-red-500 absolute animate-ping opacity-50" />
@@ -61,7 +58,6 @@ const TransferFailed: React.FC<TransferFailedProps> = ({
           </div>
         </div>
 
-        {/* Failed amount */}
         <div className="bg-slate-800/50 rounded-xl p-4 mb-4 border border-red-500/10">
           <span className="text-gray-400 text-sm">Failed Amount</span>
           <div className="flex items-baseline space-x-2 mt-1">
@@ -72,7 +68,6 @@ const TransferFailed: React.FC<TransferFailedProps> = ({
           </div>
         </div>
 
-        {/* Transfer details */}
         <div className="space-y-3">
           <div className="flex justify-between items-center bg-slate-800/30 p-3 rounded-lg border border-red-500/10">
             <span className="text-gray-400">Attempted To</span>
@@ -99,7 +94,6 @@ const TransferFailed: React.FC<TransferFailedProps> = ({
           )}
         </div>
 
-        {/* Timestamp */}
         <div className="mt-4 flex items-center justify-between text-xs text-gray-400">
           <div className="flex items-center space-x-1">
             <Clock className="w-3 h-3" />
