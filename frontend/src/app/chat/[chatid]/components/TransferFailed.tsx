@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  XCircle,
-  AlertTriangle,
-  RefreshCw,
-  Copy,
-  Clock,
-  Ban,
-} from "lucide-react";
+import { XCircle, AlertTriangle, Copy, Clock, Ban } from "lucide-react";
 
 interface TransferFailedProps {
   recipientAddress: string;
