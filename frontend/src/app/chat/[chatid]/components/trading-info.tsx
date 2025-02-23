@@ -19,17 +19,17 @@ export default function TradingInfo({
   forecastedPrice,
   chartToken,
 }: TradingInfoProps) {
-  console.log(
-    "TradingInfo",
-    token,
-    pair,
-    timeLeft,
-    currentPrice,
-    marketCap,
-    forecastedPrice,
-    chartToken,
-    "thats all"
-  );
+  // console.log(
+  //   "TradingInfo",
+  //   token,
+  //   pair,
+  //   timeLeft,
+  //   currentPrice,
+  //   marketCap,
+  //   forecastedPrice,
+  //   chartToken,
+  //   "thats all"
+  // );
   const formatCurrency = (value: number) => {
     if (value < 0.01) {
       return new Intl.NumberFormat("en-US", {
@@ -96,7 +96,7 @@ export default function TradingInfo({
       </div>
 
       <div className="w-full rounded-2xl bg-[#0F1117] p-6">
-        <div className="text-lg text-gray-400">Current Chart for {token}</div>
+        <div className="text-lg text-[#72CCD7]">Current Chart for {token}</div>
         <br />
         <CandleChart token={chartToken} />
       </div>

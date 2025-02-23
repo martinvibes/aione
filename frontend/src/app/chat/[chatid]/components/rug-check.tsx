@@ -13,7 +13,7 @@ export default function RugCheckComponent({ data, mint }: RugCheckProps) {
   const formattedRiskLevel =
     data.score >= 0 ? `+${data.score}` : `${data.score}`;
   const coin_info = useFetchCoinInfo(mint) as CoinInfo;
-  console.log("it is", coin_info, coin_info?.id || "");
+  // console.log("it is", coin_info, coin_info?.id || "");
   return (
     <div className="w-full">
       <div className="mb-4 text-sm">

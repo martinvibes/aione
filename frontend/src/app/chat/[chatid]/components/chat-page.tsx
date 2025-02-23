@@ -4,6 +4,11 @@ import { MessageContext } from "@/app/useContext/message-context";
 import RugCheckComponent from "./rug-check";
 import TradingInfo from "./trading-info";
 import SkeletonCard from "@/app/components/ui/skeleton";
+import SwapSuccess from "./SwapSuccess";
+import SwapFailed from "./SwapFailed";
+import BalanceDisplay from "./BalanceDisplay";
+import TransferSuccess from "./TransferSuccess";
+import TransferFailed from "./TransferFailed";
 
 export const Chatpage = () => {
   const { messages, isLoading } = useContext(MessageContext);
@@ -41,15 +46,35 @@ export const Chatpage = () => {
                     } w-3 h-3 absolute -left-1 rounded-full`}
                   />
                   {message.content}
-                  
+
                   {message.component && (
                     <div className="mt-4">
                       {message.component.type === "RugCheck" && (
                         <RugCheckComponent {...message.component.props} />
                       )}
-                      
+
                       {message.component.type === "chart" && (
                         <TradingInfo {...message.component.props} />
+                      )}
+
+                      {message.component.type === "SwapSuccess" && (
+                        <SwapSuccess {...message.component.props} />
+                      )}
+
+                      {message.component.type === "SwapFailed" && (
+                        <SwapFailed {...message.component.props} />
+                      )}
+
+                      {message.component.type === "BalanceDisplay" && (
+                        <BalanceDisplay {...message.component.props} />
+                      )}
+
+                      {message.component.type === "TransferSuccess" && (
+                        <TransferSuccess {...message.component.props} />
+                      )}
+
+                      {message.component.type === "TransferFailed" && (
+                        <TransferFailed {...message.component.props} />
                       )}
                     </div>
                   )}
