@@ -67,8 +67,8 @@ const TransferSuccess: React.FC<TransferSuccessProps> = ({
             </div>
           </div>
 
-          <div className="h-14 w-14 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 p-[1px] animate-spin-slow">
-            <div className="h-full w-full rounded-full bg-slate-900 flex items-center justify-center">
+          <div className=" rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 p-[1px] animate-spin-slow">
+            <div className="h-full p-2 w-full rounded-full bg-slate-900 flex items-center justify-center">
               <CheckCircle2 className="w-6 h-6 text-emerald-500" />
             </div>
           </div>
