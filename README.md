@@ -37,7 +37,7 @@ The integrated wallet maintains complete security while handling transaction exe
 
 > Currently we are using one fixed wallet for this transaction for the submission of the Sonic DefAi Hackathon
 
-Send Sonic Mainnet tokens to the address specified in the app for you to perorm defia action
+Send Sonic Mainnet tokens to the address specified in the app for you to perorm defi action
 
 ### Flagship features 
 * Voice recognition(speech to text command)
@@ -54,8 +54,8 @@ This feature enables users to retrieve token ticker symbols by providing a contr
 
 **Example Interaction:**
 ```
-User: "What is the ticker for 0x123...abc?"
-AI One: "The token ticker for 0x123...abc is $HeyAnon"
+User: "What is the ticker for ANON?"
+AI One: "The token ticker for $HeyAnon is 0x123...abc "
 ```
 
 #### Balance Check (Uses Zerepy Agent Framework)
