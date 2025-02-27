@@ -47,6 +47,7 @@ const SwapSuccess: React.FC<SwapSuccessProps> = ({
             <span className="text-gray-400">From</span>
             <span className="font-medium">{formatAddress(fromToken)}</span>
           </div>
+
           <div className="flex justify-between items-center">
             <span className="text-gray-400">To</span>
             <span className="font-medium">{formatAddress(toToken)}</span>
