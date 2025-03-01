@@ -2,7 +2,7 @@ export interface Message {
   id: string;
   content: string | number;
   sender: "user" | "agent" | "chart";
-  agentName: "zerepy" | "allora" | "user" | "debridge" | "rugcheck";
+  // agentName: "zerepy" | "allora" | "user" | "debridge" | "rugcheck";
   intent?:
     | "swap"
     | "checkBalance"

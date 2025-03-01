@@ -47,7 +47,6 @@ export async function pricePridictionHandle(
           content: pridictionConsiseAnswer(sol8h, "SOL/USD", "8h"),
           sender: "agent",
           id: Date.now().toString(),
-          agentName: "allora",
           intent: "pridiction",
           component: {
             type: "chart",
@@ -73,7 +72,6 @@ export async function pricePridictionHandle(
           content: pridictionConsiseAnswer(btc8h, "BTC/USD", "8h"),
           sender: "agent",
           id: Date.now().toString(),
-          agentName: "allora",
           intent: "pridiction",
           component: {
             type: "chart",
@@ -98,7 +96,6 @@ export async function pricePridictionHandle(
           content: pridictionConsiseAnswer(eth8h, "ETH/USD", "8h"),
           sender: "agent",
           id: Date.now().toString(),
-          agentName: "allora",
           intent: "pridiction",
           component: {
             type: "chart",
@@ -123,7 +120,6 @@ export async function pricePridictionHandle(
           content: pridictionConsiseAnswer(luna8h, "Luna/USDT", "8h"),
           sender: "agent",
           id: Date.now().toString(),
-          agentName: "allora",
           intent: "pridiction",
           component: {
             type: "chart",
@@ -148,7 +144,6 @@ export async function pricePridictionHandle(
           content: pridictionConsiseAnswer(virtual8h, "Virtual/USDT", "8h"),
           sender: "agent",
           id: Date.now().toString(),
-          agentName: "allora",
           intent: "pridiction",
           component: {
             type: "chart",
@@ -173,7 +168,6 @@ export async function pricePridictionHandle(
           content: pridictionConsiseAnswer(sekoia8h, "Sekoia/USDT", "8h"),
           sender: "agent",
           id: Date.now().toString(),
-          agentName: "allora",
           intent: "pridiction",
           component: {
             type: "chart",
@@ -199,7 +193,6 @@ export async function pricePridictionHandle(
           content: pridictionConsiseAnswer(game8h, "Game/USDT", "8h"),
           sender: "agent",
           id: Date.now().toString(),
-          agentName: "allora",
           intent: "pridiction",
           component: {
             type: "chart",
@@ -224,7 +217,6 @@ export async function pricePridictionHandle(
           content: pridictionConsiseAnswer(vaderai8h, "VaderAi/USDT", "8h"),
           sender: "agent",
           id: Date.now().toString(),
-          agentName: "allora",
           intent: "pridiction",
           component: {
             type: "chart",
@@ -250,7 +242,6 @@ export async function pricePridictionHandle(
           content: pridictionConsiseAnswer(aixbt8h, "Aixbt/USDT", "8h"),
           sender: "agent",
           id: Date.now().toString(),
-          agentName: "allora",
           intent: "pridiction",
           component: {
             type: "chart",
@@ -275,7 +266,6 @@ export async function pricePridictionHandle(
           content: pridictionConsiseAnswer(bnb8h, "BNB", "20m"),
           sender: "agent",
           id: Date.now().toString(),
-          agentName: "allora",
           intent: "pridiction",
           component: {
             type: "chart",
@@ -299,7 +289,6 @@ export async function pricePridictionHandle(
           content: pridictionConsiseAnswer(arb8h, "Arb", "20m"),
           sender: "agent",
           id: Date.now().toString(),
-          agentName: "allora",
           intent: "pridiction",
           component: {
             type: "chart",
@@ -324,7 +313,6 @@ export async function pricePridictionHandle(
           content: pridictionConsiseAnswer(memecoin8h, "Memecoin", "1h"),
           sender: "agent",
           id: Date.now().toString(),
-          agentName: "allora",
           intent: "pridiction",
           component: {
             type: "chart",
@@ -347,7 +335,6 @@ export async function pricePridictionHandle(
           content: `Price prediction data for this token is not available yet. Please check back in 8 hours when our analysis will be complete.`,
           sender: "agent",
           id: Date.now().toString(),
-          agentName: "allora",
           intent: "pridiction",
         };
         setMessagesInStorage([...messages, aiDefaultMessage]);
@@ -359,7 +346,6 @@ export async function pricePridictionHandle(
       content: response ?? "",
       sender: "agent",
       id: Date.now().toString(),
-      agentName: "user",
       intent: "pridiction",
     };
     setMessagesInStorage([...messages, aiPridiction]);

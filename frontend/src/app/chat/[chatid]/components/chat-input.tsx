@@ -41,7 +41,6 @@ export default function ChatInput() {
       content: chatInput,
       sender: "user",
       id: Date.now().toString(),
-      agentName: "user",
     };
 
     setMessages((messages) => [...messages, userMessage]);
@@ -55,7 +54,6 @@ export default function ChatInput() {
       content,
       sender: "user",
       id: Date.now().toString(),
-      agentName: "user",
     };
 
     setMessages((messages) => [...messages, newMessage]);

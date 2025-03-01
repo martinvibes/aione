@@ -23,7 +23,6 @@ export async function transferTokenData(
     Format: transferto:DESTINATION_ADDRESS amount:AMOUNT`,
       sender: "agent",
       id: Date.now().toString(),
-      agentName: "zerepy",
       intent: "transfer",
     };
     setMessagesInStorage([...messages, promptMessage]);
@@ -71,7 +70,6 @@ export async function transferTokenData(
       content: "",
       sender: "agent",
       id: Date.now().toString(),
-      agentName: "zerepy",
       intent: "transfer",
       component: {
         type: data?.result ? "TransferSuccess" : "TransferFailed",
@@ -100,7 +98,6 @@ export async function transferTokenData(
       content: "",
       sender: "agent",
       id: Date.now().toString(),
-      agentName: "zerepy",
       intent: "transfer",
       component: {
         type: "TransferFailed",

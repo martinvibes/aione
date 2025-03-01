@@ -30,7 +30,7 @@ export default function Home() {
           <div className="flex justify-center items-center gap-4 my-4">
             <Link
               className="font-bold text-2xl px-4 py-2 rounded-md bg-inherit hover:bg-[#72CCD7] hover:border-transparent border border-[#8DE1FF] text-white hover:text-[#0A0F1E]"
-              href=""
+              href={`/chat/${Date.now().toString()}`}
             >
               Launch App
             </Link>

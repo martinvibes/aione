@@ -51,7 +51,6 @@ export function useAiResponse(
                   "Which token's balance would you like to check? (e.g., S, ANON, etc.)",
                 sender: "agent",
                 id: Date.now().toString(),
-                agentName: "zerepy",
                 intent: "checkBalance",
               };
               setMessagesInStorage([...messages, promptMessage]);
@@ -63,7 +62,6 @@ export function useAiResponse(
                 content: "",
                 sender: "agent",
                 id: Date.now().toString(),
-                agentName: "zerepy",
                 intent: "checkBalance",
                 component: {
                   type: "BalanceDisplay",
@@ -80,7 +78,6 @@ export function useAiResponse(
                 content: `For checking ${airResponse.sourceToken} balance, please provide:\n1. Wallet address\n2. Token contract address\n\nFormat: wallet:YOUR_WALLET_ADDRESS token:TOKEN_CONTRACT_ADDRESS`,
                 sender: "agent",
                 id: Date.now().toString(),
-                agentName: "zerepy",
                 intent: "checkBalance",
                 tokenName: airResponse.sourceToken,
               };
@@ -99,7 +96,6 @@ export function useAiResponse(
                 content: "",
                 sender: "agent",
                 id: Date.now().toString(),
-                agentName: "zerepy",
                 intent: "checkBalance",
                 component: {
                   type: "BalanceDisplay",
@@ -123,7 +119,6 @@ export function useAiResponse(
                   "Please provide the token name for which you would like to get the ticker (e.g., ANON, S, WAGMI, etc.)",
                 sender: "agent",
                 id: Date.now().toString(),
-                agentName: "zerepy",
                 intent: "getTokenTicker",
               };
               setMessagesInStorage([...messages, promptMessage]);
@@ -140,7 +135,6 @@ export function useAiResponse(
                     : `Sorry, I couldn't find the ticker for ${airResponse.sourceToken}.`,
                   sender: "agent",
                   id: Date.now().toString(),
-                  agentName: "zerepy",
                   intent: "getTokenTicker",
                   tokenName: airResponse.sourceToken,
                 };
@@ -151,7 +145,6 @@ export function useAiResponse(
                   content: `Sorry, I encountered an error while fetching the ticker for ${airResponse.sourceToken}.`,
                   sender: "agent",
                   id: Date.now().toString(),
-                  agentName: "zerepy",
                   intent: "getTokenTicker",
                 };
                 setMessagesInStorage([...messages, errorMessage]);
@@ -164,7 +157,6 @@ export function useAiResponse(
               content: airResponse?.generalResponse ?? "",
               sender: "agent",
               id: Date.now().toString(),
-              agentName: "user",
               intent: "normalChat",
             };
             setMessagesInStorage([...messages, aiNormlChat]);
@@ -210,7 +202,6 @@ export function useAiResponse(
               content: airResponse?.generalResponse ?? "",
               sender: "agent",
               id: Date.now().toString(),
-              agentName: "user",
               intent: "unknown",
             };
             setMessagesInStorage([...messages, aiUnKnownMessage]);
@@ -222,7 +213,6 @@ export function useAiResponse(
               content: airResponse?.generalResponse ?? "",
               sender: "agent",
               id: Date.now().toString(),
-              agentName: "user",
               intent: "normalChat",
             };
             setMessagesInStorage([...messages, aiDefaultMessage]);
@@ -235,7 +225,6 @@ export function useAiResponse(
           content: "Sorry, I encountered an error processing your request.",
           sender: "agent",
           id: Date.now().toString(),
-          agentName: "user",
           intent: "unknown",
         };
 

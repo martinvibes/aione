@@ -27,7 +27,6 @@ export async function rugcheck(
       content: "",
       sender: "agent",
       id: Date.now().toString(),
-      agentName: "rugcheck",
       intent: "rugcheck",
       component: {
         type: "RugCheck",
@@ -46,7 +45,6 @@ export async function rugcheck(
       content: `Hey There, There was an error fetching the Rugcheck data of the ${tokenaddr} token. Please try again later or change the token address.`,
       sender: "agent",
       id: Date.now().toString(),
-      agentName: "rugcheck",
       intent: "rugcheck",
     };
     setMessagesInStorage([...messages, aiMessage]);

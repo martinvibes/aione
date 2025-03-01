@@ -25,7 +25,6 @@ export async function swapTokenData(
     Format: swapfrom:SOURCE_ADDRESS swapto:DESTINATION_ADDRESS amount:AMOUNT`,
       sender: "agent",
       id: Date.now().toString(),
-      agentName: "zerepy",
       intent: "swap",
     };
     setMessagesInStorage([...messages, promptMessage]);
@@ -60,7 +59,6 @@ export async function swapTokenData(
         content: "",
         sender: "agent",
         id: Date.now().toString(),
-        agentName: "zerepy",
         intent: "swap",
         component: {
           type: "SwapFailed",
@@ -107,7 +105,6 @@ export async function swapTokenData(
       content: "",
       sender: "agent",
       id: Date.now().toString(),
-      agentName: "zerepy",
       intent: "swap",
       component: {
         type: "SwapSuccess",
@@ -129,7 +126,6 @@ export async function swapTokenData(
         "Sorry, I encountered an error while trying to perform the swap. Please check the addresses and try again.",
       sender: "agent",
       id: Date.now().toLocaleString(),
-      agentName: "zerepy",
       intent: "swap",
     };
     setMessages([...messages, errorMessage]);
