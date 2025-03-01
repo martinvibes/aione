@@ -6,6 +6,7 @@ import { MessageProvider } from "./useContext/message-context";
 import { Providers } from "./Providers";
 import CoinContextProvider from "./useContext/coinContext";
 import { AgentLoadProvider } from "./useContext/agent-load-context";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -24,15 +25,38 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.variable} antialiased bg-[#0A0F1E]`}
-      >
+      <body className={`${inter.variable} antialiased bg-[#0A0F1E]`}>
+        <Toaster
+          position="bottom-right"
+          reverseOrder={false}
+          gutter={8}
+          containerClassName=""
+          containerStyle={{}}
+          toastOptions={{
+            // Define default options
+            className: "",
+            duration: 5000,
+            removeDelay: 1000,
+            style: {
+              background: "#fff",
+              color: "#363636",
+            },
+
+            // Default options for specific types
+            success: {
+              duration: 3000,
+              iconTheme: {
+                primary: "green",
+                secondary: "black",
+              },
+            },
+          }}
+        />
         <Providers>
           <AgentLoadProvider>
             <MessageProvider>
               <ChatContextProvider>
-                            <CoinContextProvider>{children}</CoinContextProvider>
-
+                <CoinContextProvider>{children}</CoinContextProvider>
               </ChatContextProvider>
             </MessageProvider>
           </AgentLoadProvider>

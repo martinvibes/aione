@@ -1,6 +1,5 @@
 "use client";
 import { useContext, useEffect } from "react";
-import { MessageSquare } from "lucide-react";
 import { ChatContext } from "../../useContext/chatContex";
 import SideNavBar from "./components/side-bar";
 import ChatInput from "./components/chat-input";
@@ -12,10 +11,9 @@ import { useLocalStorage } from "@/app/hooks/useLocalStorage";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import Squares from "@/app/components/ui/Squares";
-import ChatHistory from "./components/chat-history";
 
 const Chat = () => {
-  const { chatType, setIsHistoryOpen } = useContext(ChatContext);
+  const { setIsHistoryOpen } = useContext(ChatContext);
   const params = useParams();
   const chatId = params.chatid as string;
 
@@ -40,31 +38,13 @@ const Chat = () => {
           hoverFillColor="#B4D9DD"
         />
       </div>
-      {/* <h1 className="border w-fit text-white">hello world</h1> */}
       <main className="bg-mainChatbg min-h-screen max-h-full text-whiteChatText flex overflow-hidden">
         <SideNavBar />
         <section className="w-full max-h-screen min-h-full p-6 relative max-w-7xl mx-auto">
-          <ChatHistory/>
           <header className="flex gap-4 mb-2 relative  z-[555] w-fit">
-            <button
-              className={`${
-                chatType === "ai-chat" ? "bg-aqwaGreen" : "bg-inherit"
-              } p-4 flex justify-between items-center w-fit rounded-[8px] transition-all duration-500 border-[#F7F9FC] border`}
-              type="button"
-            >
-              <MessageSquare />
-              <div className="text-[#284a4f]"></div>
-            </button>
-            {/* <button
-            className={`${
-              chatType === "swap" ? "bg-aqwaGreen" : "bg-inherit"
-            } p-4 flex justify-between items-center w-fit rounded-[8px] transition-all duration-500 border-[#F7F9FC] border`}
-            type="button"
-          >
-            <Swap />
-          </button>  */}
+         
           </header>
-          <div className=" h-[92%] flex gap-1 rounded-[8px">
+          <div className=" h-[92%] flex gap-1 rounded-[8px] absolute bottom-1 w-[95%]">
             <div
               className={`${
                 messages.length ? "bg-[#141A2A]" : "bg-inherit"

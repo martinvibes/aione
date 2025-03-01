@@ -9,7 +9,7 @@ import { X } from "lucide-react";
 // import TransactionHistory from "./TransactionHistory";
 
 export default function ChatHistory() {
-  const { setIsChatHistoryOpen, isChatHistoryOpen } = useContext(ChatContext);
+  const { setIsChatHistoryOpen, setIsContactOpen, isChatHistoryOpen } = useContext(ChatContext);
   const params = useParams();
   const chatId = params.chatid as string;
   const { getAllHistoryData } = useLocalStorage(chatId);
@@ -19,14 +19,17 @@ export default function ChatHistory() {
       {isChatHistoryOpen && (
         // <div className="bg-darkishBlue w-full h-full z-[55555]">
         <motion.div
-          className="absolute top-1 left-1 rounded-[8px] bg-[#141A2A] h-[98%] overflow-y-auto scrollbar-hide scroll-smooth z-[5555] pb-4"
-          exit={{ opacity: 0, width: "0%" }}
-          animate={{ opacity: 1, scale: 1, width: "30%", maxWidth: "250px" }}
-          initial={{ opacity: 0, width: "0%" }}
+          className="bg-darkishBlue min-h-[80%] max-h-[90%] w-[300px] p-3 scrollbar-hide overflow-y-auto fixed left-24 z-[998] top-3 rounded-md py-8 backdrop-blur-lg"
+          exit={{ opacity: 0, scale: 0.7 }}
+          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, scale: 0.7 }}
           transition={{ ease: "linear" }}
         >
           <div
-            onClick={() => setIsChatHistoryOpen((state) => !state)}
+            onClick={() => {
+              setIsChatHistoryOpen((state) => !state);
+              setIsContactOpen(false)
+            }}
             className="flex justify-end text-2xl mt-2 mr-2"
           >
             <X
