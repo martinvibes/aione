@@ -1,5 +1,5 @@
 import { Message } from "@/lib/types";
-import {RugCheckData} from "@/lib/types";
+import { RugCheckData } from "@/lib/types";
 
 export async function rugcheck(
   tokenaddr: string,
@@ -12,6 +12,18 @@ export async function rugcheck(
 
   const RUG_CHECK_API = "https://api.rugcheck.xyz/v1";
   console.log(`${RUG_CHECK_API}/tokens/${tokenaddr}/report/summary`);
+  if (tokenaddr == "") {
+    const aiMessage: Message = {
+      content:
+        "Hey There, Looks like youre trying to rug check a token on solana, PLease provide a valid token address on solana blockchain for rugcheck",
+      sender: "agent",
+      id: Date.now().toString(),
+      intent: "rugcheck",
+    };
+    setMessagesInStorage([...messages, aiMessage]);
+    setMessages([...messages, aiMessage]);
+    return;
+  }
   try {
     const response = await fetch(
       `${RUG_CHECK_API}/tokens/${tokenaddr}/report/summary`
@@ -33,8 +45,8 @@ export async function rugcheck(
         props: {
           data: data,
           mint: tokenaddr,
-        }
-      }
+        },
+      },
     };
     setMessagesInStorage([...messages, aiMessage]);
     setMessages([...messages, aiMessage]);
