@@ -68,13 +68,28 @@ export async function transferTokenData(
     saveTransaction(transaction);
 
     const transferMessage: Message = {
-      content: data?.result
-        ? `transfer successful! Transaction hash: ${data.result}`
-        : `Sorry, the transfer couldn't be completed at this time.`,
+      content: "",
       sender: "agent",
       id: Date.now().toString(),
       agentName: "zerepy",
       intent: "transfer",
+      component: {
+        type: data?.result ? "TransferSuccess" : "TransferFailed",
+        props: data?.result
+          ? {
+              txHash: data.result as string,
+              recipientAddress,
+              amount: amount.toString(),
+              timestamp: Date.now(),
+            }
+          : {
+              recipientAddress,
+              amount: amount.toString(),
+              error:
+                "Transaction failed. Please check your balance and try again.",
+              timestamp: Date.now(),
+            },
+      },
     };
     setMessages([...messages, transferMessage]);
     setMessagesInStorage([...messages, transferMessage]);
@@ -82,12 +97,20 @@ export async function transferTokenData(
   } catch (err) {
     console.error("Error performing transfer:", err);
     const errorMessage: Message = {
-      content:
-        "Sorry, I encountered an error while trying to perform the transfer. Please check the addresses and try again.",
+      content: "",
       sender: "agent",
-      id: Date.now().toLocaleString(),
+      id: Date.now().toString(),
       agentName: "zerepy",
       intent: "transfer",
+      component: {
+        type: "TransferFailed",
+        props: {
+          recipientAddress: recipientAddress || "",
+          amount: amount?.toString() || "0",
+          error: err instanceof Error ? err.message : "An unexpected error occurred",
+          timestamp: Date.now(),
+        },
+      },
     };
     setMessages([...messages, errorMessage]);
     setMessagesInStorage([...messages, errorMessage]);

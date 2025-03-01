@@ -57,16 +57,21 @@ export function useAiResponse(
               setMessagesInStorage([...messages, promptMessage]);
               setMessages((messages) => [...messages, promptMessage]);
               setIsLoading(false);
-            } else if (airResponse.sourceToken.toUpperCase() == "S") {
+            } else if (airResponse.sourceToken.toUpperCase() === "S") {
               const balanceData = await checkBalance();
               const balanceMessage: Message = {
-                content: balanceData?.result
-                  ? `Your S token balance is ${balanceData.result}`
-                  : "Sorry, I couldn't fetch your S token balance at the moment.",
+                content: "",
                 sender: "agent",
                 id: Date.now().toString(),
                 agentName: "zerepy",
                 intent: "checkBalance",
+                component: {
+                  type: "BalanceDisplay",
+                  props: {
+                    balance: balanceData?.result || 0,
+                    tokenName: "S",
+                  },
+                },
               };
               setMessagesInStorage([...messages, balanceMessage]);
               setMessages((messages) => [...messages, balanceMessage]);
@@ -83,6 +88,7 @@ export function useAiResponse(
               setMessages((messages) => [...messages, promptMessage]);
             }
             break;
+
           case "checkBalance_addresses":
             if (airResponse?.walletAddress && airResponse?.tokenAddress) {
               const balanceData = await checkBalance(
@@ -90,17 +96,18 @@ export function useAiResponse(
                 airResponse.tokenAddress
               );
               const balanceMessage: Message = {
-                content: balanceData?.result
-                  ? `The balance for this token is ${balanceData.result}`
-                  : "Sorry, I couldn't fetch the balance for this token address.",
+                content: "",
                 sender: "agent",
                 id: Date.now().toString(),
                 agentName: "zerepy",
                 intent: "checkBalance",
                 component: {
-                  type: "balance",
+                  type: "BalanceDisplay",
                   props: {
-                    data: balanceData?.result,
+                    balance: balanceData?.result || 0,
+                    tokenName: airResponse.sourceToken || "Token",
+                    walletAddress: airResponse.walletAddress,
+                    tokenAddress: airResponse.tokenAddress,
                   },
                 },
               };

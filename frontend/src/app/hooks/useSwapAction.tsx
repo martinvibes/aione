@@ -55,6 +55,39 @@ export async function swapTokenData(
 
     const data: SwapResponse = await response.json();
 
+    if (!data?.result) {
+      const failedMessage: Message = {
+        content: "",
+        sender: "agent",
+        id: Date.now().toString(),
+        agentName: "zerepy",
+        intent: "swap",
+        component: {
+          type: "SwapFailed",
+          props: {
+            fromToken: sourceToken,
+            toToken: destinationToken,
+            amount: amount.toString(),
+            error: "Insufficient liquidity or slippage tolerance exceeded.",
+            onRetry: () =>
+              swapTokenData(
+                sourceToken,
+                destinationToken,
+                amount,
+                chatId,
+                messages,
+                setMessages,
+                setMessagesInStorage,
+                saveTransaction
+              ),
+          },
+        },
+      };
+      setMessages([...messages, failedMessage]);
+      setMessagesInStorage([...messages, failedMessage]);
+      return null;
+    }
+
     const transaction: TransactionHistory = {
       id: Date.now().toString(),
       chatid: chatId,
@@ -71,13 +104,20 @@ export async function swapTokenData(
     saveTransaction(transaction);
 
     const swapMessage: Message = {
-      content: data?.result
-        ? `Swap successful! Transaction hash: ${data.result}`
-        : `Sorry, the swap couldn't be completed at this time.`,
+      content: "",
       sender: "agent",
       id: Date.now().toString(),
       agentName: "zerepy",
       intent: "swap",
+      component: {
+        type: "SwapSuccess",
+        props: {
+          txHash: data.result as string,
+          fromToken: sourceToken,
+          toToken: destinationToken,
+          amount: amount.toString(),
+        },
+      },
     };
     setMessages([...messages, swapMessage]);
     setMessagesInStorage([...messages, swapMessage]);
