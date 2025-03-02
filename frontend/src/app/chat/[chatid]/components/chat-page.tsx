@@ -9,6 +9,8 @@ import SwapFailed from "./SwapFailed";
 import BalanceDisplay from "./BalanceDisplay";
 import TransferSuccess from "./TransferSuccess";
 import TransferFailed from "./TransferFailed";
+import TokenTickerDisplay from "./TokenTickerDisplay";
+import TokenNotFound from "./TokenTickerNotFound";
 
 export const Chatpage = () => {
   const { messages, isLoading } = useContext(MessageContext);
@@ -68,6 +70,14 @@ export const Chatpage = () => {
 
                       {message.component.type === "TransferFailed" && (
                         <TransferFailed {...message.component.props} />
+                      )}
+
+                      {message.component.type === "TokenTickerDisplay" && (
+                        <TokenTickerDisplay {...message.component.props} />
+                      )}
+
+                      {message.component.type === "TokenNotFound" && (
+                        <TokenNotFound {...message.component.props} />
                       )}
                     </div>
                   )}
