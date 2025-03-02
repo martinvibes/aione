@@ -18,7 +18,7 @@ const BalanceDisplay: React.FC<BalanceDisplayProps> = ({
     `${address.slice(0, 6)}...${address.slice(-4)}`;
 
   return (
-    <div className="relative w-full max-w-md">
+    <div className="relative w-[350px]">
       <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 rounded-xl animate-gradient-x" />
       <div className="absolute inset-0 bg-[url('/noise.png')] opacity-20 mix-blend-overlay" />
 

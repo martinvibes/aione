@@ -129,17 +129,39 @@ export function useAiResponse(
                 const tokenTickerData = await getTokenTickerData(
                   airResponse.sourceToken
                 );
-                const tickerMessage: Message = {
-                  content: tokenTickerData?.result
-                    ? `Here's the token address for ${airResponse.sourceToken}: ${tokenTickerData.result}`
-                    : `Sorry, I couldn't find the ticker for ${airResponse.sourceToken}.`,
-                  sender: "agent",
-                  id: Date.now().toString(),
-                  intent: "getTokenTicker",
-                  tokenName: airResponse.sourceToken,
-                };
-                setMessagesInStorage([...messages, tickerMessage]);
-                setMessages((messages) => [...messages, tickerMessage]);
+
+                if (tokenTickerData?.result) {
+                  const tickerMessage: Message = {
+                    content: "",
+                    sender: "agent",
+                    id: Date.now().toString(),
+                    intent: "getTokenTicker",
+                    component: {
+                      type: "TokenTickerDisplay",
+                      props: {
+                        tokenName: airResponse.sourceToken.toUpperCase(),
+                        tokenAddress: tokenTickerData.result,
+                      },
+                    },
+                  };
+                  setMessagesInStorage([...messages, tickerMessage]);
+                  setMessages((messages) => [...messages, tickerMessage]);
+                } else {
+                  const notFoundMessage: Message = {
+                    content: "",
+                    sender: "agent",
+                    id: Date.now().toString(),
+                    intent: "getTokenTicker",
+                    component: {
+                      type: "TokenNotFound",
+                      props: {
+                        tokenName: airResponse.sourceToken,
+                      },
+                    },
+                  };
+                  setMessagesInStorage([...messages, notFoundMessage]);
+                  setMessages((messages) => [...messages, notFoundMessage]);
+                }
               } catch {
                 const errorMessage: Message = {
                   content: `Sorry, I encountered an error while fetching the ticker for ${airResponse.sourceToken}.`,
