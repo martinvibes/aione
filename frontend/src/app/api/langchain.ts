@@ -16,10 +16,11 @@ export async function responseFromChatOpenAi(question: string) {
   - If user mentions 'transfer', or "I want to swap"   - If user just says "swap" or "I want to swap" without details:
   * set intent: "transfer"
   * don't set any other fields
-  - If user provides transfer details like "transfer 1 sonic to 0x0123"
+  - If user provides transfer details like "transfer 1 sonic to 0x0123" or "transfer 1 sonic to name"
   * set intent: "transfer"
   * set recipientAddress: (to recipient address)
   * set amount: (the amount to transfer)
+  * set recipientName: (to recipient name)
   - If user provides addresses in format "transferto:ADDRESS amount:NUMBER":
     * set intent: "transfer"
     * set recipientAddress: (to address)
@@ -87,6 +88,7 @@ export async function responseFromChatOpenAi(question: string) {
     error: z.string().optional(),
     generalResponse: z.string().describe(generalResponseDesc),
     tokenaddresstorugcheck: z.string().optional(),
+    recipientName: z.string().optional(),
   });
 
   const llmStructured = llm.withStructuredOutput(IntentSchema);
@@ -98,7 +100,7 @@ export async function responseFromChatOpenAi(question: string) {
         content: question,
       },
     ]);
-    // console.log(response);
+    console.log(response);
 
     return response;
   } catch (error) {

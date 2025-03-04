@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useMemo } from "react";
 import { responseFromChatOpenAi } from "../api/langchain";
 import { Message } from "@/lib/types";
 import { MessageContext } from "../useContext/message-context";
@@ -11,6 +11,7 @@ import { rugcheck } from "@/lib/rugcheck";
 import { swapTokenData } from "./useSwapAction";
 import { transferTokenData } from "./useTransferAction";
 import { useTransactionHistory } from "./useTransactionHistory";
+import { data, getLocalSstorageAddress } from "@/lib/helper";
 
 export function useAiResponse(
   pendingMessage: string | null,
@@ -21,14 +22,19 @@ export function useAiResponse(
   const chatId = params.chatid as string;
   const { setMessagesInStorage } = useLocalStorage(chatId);
   const { saveTransaction } = useTransactionHistory();
-
+  const storageData: data = getLocalSstorageAddress();
+  const storeContact = useMemo(() => storageData, [storageData]);
   useEffect(() => {
     async function getAIResponse() {
       if (!pendingMessage) return;
       try {
         setIsLoading(true);
         const airResponse = await responseFromChatOpenAi(pendingMessage);
-        console.log(airResponse);
+        if (airResponse === undefined) {
+          throw new Error(
+            `Sorry, I encountered an error processing your request.`
+          );
+        }
 
         switch (airResponse?.intent) {
           case "swap":
@@ -186,7 +192,6 @@ export function useAiResponse(
             setIsLoading(false);
             break;
           case "prediction":
-            console.log(airResponse);
             await pricePridictionHandle(
               airResponse.pridictTokenName ?? "",
               airResponse.generalResponse,
@@ -197,7 +202,6 @@ export function useAiResponse(
             setIsLoading(false);
             break;
           case "rugcheck":
-            console.log("the ai response is", airResponse);
             await rugcheck(
               airResponse.tokenAddress ?? "",
               chatId,
@@ -208,16 +212,67 @@ export function useAiResponse(
             setIsLoading(false);
             break;
           case "transfer":
-            transferTokenData(
-              airResponse.recipientAddress,
-              airResponse.amount,
-              chatId,
-              messages,
-              setMessages,
-              setMessagesInStorage,
-              saveTransaction
-            );
-            setIsLoading(false);
+            if (airResponse.recipientName !== "") {
+              const user = storeContact.filter((data) =>
+                data.name
+                  .toLocaleLowerCase()
+                  .includes(
+                    airResponse?.recipientName?.toLocaleLowerCase() ?? ""
+                  )
+              );
+              if (user.length > 1) {
+                const promptMessage: Message = {
+                  content: `multiply names with '${airResponse.recipientName}'
+                    in your contact list, Please use the full name when referring to contacts, e.g., 'john Doe' instead of variations like John.`,
+                  sender: "agent",
+                  id: Date.now().toString(),
+                  intent: "transfer",
+                };
+                setMessagesInStorage([...messages, promptMessage]);
+                setMessages((messages) => [...messages, promptMessage]);
+                setIsLoading(false);
+                break;
+              }
+              if (user.length === 0) {
+                const promptMessage: Message = {
+                  content: `Sorry, ${airResponse.recipientName} does not exist in your contact list. Please check and try again using the correct full name. or
+                  To perform transfer, please provide:
+                  1. recipientAddress address (the token you want to transfer to)
+                  2. Amount to transfer
+    
+                  Format: transferto:DESTINATION_ADDRESS amount:AMOUN`,
+                  sender: "agent",
+                  id: Date.now().toString(),
+                  intent: "transfer",
+                };
+                setMessagesInStorage([...messages, promptMessage]);
+                setMessages((messages) => [...messages, promptMessage]);
+                setIsLoading(false);
+                break;
+              } else {
+                await transferTokenData(
+                  user[0].address,
+                  airResponse.amount,
+                  chatId,
+                  messages,
+                  setMessages,
+                  setMessagesInStorage,
+                  saveTransaction
+                );
+                setIsLoading(false);
+              }
+            } else {
+              await transferTokenData(
+                airResponse.recipientAddress,
+                airResponse.amount,
+                chatId,
+                messages,
+                setMessages,
+                setMessagesInStorage,
+                saveTransaction
+              );
+              setIsLoading(false);
+            }
             break;
           case "unknown":
             const aiUnKnownMessage: Message = {
@@ -242,9 +297,8 @@ export function useAiResponse(
             setIsLoading(false);
         }
       } catch (err) {
-        console.error(err);
         const errorMessage: Message = {
-          content: "Sorry, I encountered an error processing your request.",
+          content: (err as Error)?.message,
           sender: "agent",
           id: Date.now().toString(),
           intent: "unknown",
