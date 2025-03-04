@@ -31,3 +31,19 @@ export function getLocalSstorageAddress() {
 export function setLocalStorageAddress(data: data) {
   localStorage.setItem("contact", JSON.stringify(data));
 }
+
+
+
+export function getLocalStorageTokens() {
+  const storgedata = localStorage.getItem("tokens");
+  if (storgedata !== null) {
+    const fetchData = JSON.parse(storgedata ?? "");
+    return fetchData;
+  } else {
+    return [];
+  }
+}
+
+export function setLocalStorageTokens(data: data) {
+  localStorage.setItem("tokens", JSON.stringify(data));
+}

@@ -1,11 +1,7 @@
 "use client";
 import ActiveAgentIcon from "@/app/svg/active-agent";
 import CommunityIcon from "@/app/svg/community-icon";
-import {
-  AlignJustify,
-  ChevronRight,
-  Settings,
-} from "lucide-react";
+import { AlignJustify, ChevronRight, Coins, Settings } from "lucide-react";
 import Image from "next/image";
 import logo from "../../../../../public/side-bar-logo.svg";
 import { ChatContext } from "@/app/useContext/chatContex";
@@ -14,6 +10,7 @@ import ClipBoard from "@/app/svg/clip-board";
 import ContactIcon from "@/app/svg/contact-icon";
 import ContactList from "./contact-list/contact-list";
 import ChatHistory from "./chat-history";
+import TokenList from "./token-list/token-list";
 
 export default function SideNavBar() {
   const {
@@ -24,6 +21,8 @@ export default function SideNavBar() {
     setIsChatHistoryOpen,
     isContactOpen,
     setIsContactOpen,
+    setIsTokenListOpen,
+    isTokenListOpen,
   } = useContext(ChatContext);
 
   function handleSideBar() {
@@ -38,6 +37,10 @@ export default function SideNavBar() {
     setIsChatHistoryOpen(false);
   }
 
+  function tokenListHandle() {
+    setIsTokenListOpen((prev) => !prev);
+    setIsChatHistoryOpen(false);
+  }
   return (
     <>
       <nav
@@ -104,6 +107,22 @@ export default function SideNavBar() {
               </span>
             </div>
           </button>
+
+          <button
+            className={`${
+              chatType === "analysis"
+                ? "bg-aqwaGreen border-[#F8F8F8]"
+                : " bg-darkishBlue"
+            } bg-darkishBlue border border-transparent p-4  flex justify-between items-center w-full rounded-[8px] transition-all duration-500 hover:bg-aqwaGreen mx-auto`}
+            type="button"
+            onClick={tokenListHandle}
+          >
+            <div className="flex items-center gap-3">
+              <Coins />
+              <span className={isSideBarOpen ? "hidden" : "block"}>Tokens</span>
+            </div>
+          </button>
+
           <button
             className={`${
               chatType === "active-agent"
@@ -145,6 +164,7 @@ export default function SideNavBar() {
         </button>
       </nav>
       {isContactOpen && <ContactList close={contactListHandle} />}
+      {isTokenListOpen && <TokenList close={tokenListHandle} />}
       <ChatHistory />
     </>
   );

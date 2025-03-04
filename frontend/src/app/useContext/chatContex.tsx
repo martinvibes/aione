@@ -9,11 +9,13 @@ export const ChatContext = createContext<{
   isHistoryOpen: boolean;
   isChatHistoryOpen: boolean;
   isContactOpen: boolean;
+  isTokenListOpen: boolean;
   setIsChatHistoryOpen: Dispatch<SetStateAction<boolean>>;
   setIsHistoryOpen: Dispatch<SetStateAction<boolean>>;
   setIsSideBarOpen: Dispatch<SetStateAction<boolean>>;
   setChatType: Dispatch<SetStateAction<string>>;
   setIsContactOpen: Dispatch<SetStateAction<boolean>>;
+  setIsTokenListOpen: Dispatch<SetStateAction<boolean>>;
 }>({
   input: "",
   isSideBarOpen: false,
@@ -21,12 +23,15 @@ export const ChatContext = createContext<{
   chatType: "",
   isHistoryOpen: false,
   isChatHistoryOpen: false,
+  isTokenListOpen: false,
   setIsChatHistoryOpen: () => {},
   setIsContactOpen: () => {},
   setIsHistoryOpen: () => {},
   setInput: () => {},
   setIsSideBarOpen: () => {},
   setChatType: () => {},
+  setIsTokenListOpen: () => {},
+
 });
 
 const ChatContextProvider = ({
@@ -46,6 +51,8 @@ const ChatContextProvider = ({
   const [isChatHistoryOpen, setIsChatHistoryOpen] = useState(false);
   // user contact visibility state
   const [isContactOpen, setIsContactOpen] = useState(false);
+  // token list visibility state
+  const [isTokenListOpen, setIsTokenListOpen] = useState(false);
 
   return (
     <ChatContext.Provider
@@ -61,7 +68,9 @@ const ChatContextProvider = ({
         isChatHistoryOpen,
         setIsChatHistoryOpen,
         isContactOpen,
-        setIsContactOpen
+        setIsContactOpen,
+        isTokenListOpen,
+        setIsTokenListOpen
       }}
     >
       {children}

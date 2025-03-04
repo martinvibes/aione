@@ -1,36 +1,42 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState } from "react"
-import { type data, getLocalSstorageAddress, setLocalStorageAddress } from "@/lib/helper"
-import { X, UserPlus } from "lucide-react"
-import toast from "react-hot-toast"
-import { motion, AnimatePresence } from "framer-motion"
+import type React from "react";
+import { useState } from "react";
+import {
+  type data,
+  getLocalStorageTokens,
+  setLocalStorageTokens,
+} from "@/lib/helper";
+import { X, Plus } from "lucide-react";
+import toast from "react-hot-toast";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface CloseProps {
-  close: () => void
+  close: () => void;
 }
 
-function AddContact({ close }: CloseProps) {
-  const [name, setName] = useState("")
-  const [address, setAddress] = useState("")
+function AddToken({ close }: CloseProps) {
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
 
   function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    const data: data = getLocalSstorageAddress()
+    e.preventDefault();
+    const data: data = getLocalStorageTokens();
 
-    const filter = data.filter((item) => item.name === name || item.address === address)
+    const filter = data.filter(
+      (item) => item.name === name || item.address === address
+    );
 
     if (filter.length > 0) {
-      toast.error("Contact already exists")
-      return
+      toast.error("Token already exists");
+      return;
     }
 
     if (name && address) {
-      const updateData: data = [...data, { name, address }]
-      setLocalStorageAddress(updateData)
-      toast.success("Contact added successfully!")
-      close()
+      const updateData: data = [...data, { name, address }];
+      setLocalStorageTokens(updateData);
+      toast.success("Token added successfully!");
+      close();
     }
   }
 
@@ -52,16 +58,23 @@ function AddContact({ close }: CloseProps) {
           onSubmit={handleSubmit}
         >
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-bold text-white">Add New Contact</h2>
-            <button type="button" onClick={close} className="text-gray-400 hover:text-white transition-colors">
+            <h2 className="text-xl font-bold text-white">Add New Token</h2>
+            <button
+              type="button"
+              onClick={close}
+              className="text-gray-400 hover:text-white transition-colors"
+            >
               <X className="h-6 w-6" />
             </button>
           </div>
 
           <div className="space-y-4">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-400 mb-1">
-                Contact Name
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-400 mb-1"
+              >
+                Token Name
               </label>
               <input
                 required
@@ -70,13 +83,16 @@ function AddContact({ close }: CloseProps) {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="w-full px-3 py-2 bg-[#1C2136] border border-[#3D435C] rounded-md text-white focus:outline-none focus:ring-2 focus:ring-aqwaGreen focus:border-transparent"
-                placeholder="Enter contact name"
+                placeholder="Enter token name"
               />
             </div>
 
             <div>
-              <label htmlFor="address" className="block text-sm font-medium text-gray-400 mb-1">
-                Contact Address
+              <label
+                htmlFor="address"
+                className="block text-sm font-medium text-gray-400 mb-1"
+              >
+                Token Address
               </label>
               <input
                 required
@@ -85,7 +101,7 @@ function AddContact({ close }: CloseProps) {
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 className="w-full px-3 py-2 bg-[#1C2136] border border-[#3D435C] rounded-md text-white focus:outline-none focus:ring-2 focus:ring-aqwaGreen focus:border-transparent"
-                placeholder="Enter contact address"
+                placeholder="Enter token address"
               />
             </div>
           </div>
@@ -94,14 +110,13 @@ function AddContact({ close }: CloseProps) {
             type="submit"
             className="mt-6 w-full bg-aqwaGreen hover:bg-aqwaGreen/90 text-darkishBlue rounded-md py-2 px-4 text-base font-semibold capitalize flex items-center justify-center transition-colors"
           >
-            <UserPlus className="h-5 w-5 mr-2" />
-            Add Contact
+            <Plus className="h-5 w-5 mr-2" />
+            Add Token
           </button>
         </motion.form>
       </motion.div>
     </AnimatePresence>
-  )
+  );
 }
 
-export default AddContact
-
+export default AddToken;

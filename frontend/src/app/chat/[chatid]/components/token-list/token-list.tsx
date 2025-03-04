@@ -1,35 +1,35 @@
 "use client";
 import { useContext, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import AddContact from "./add-contact-form";
-import { type data, getLocalSstorageAddress } from "@/lib/helper";
+import AddToken from "./add-token-form";
+import { type data, getLocalStorageTokens } from "@/lib/helper";
 import { ChatContext } from "@/app/useContext/chatContex";
-import { X, User, Copy, Plus } from "lucide-react";
+import { X, ExternalLink, Copy, Plus } from "lucide-react";
 
 interface CloseProps {
   close: () => void;
 }
 
-function ContactList({ close }: CloseProps) {
-  const { setIsContactOpen } = useContext(ChatContext);
-  const [contact, setContact] = useState<data>([]);
+function TokenList({ close }: CloseProps) {
+  const { setIsTokenListOpen } = useContext(ChatContext);
+  const [token, setToken] = useState<data>([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
-  const storageData: data = getLocalSstorageAddress();
-  const storeContact = useMemo(() => storageData, [storageData]);
+  const storageData: data = getLocalStorageTokens();
+  const storeToken = useMemo(() => storageData, [storageData]);
 
   function formModalHandler() {
     setIsFormOpen((data) => !data);
     if (isFormOpen) {
-      setIsContactOpen(false);
+      setIsTokenListOpen(false);
     }
   }
 
   useEffect(() => {
-    if (storeContact.length > contact.length) {
-      setContact(storeContact);
+    if (storeToken.length > token.length) {
+      setToken(storeToken);
     }
-  }, [storeContact, contact]);
+  }, [storeToken, token]);
 
   const copyToClipboard = (text: string, index: number) => {
     navigator.clipboard.writeText(text);
@@ -39,7 +39,7 @@ function ContactList({ close }: CloseProps) {
 
   return (
     <>
-      {isFormOpen && <AddContact close={formModalHandler} />}
+      {isFormOpen && <AddToken close={formModalHandler} />}
       <AnimatePresence>
         <motion.section
           className="bg-darkishBlue min-h-[80%] max-h-[90%] w-[350px] p-6 scrollbar-hide overflow-y-auto fixed left-24 z-[998] top-3 rounded-lg shadow-lg"
@@ -49,7 +49,7 @@ function ContactList({ close }: CloseProps) {
           transition={{ ease: "easeInOut" }}
         >
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-xl font-bold text-white">Contact Addresses</h1>
+            <h1 className="text-xl font-bold text-white">Token Addresses</h1>
             <button
               onClick={close}
               className="text-gray-400 hover:text-white transition-colors"
@@ -58,16 +58,21 @@ function ContactList({ close }: CloseProps) {
             </button>
           </div>
           <div className="space-y-4">
-            {contact.map((data, index) => (
+            {token.map((data, index) => (
               <div
                 key={index}
                 className="bg-[#1C2136] p-4 rounded-lg hover:bg-[#252B48] transition-colors"
               >
                 <div className="flex justify-between items-center mb-2">
-                  <div className="flex items-center text-aqwaGreen">
-                    <User className="h-4 w-4 mr-2" />
-                    <span className="font-semibold">{data.name}</span>
-                  </div>
+                  <a
+                    href={`https://etherscan.io/token/${data.address}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-aqwaGreen hover:text-aqwaGreen/80 font-semibold flex items-center"
+                  >
+                    {data.name}
+                    <ExternalLink className="h-4 w-4 ml-1" />
+                  </a>
                   <button
                     onClick={() => copyToClipboard(data.address, index)}
                     className="text-gray-400 hover:text-white transition-colors"
@@ -90,7 +95,7 @@ function ContactList({ close }: CloseProps) {
             onClick={formModalHandler}
           >
             <Plus className="h-5 w-5 mr-2" />
-            Add New Contact
+            Add New Address
           </button>
         </motion.section>
       </AnimatePresence>
@@ -98,4 +103,4 @@ function ContactList({ close }: CloseProps) {
   );
 }
 
-export default ContactList;
+export default TokenList;
