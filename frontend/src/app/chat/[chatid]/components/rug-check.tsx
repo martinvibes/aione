@@ -102,7 +102,6 @@ export default function RugCheckComponent({ data, mint }: RugCheckProps) {
         borderImageSource: "linear-gradient(to right, #2463EB, #7C3AED)",
       }}
     >
-
       <div
         className="p-4 flex items-center justify-between border-b-2 border-blue-600"
         style={{
