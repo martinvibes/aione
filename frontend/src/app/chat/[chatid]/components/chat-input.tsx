@@ -81,36 +81,24 @@ export default function ChatInput() {
         } w-full max-w-7xl rounded-[8px] flex flex-col gap-[32px]  relative  z-[555]`}
       >
         {!messages.length && (
-          <div className="flex justify-center items-center gap-[10px]">
+          <div className="flex justify-center items-center gap-[10px] capitalize">
             <button
-              onClick={() =>
-                aiSuggestionMessageHandle("Show my wallet balance")
-              }
+              onClick={() => aiSuggestionMessageHandle("what can you do")}
               className="bg-[#1C2535] p-2 rounded-[8px]"
             >
-              Show my wallet balance
+              what can you do
             </button>
             <button
-              onClick={() => aiSuggestionMessageHandle("Swap 1 ETH for USDT")}
+              onClick={() => aiSuggestionMessageHandle("Show my s balance")}
               className="bg-[#1C2535] p-2 rounded-[8px]"
             >
-              Swap 1 ETH for USDT
+              show my s balance
             </button>
             <button
-              onClick={() =>
-                aiSuggestionMessageHandle("List my recent transactions.")
-              }
+              onClick={() => aiSuggestionMessageHandle("Ticker for anon")}
               className="bg-[#1C2535] p-2 rounded-[8px]"
             >
-              List my recent transactions.
-            </button>
-            <button
-              onClick={() =>
-                aiSuggestionMessageHandle("What's the gas fee right now?")
-              }
-              className="bg-[#1C2535] p-2 rounded-[8px]"
-            >
-              What &apos; s the gas fee right now?
+              Ticker for anon
             </button>
           </div>
         )}

@@ -3,7 +3,7 @@ import ActiveAgentIcon from "@/app/svg/active-agent";
 import CommunityIcon from "@/app/svg/community-icon";
 import { AlignJustify, ChevronRight, Coins, Settings } from "lucide-react";
 import Image from "next/image";
-import logo from "../../../../../public/side-bar-logo.svg";
+import logo from "../../../../../public/AIONE__6_-removebg-preview.png";
 import { ChatContext } from "@/app/useContext/chatContex";
 import { useContext } from "react";
 import ClipBoard from "@/app/svg/clip-board";
@@ -49,13 +49,15 @@ export default function SideNavBar() {
         } min-h-full bg-sideNavBg px-4 py-6 flex flex-col gap-8 transition-all duration-500 relative z-[555]`}
       >
         <button
-          className="bg-darkishBlue p-4 flex justify-between items-center w-full rounded-[8px] mx-auto"
+          className="bg-darkishBlue p-4 flex justify-between items-center w-full rounded-[8px] mx-auto h-16"
           type="button"
         >
           <Image
             className={`${
               isSideBarOpen ? "hidden" : "block"
             } transition-all duration-500`}
+            width={80}
+            height={80}
             src={logo}
             alt="aione"
             priority

@@ -180,8 +180,8 @@ export default function Home() {
           </motion.p>
 
           <div className="flex justify-center space-x-4">
-            {["Launch App", "Connect Wallet"].map((buttonText, index) => (
-              <Link href={index == 0 ? "/chat/12213" : "/"} key={buttonText}>
+            {["Launch App"].map((buttonText, index) => (
+              <Link href={index == 0 ? `/chat/${Date.now().toString()}` : "/"} key={buttonText}>
                 <motion.button
                   key={buttonText}
                   initial={{ opacity: 0, scale: 0.8 }}
@@ -434,18 +434,20 @@ export default function Home() {
               Unlock the power of AI-driven DeFi actions
             </motion.p>
             <div className="flex justify-center space-x-4">
-              <motion.button
-                whileHover={{
-                  scale: 1.05,
-                  boxShadow: "0 0 20px rgba(255,255,255,0.3)",
-                }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-white text-black font-bold py-3 px-6 rounded-lg flex items-center gap-2"
-              >
-                Launch App
-                <ChevronRight className="w-5 h-5" />
-              </motion.button>
-              <motion.button
+              <Link href={`/chat/${Date.now().toString()}`}>
+                <motion.button
+                  whileHover={{
+                    scale: 1.05,
+                    boxShadow: "0 0 20px rgba(255,255,255,0.3)",
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-white text-black font-bold py-3 px-6 rounded-lg flex items-center gap-2"
+                >
+                  Launch App
+                  <ChevronRight className="w-5 h-5" />
+                </motion.button>
+              </Link>
+              {/* <motion.button
                 whileHover={{
                   scale: 1.05,
                   boxShadow: "0 0 20px rgba(255,255,255,0.2)",
@@ -455,7 +457,7 @@ export default function Home() {
               >
                 Connect Wallet
                 <ChevronRight className="w-5 h-5" />
-              </motion.button>
+              </motion.button> */}
             </div>
           </div>
         </motion.div>
