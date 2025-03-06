@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import aiLogo from "../../../public/AI ONE ash 001@3x.png";
+import aiLogo from "../../../public/AIONE__6_-removebg-preview.png";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 function ConnectBtn() {
@@ -22,10 +22,10 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className="flex justify-between items-center text-white backdrop-blur-[100px] bg-[#bbdaf31c] rounded-lg px-6 py-6 w-[95%] mx-auto">
+    <div className="flex justify-between items-center mt-6 h-10 text-white backdrop-blur-[100px] bg-transparent rounded-lg px-6 w-[95%] mx-auto">
       {/* <h1 className="text-[#5CE1E6] italic text-xl">AiOne</h1> */}
-      <Image src={aiLogo} alt="AiOne Logo" width={80} height={80} />
-      <div className="flex justify-center text-base items-center space-x-6">
+      <Image src={aiLogo} alt="AiOne Logo" width={150} height={150} />
+      <div className="justify-center text-base items-center space-x-6 hidden">
         <p className=" cursor-pointer hover:text-[#5ce1e6] transition-all">
           Community
         </p>
@@ -33,7 +33,7 @@ const Navbar = () => {
           Data
         </p>
       </div>
-      <button className=" rounded-lg text-base">
+      <button className=" rounded-lg text-base hidden">
         {isLoading ? <ConnectBtn /> : <ConnectButton />}
       </button>
     </div>
