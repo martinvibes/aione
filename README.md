@@ -31,10 +31,6 @@ Let me help refine that section to be clearer and more professional while mainta
 * Access AI One through: https://hackmd.io/Cuk3SbQFT0S5AisVIUC8XA
 
 ### Setup
-> NB: We are developing a native in-app wallet for AI One, eliminating the need for external wallet connections. This integrated wallet will allow users to deposit EVM-based assets directly within the application, creating a seamless experience for executing DeFi operations.
-This infrastructure supports our upcoming automated trading feature, enabling conditional transaction execution without user intervention. For example, users can create rules like "When SONIC reaches $1, automatically swap 10 SONIC to USDC." This automation ensures users can secure profits or execute strategies even when they're not actively monitoring the market.
-The integrated wallet maintains complete security while handling transaction execution based on user-defined parameters, combining the convenience of centralized platforms with the security and flexibility of decentralized finance.
-
 > Currently we are using one fixed wallet for this transaction for the submission of the Sonic DefAi Hackathon
 
 Send Sonic Mainnet tokens to the address specified in the app for you to perorm defi action
