@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import aiLogo from "../../../public/AIONE__6_-removebg-preview.png";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
-function ConnectBtn() {
+export function ConnectBtn() {
   return (
     <div className=" rounded-lg text-base bg-[#5ce1e6] px-4 py-2">
       {" "}

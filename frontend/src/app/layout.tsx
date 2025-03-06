@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Merriweather, Space_Mono } from "next/font/google";
 import "./globals.css";
 import ChatContextProvider from "./useContext/chatContex";
 import { MessageProvider } from "./useContext/message-context";
@@ -11,6 +11,18 @@ import { Toaster } from "react-hot-toast";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+});
+
+const merriWeather = Merriweather({
+  variable: "--font-merri-weather",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
+
+const space_Mono = Space_Mono({
+  variable: "--font-space-mono",
+  subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -25,7 +37,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased bg-[#0A0F1E]`}>
+      <body
+        className={`${inter.variable} ${merriWeather.variable} ${space_Mono.variable} antialiased bg-[#0A0F1E]`}
+      >
         <Toaster
           position="bottom-right"
           reverseOrder={false}
