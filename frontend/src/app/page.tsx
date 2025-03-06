@@ -17,7 +17,7 @@ import Image from "next/image";
 
 import demoChatScreen from "../../public/chat-screen.jpg";
 import coinGecoBg from "../../public/coingeco.png";
-import debridgeBg from "../../public/debridge.png";
+import zerepy from "../../public/zerepy.png";
 import alloraBg from "../../public/allora.svg";
 import Link from "next/link";
 
@@ -161,7 +161,7 @@ export default function Home() {
             }}
             className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-blue-600 bg-clip-text text-transparent leading-tight"
           >
-            Swap, Bridge & Automate with AI
+            Swap, Defi & Automate with AI
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -175,8 +175,8 @@ export default function Home() {
             }}
             className="text-xl text-gray-300 max-w-2xl mx-auto mb-8"
           >
-            Bridge and swap seamlessly across chains, and automate DeFi actions
-            — all powered by AI.
+            Automate and swap seamlessly across chains, and automate DeFi
+            actions — all powered by AI.
           </motion.p>
 
           <div className="flex justify-center space-x-4">
@@ -269,7 +269,7 @@ export default function Home() {
           <div className="flex justify-center items-center gap-10">
             {[
               { logo: alloraBg, name: "ALLORA NETWORK" },
-              { logo: debridgeBg, name: "DEBRIDGE" },
+              { logo: zerepy, name: "Zerepy" },
               { logo: coinGecoBg, name: "COINGECKO" },
             ].map((partner, index) => (
               <motion.div
