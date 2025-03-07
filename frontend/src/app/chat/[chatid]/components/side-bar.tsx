@@ -11,6 +11,7 @@ import ContactIcon from "@/app/svg/contact-icon";
 import ContactList from "./contact-list/contact-list";
 import ChatHistory from "./chat-history";
 import TokenList from "./token-list/token-list";
+import WalletUi from "@/app/components/wallet-popup";
 
 export default function SideNavBar() {
   const {
@@ -21,6 +22,8 @@ export default function SideNavBar() {
     setIsChatHistoryOpen,
     isContactOpen,
     setIsContactOpen,
+    isWalletUiOpen,
+    setIsWalletUiOpen,
     setIsTokenListOpen,
     isTokenListOpen,
   } = useContext(ChatContext);
@@ -34,6 +37,11 @@ export default function SideNavBar() {
 
   function contactListHandle() {
     setIsContactOpen((prev) => !prev);
+    setIsChatHistoryOpen(false);
+  }
+
+  function walletUiHandle() {
+    setIsWalletUiOpen((prev) => !prev);
     setIsChatHistoryOpen(false);
   }
 
@@ -80,6 +88,7 @@ export default function SideNavBar() {
                 className={`${
                   isSideBarOpen ? "hidden" : "flex"
                 }  flex-col items-start transition-all duration-700`}
+                onClick={walletUiHandle}
               >
                 <span>Account 1</span>
                 <span className="flex">
@@ -166,6 +175,7 @@ export default function SideNavBar() {
         </button>
       </nav>
       {isContactOpen && <ContactList close={contactListHandle} />}
+      {isWalletUiOpen && <WalletUi close={walletUiHandle} />}
       {isTokenListOpen && <TokenList close={tokenListHandle} />}
       <ChatHistory />
     </>

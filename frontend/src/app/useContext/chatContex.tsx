@@ -9,29 +9,32 @@ export const ChatContext = createContext<{
   isHistoryOpen: boolean;
   isChatHistoryOpen: boolean;
   isContactOpen: boolean;
+  isWalletUiOpen: boolean;
   isTokenListOpen: boolean;
   setIsChatHistoryOpen: Dispatch<SetStateAction<boolean>>;
   setIsHistoryOpen: Dispatch<SetStateAction<boolean>>;
   setIsSideBarOpen: Dispatch<SetStateAction<boolean>>;
   setChatType: Dispatch<SetStateAction<string>>;
   setIsContactOpen: Dispatch<SetStateAction<boolean>>;
+  setIsWalletUiOpen: Dispatch<SetStateAction<boolean>>;
   setIsTokenListOpen: Dispatch<SetStateAction<boolean>>;
 }>({
   input: "",
   isSideBarOpen: false,
   isContactOpen: false,
+  isWalletUiOpen: false,
   chatType: "",
   isHistoryOpen: false,
   isChatHistoryOpen: false,
   isTokenListOpen: false,
   setIsChatHistoryOpen: () => {},
   setIsContactOpen: () => {},
+  setIsWalletUiOpen: () => {},
   setIsHistoryOpen: () => {},
   setInput: () => {},
   setIsSideBarOpen: () => {},
   setChatType: () => {},
   setIsTokenListOpen: () => {},
-
 });
 
 const ChatContextProvider = ({
@@ -53,6 +56,8 @@ const ChatContextProvider = ({
   const [isContactOpen, setIsContactOpen] = useState(false);
   // token list visibility state
   const [isTokenListOpen, setIsTokenListOpen] = useState(false);
+  // wallet ui visibility state
+  const [isWalletUiOpen, setIsWalletUiOpen] = useState(false);
 
   return (
     <ChatContext.Provider
@@ -68,9 +73,11 @@ const ChatContextProvider = ({
         isChatHistoryOpen,
         setIsChatHistoryOpen,
         isContactOpen,
+        isWalletUiOpen,
         setIsContactOpen,
+        setIsWalletUiOpen,
         isTokenListOpen,
-        setIsTokenListOpen
+        setIsTokenListOpen,
       }}
     >
       {children}
