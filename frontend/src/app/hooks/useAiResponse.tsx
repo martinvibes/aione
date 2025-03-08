@@ -11,7 +11,7 @@ import { rugcheck } from "@/lib/rugcheck";
 import { swapTokenData } from "./useSwapAction";
 import { transferTokenData } from "./useTransferAction";
 import { useTransactionHistory } from "./useTransactionHistory";
-import { data, getLocalSstorageAddress } from "@/lib/helper";
+import { data, getLocalSstorageAddress, getLocalStorageTokens } from "@/lib/helper";
 
 export function useAiResponse(
   pendingMessage: string | null,
@@ -38,16 +38,31 @@ export function useAiResponse(
 
         switch (airResponse?.intent) {
           case "swap":
-            await swapTokenData(
-              airResponse.sourceToken,
-              airResponse.destinationToken,
-              airResponse.amount,
-              chatId,
-              messages,
-              setMessages,
-              setMessagesInStorage,
-              saveTransaction
+            const tokenLocalStorage:data = getLocalStorageTokens(); 
+            const destinationTokenData = tokenLocalStorage.find(
+              (token) =>
+                token.name === airResponse.destinationToken ||
+                token.address === airResponse.destinationToken
             );
+             const sourceTokenData = tokenLocalStorage.find(
+               (token) =>
+                 token.address === airResponse.sourceToken ||
+                 token.name === airResponse.sourceToken
+             );
+
+             const swapFrom = sourceTokenData?.address || airResponse.sourceToken
+             const swapTo = destinationTokenData?.address || airResponse.destinationToken
+            
+              await swapTokenData(
+                swapFrom,
+                swapTo,
+                airResponse.amount,
+                chatId,
+                messages,
+                setMessages,
+                setMessagesInStorage,
+                saveTransaction
+              );
             setIsLoading(false);
             break;
           case "checkBalance":

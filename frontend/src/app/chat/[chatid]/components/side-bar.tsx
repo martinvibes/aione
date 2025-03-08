@@ -38,15 +38,23 @@ export default function SideNavBar() {
   function contactListHandle() {
     setIsContactOpen((prev) => !prev);
     setIsChatHistoryOpen(false);
+    setIsWalletUiOpen(false);
+    setIsChatHistoryOpen(false);
+    setIsTokenListOpen(false);
   }
 
   function walletUiHandle() {
     setIsWalletUiOpen((prev) => !prev);
     setIsChatHistoryOpen(false);
+    setIsContactOpen(false);
+    setIsChatHistoryOpen(false);
+     setIsTokenListOpen(false);
   }
 
   function tokenListHandle() {
     setIsTokenListOpen((prev) => !prev);
+    setIsWalletUiOpen(false);
+    setIsContactOpen(false);
     setIsChatHistoryOpen(false);
   }
   return (
@@ -141,7 +149,12 @@ export default function SideNavBar() {
                 : " bg-darkishBlue"
             } bg-darkishBlue p-4 flex border border-transparent justify-between items-center w-full rounded-[8px] transition-all duration-500 hover:bg-aqwaGreen mx-auto`}
             type="button"
-            onClick={() => setIsChatHistoryOpen((state) => !state)}
+            onClick={() => {
+              setIsChatHistoryOpen((state) => !state);
+                  setIsTokenListOpen(false);
+                  setIsWalletUiOpen(false);
+                  setIsContactOpen(false);
+            }}
           >
             <div className="flex items-center gap-3">
               <ActiveAgentIcon />
