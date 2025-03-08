@@ -6,12 +6,12 @@ import Image from "next/image";
 import logo from "../../../../../public/AIONE__6_-removebg-preview.png";
 import { ChatContext } from "@/app/useContext/chatContex";
 import { useContext } from "react";
-import ClipBoard from "@/app/svg/clip-board";
 import ContactIcon from "@/app/svg/contact-icon";
 import ContactList from "./contact-list/contact-list";
 import ChatHistory from "./chat-history";
 import TokenList from "./token-list/token-list";
 import WalletUi from "@/app/components/wallet-popup";
+import { formatAddress } from "@/app/components/wallet-popup";
 
 export default function SideNavBar() {
   const {
@@ -100,7 +100,7 @@ export default function SideNavBar() {
               >
                 <span>Account 1</span>
                 <span className="flex">
-                  0x593e0...874d0 <ClipBoard />{" "}
+                  {formatAddress("0x11CaeF1EF6FAd2A9e8987051Ca5bfC869F11dE7A")}
                 </span>
               </span>
             </div>
@@ -151,9 +151,9 @@ export default function SideNavBar() {
             type="button"
             onClick={() => {
               setIsChatHistoryOpen((state) => !state);
-                  setIsTokenListOpen(false);
-                  setIsWalletUiOpen(false);
-                  setIsContactOpen(false);
+              setIsTokenListOpen(false);
+              setIsWalletUiOpen(false);
+              setIsContactOpen(false);
             }}
           >
             <div className="flex items-center gap-3">

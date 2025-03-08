@@ -1,15 +1,59 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
 
-import { Settings, Wallet, Clipboard, CircleHelp } from "lucide-react";
+import { X, Wallet, Clipboard, CircleHelp } from "lucide-react";
+import { useEffect, useState } from "react";
 interface CloseProps {
   close: () => void;
 }
 
+interface GetData {
+  status: string;
+  result: number | string | null;
+}
+
+ export const formatAddress = (address: string) =>
+   `${address.slice(0, 6)}...${address.slice(-4)}`;
+
 const WalletUi = ({ close }: CloseProps) => {
+  const [getBalance, setGetBalance] = useState<GetData | null>(null);
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
   };
+
+  const handleGetBalanceAction = async () => {
+    try {
+      const response = await fetch("/api/agent-action", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          connection: "sonic",
+          action: "get-balance",
+          params: ["0x11CaeF1EF6FAd2A9e8987051Ca5bfC869F11dE7A"],
+        }),
+      });
+
+      if (!response) return;
+
+      const data = await response.json();
+      setGetBalance(data);
+      console.log(data);
+    } catch (err) {
+      if (err instanceof Error) {
+        console.log(err.message);
+      } else {
+        console.log("An unknown error occurred");
+      }
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    handleGetBalanceAction()
+  })
 
   return (
     <>
@@ -27,7 +71,7 @@ const WalletUi = ({ close }: CloseProps) => {
               onClick={close}
               className="text-gray-400 hover:text-white transition-colors"
             >
-              <Settings className="h-6 w-6" />
+              <X className="h-6 w-6" />
             </button>
           </div>
           <div className="bg-black w-full h-fit p-4 rounded-[18px] text-[12px] my-4 font-light">
@@ -40,18 +84,18 @@ const WalletUi = ({ close }: CloseProps) => {
               <div className="flex flex-col">
                 <h1 className="font-bold text-lg ">Account 1</h1>
                 <p className="flex text-sm font-light">
-                  0x123...234{" "}
+                  {formatAddress("0x11CaeF1EF6FAd2A9e8987051Ca5bfC869F11dE7A")}{" "}
                   <Clipboard
                     onClick={() =>
                       copyToClipboard(
                         "0x11CaeF1EF6FAd2A9e8987051Ca5bfC869F11dE7A"
                       )
                     }
-                    className="w-4 h-4 text-white"
+                    className="w-4 h-4 text-white cursor-pointer"
                   />
                 </p>
               </div>
-              <p>$2500</p>
+              <p>{Number(getBalance?.result).toFixed(4) || "0"}S</p>
               <CircleHelp />
             </div>
             <br />
@@ -68,7 +112,7 @@ const WalletUi = ({ close }: CloseProps) => {
                     <div className="w-[30px] h-[30px] rounded-full bg-gray-400"></div>
                     <p className="text-lg font-bold">ETH</p>
                   </div>
-                  <p>$260</p>
+                  <p>$0</p>
                 </li>
               </ul>
             </div>
