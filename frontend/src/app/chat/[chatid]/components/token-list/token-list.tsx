@@ -5,6 +5,7 @@ import AddToken from "./add-token-form";
 import { type data, getLocalStorageTokens } from "@/lib/helper";
 import { ChatContext } from "@/app/useContext/chatContex";
 import { X, ExternalLink, Copy, Plus } from "lucide-react";
+import Link from "next/link";
 
 interface CloseProps {
   close: () => void;
@@ -64,15 +65,13 @@ function TokenList({ close }: CloseProps) {
                 className="bg-[#1C2136] p-4 rounded-lg hover:bg-[#252B48] transition-colors"
               >
                 <div className="flex justify-between items-center mb-2">
-                  <a
-                    href={`https://etherscan.io/token/${data.address}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link
+                    href={`/token/sonic/${data.address}`}
                     className="text-aqwaGreen hover:text-aqwaGreen/80 font-semibold flex items-center"
                   >
                     {data.name}
                     <ExternalLink className="h-4 w-4 ml-1" />
-                  </a>
+                  </Link>
                   <button
                     onClick={() => copyToClipboard(data.address, index)}
                     className="text-gray-400 hover:text-white transition-colors"
