@@ -8,10 +8,10 @@ export async function rugcheck(
   setMessages: (messages: Message[]) => void,
   setMessagesInStorage: (messages: Message[]) => void
 ) {
-  console.log("Rugcheck function called", tokenaddr, chatId);
+  // console.log("Rugcheck function called", tokenaddr, chatId);
 
   const RUG_CHECK_API = "https://api.rugcheck.xyz/v1";
-  console.log(`${RUG_CHECK_API}/tokens/${tokenaddr}/report/summary`);
+  // console.log(`${RUG_CHECK_API}/tokens/${tokenaddr}/report/summary`);
   if (tokenaddr == "") {
     const aiMessage: Message = {
       content:
@@ -34,7 +34,7 @@ export async function rugcheck(
     }
 
     const data: RugCheckData = await response.json();
-    console.log("Rugcheck data", data);
+    // console.log("Rugcheck data", data);
     const aiMessage: Message = {
       content: "",
       sender: "agent",
@@ -51,8 +51,9 @@ export async function rugcheck(
     setMessagesInStorage([...messages, aiMessage]);
     setMessages([...messages, aiMessage]);
     return data;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    console.log("Rugcheck error", error);
+    // console.log("Rugcheck error", error);
     const aiMessage: Message = {
       content: `Hey There, There was an error fetching the Rugcheck data of the ${tokenaddr} token. Please try again later or change the token address.`,
       sender: "agent",

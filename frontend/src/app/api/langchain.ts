@@ -100,7 +100,6 @@ export async function responseFromChatOpenAi(question: string) {
         content: question,
       },
     ]);
-    console.log(response);
 
     return response;
   } catch (error) {

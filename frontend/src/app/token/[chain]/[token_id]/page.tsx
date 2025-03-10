@@ -40,7 +40,7 @@ export default function TokenPage() {
   const [timeframe, setTimeframe] = useState("1W");
   const timeframes = ["24H"];
   const coin_info = useFetchCoinInfo(params.token_id) as CoinInfo;
-  console.log(coin_info);
+  // console.log(coin_info);
 
   return (
     <motion.main

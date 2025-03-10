@@ -19,10 +19,11 @@ export default function useFetchCoinInfo(tokenAddr: string) {
           options
         );
         const data = await response.json();
-        console.log("data", data);
+        // console.log("data", data);
         setTokenInfo(data);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (err) {
-        console.error(err);
+        // console.error(err);
       }
     };
 

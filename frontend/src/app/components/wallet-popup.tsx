@@ -40,14 +40,14 @@ const WalletUi = ({ close }: CloseProps) => {
 
       const data = await response.json();
       setGetBalance(data);
-      console.log(data);
+      // console.log(data);
     } catch (err) {
       if (err instanceof Error) {
-        console.log(err.message);
+        // console.log(err.message);
       } else {
-        console.log("An unknown error occurred");
+        // console.log("An unknown error occurred");
       }
-      console.log(err);
+      // console.log(err);
     }
   };
 

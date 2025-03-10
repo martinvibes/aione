@@ -12,8 +12,9 @@ export function useTransactionHistory() {
       try {
         const data: TransactionStore = JSON.parse(stored);
         setTransactions(data.transactions);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     }
   }, []);

@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function Footer(){
     return (
-      <footer className=" mt-9 text-[#FFFFFF] w-full bottom-0 flex justify-between sm:flex-row flex-col items-center border border-[#8DE1FF] rounded-md py-4 p-4">
+      <footer className=" mt-9 text-[#FFFFFF] w-full bottom-0 flex justify-between sm:flex-row flex-col sm:items-center border border-[#8DE1FF] rounded-md py-4 p-4">
         <div className="flex gap-x-4 items-center sm:flex-row flex-col">
           <Image
             src={footerLogo}
@@ -17,20 +17,26 @@ export default function Footer(){
           />
           <h4>All right reserved @2025</h4>
         </div>
-        <ul className="flex justify-between gap-x-4 items-center capitalize sm:flex-row flex-col">
+        <ul className="flex justify-between gap-x-4 items-start sm:items-center capitalize sm:flex-row flex-col">
           <li>Terms and Condition </li>
           <li>
-            <Link href="">github</Link>
+            <Link href="https://github.com/Web3Novalabs/aione" target="_blank">
+              github
+            </Link>
           </li>
           <li>
-            <Link href="">doc</Link>
+            <Link href="https://aione-6m73.vercel.app/#/" target="_blank">
+              Doc
+            </Link>
           </li>
-          <li>
-            <XIcon />
-          </li>
-          <li>
-            <TelegramIcon/>
-          </li>
+          <div className="flex gap-4">
+            <Link href="https://x.com/aione_novalabs" target="_blank">
+              <XIcon />
+            </Link>
+            <Link href="#" target="_blank">
+              <TelegramIcon />
+            </Link>
+          </div>
         </ul>
       </footer>
     );

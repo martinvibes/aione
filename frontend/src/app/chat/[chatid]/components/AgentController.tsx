@@ -14,7 +14,6 @@ interface GetData {
 }
 
 const AgentController = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState("");
   const [getBalance, setGetBalance] = useState<GetData | null>(null);
   const [getCoinTicker, setGetCoinTicker] = useState<GetData | null>(null);
@@ -34,8 +33,7 @@ const AgentController = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = await response.json();
-      console.log(data);
+      await response.json();
       return true;
     } catch (error) {
       if (error instanceof Error) {
@@ -43,7 +41,7 @@ const AgentController = () => {
       } else {
         setError("An unknown error occurred");
       }
-      console.log(error, "error loading agent");
+      // console.log(error, "error loading agent");
       return false;
     }
   };
@@ -63,14 +61,12 @@ const AgentController = () => {
 
       const data = await response.json();
       setGetBalance(data);
-      console.log(data);
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
       } else {
         setError("An unknown error occurred");
       }
-      console.log(err);
     }
   };
 
@@ -89,7 +85,7 @@ const AgentController = () => {
 
       const data = await response.json();
       setGetCoinTicker(data);
-      console.log(data);
+      // console.log(data);
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
@@ -113,8 +109,7 @@ const AgentController = () => {
 
       if (!response) return;
 
-      const data = await response.json();
-      console.log(data);
+      await response.json();
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
@@ -138,8 +133,7 @@ const AgentController = () => {
 
       if (!response) return;
 
-      const data = await response.json();
-      console.log(data);
+      await response.json();
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);

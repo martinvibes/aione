@@ -447,7 +447,8 @@ export default function Home() {
                   <ChevronRight className="w-5 h-5" />
                 </motion.button>
               </Link>
-              {/* <motion.button
+              <Link href="https://aione-6m73.vercel.app/#/" target="_blank">
+              <motion.button
                 whileHover={{
                   scale: 1.05,
                   boxShadow: "0 0 20px rgba(255,255,255,0.2)",
@@ -455,9 +456,10 @@ export default function Home() {
                 whileTap={{ scale: 0.95 }}
                 className="border-2 border-white text-white font-bold py-3 px-6 rounded-lg hover:bg-white hover:text-black transition-colors flex items-center gap-2"
               >
-                Connect Wallet
+                Ai-One Docs
                 <ChevronRight className="w-5 h-5" />
-              </motion.button> */}
+              </motion.button>
+              </Link>
             </div>
           </div>
         </motion.div>

@@ -36,7 +36,7 @@ const CoinContextProvider = (props: CoinContextProviderProps) => {
     )
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setAllcoin(res);
       })
       .catch((err) => console.error(err));

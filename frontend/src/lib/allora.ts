@@ -42,7 +42,7 @@ export async function pricePridictionHandle(
         const sol8h = await alloraPricePridiction(38);
 
         const solprice = await fetchCoinGeckoPrice("solana");
-        console.log(solprice);
+        // console.log(solprice);
         const aiPridictionSol8h: Message = {
           content: pridictionConsiseAnswer(sol8h, "SOL/USD", "8h"),
           sender: "agent",
@@ -67,7 +67,7 @@ export async function pricePridictionHandle(
       case "btc":
         const btc8h = await alloraPricePridiction(42);
         const btcprice = await fetchCoinGeckoPrice("bitcoin");
-        console.log("lorem ", btcprice);
+        // console.log("lorem ", btcprice);
         const aiPridictionBtc8h: Message = {
           content: pridictionConsiseAnswer(btc8h, "BTC/USD", "8h"),
           sender: "agent",
