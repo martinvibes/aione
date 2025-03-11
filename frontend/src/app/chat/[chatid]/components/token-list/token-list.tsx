@@ -66,7 +66,7 @@ function TokenList({ close }: CloseProps) {
               >
                 <div className="flex justify-between items-center mb-2">
                   <Link
-                    href={`/token/sonic/${data.address}`}
+                    href={`/token/${data.chain}/${data.address}`}
                     className="text-aqwaGreen hover:text-aqwaGreen/80 font-semibold flex items-center"
                   >
                     {data.name}

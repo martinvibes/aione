@@ -30,7 +30,7 @@ export default function RugCheckComponent({ data, mint }: RugCheckProps) {
   const [copied, setCopied] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
-  const coin_info = useFetchCoinInfo(mint) as CoinInfo;
+  const coin_info = useFetchCoinInfo(mint, "solana") as CoinInfo;
 
   useEffect(() => {
     setIsVisible(true);

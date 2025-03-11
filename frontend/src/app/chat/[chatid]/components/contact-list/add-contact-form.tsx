@@ -1,36 +1,42 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState } from "react"
-import { type data, getLocalSstorageAddress, setLocalStorageAddress } from "@/lib/helper"
-import { X, UserPlus } from "lucide-react"
-import toast from "react-hot-toast"
-import { motion, AnimatePresence } from "framer-motion"
+import type React from "react";
+import { useState } from "react";
+import {
+  type data,
+  getLocalSstorageAddress,
+  setLocalStorageAddress,
+} from "@/lib/helper";
+import { X, UserPlus } from "lucide-react";
+import toast from "react-hot-toast";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface CloseProps {
-  close: () => void
+  close: () => void;
 }
 
 function AddContact({ close }: CloseProps) {
-  const [name, setName] = useState("")
-  const [address, setAddress] = useState("")
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
 
   function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    const data: data = getLocalSstorageAddress()
+    e.preventDefault();
+    const data: data = getLocalSstorageAddress();
 
-    const filter = data.filter((item) => item.name === name || item.address === address)
+    const filter = data.filter(
+      (item) => item.name === name || item.address === address
+    );
 
     if (filter.length > 0) {
-      toast.error("Contact already exists")
-      return
+      toast.error("Contact already exists");
+      return;
     }
 
     if (name && address) {
-      const updateData: data = [...data, { name, address }]
-      setLocalStorageAddress(updateData)
-      toast.success("Contact added successfully!")
-      close()
+      const updateData: data = [...data, { name, address, chain: "" }];
+      setLocalStorageAddress(updateData);
+      toast.success("Contact added successfully!");
+      close();
     }
   }
 
@@ -53,14 +59,21 @@ function AddContact({ close }: CloseProps) {
         >
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-bold text-white">Add New Contact</h2>
-            <button type="button" onClick={close} className="text-gray-400 hover:text-white transition-colors">
+            <button
+              type="button"
+              onClick={close}
+              className="text-gray-400 hover:text-white transition-colors"
+            >
               <X className="h-6 w-6" />
             </button>
           </div>
 
           <div className="space-y-4">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-400 mb-1">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-400 mb-1"
+              >
                 Contact Name
               </label>
               <input
@@ -75,7 +88,10 @@ function AddContact({ close }: CloseProps) {
             </div>
 
             <div>
-              <label htmlFor="address" className="block text-sm font-medium text-gray-400 mb-1">
+              <label
+                htmlFor="address"
+                className="block text-sm font-medium text-gray-400 mb-1"
+              >
                 Contact Address
               </label>
               <input
@@ -100,8 +116,7 @@ function AddContact({ close }: CloseProps) {
         </motion.form>
       </motion.div>
     </AnimatePresence>
-  )
+  );
 }
 
-export default AddContact
-
+export default AddContact;

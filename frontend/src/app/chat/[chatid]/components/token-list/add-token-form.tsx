@@ -18,6 +18,7 @@ interface CloseProps {
 function AddToken({ close }: CloseProps) {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
+  const [chain, setChain] = useState("");
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -31,9 +32,8 @@ function AddToken({ close }: CloseProps) {
       toast.error("Token already exists");
       return;
     }
-
-    if (name && address) {
-      const updateData: data = [...data, { name, address }];
+    if (name && address && chain) {
+      const updateData: data = [...data, { name, address, chain }];
       setLocalStorageTokens(updateData);
       toast.success("Token added successfully!");
       close();
@@ -103,6 +103,29 @@ function AddToken({ close }: CloseProps) {
                 className="w-full px-3 py-2 bg-[#1C2136] border border-[#3D435C] rounded-md text-white focus:outline-none focus:ring-2 focus:ring-aqwaGreen focus:border-transparent"
                 placeholder="Enter token address"
               />
+            </div>
+
+
+            <div>
+              <label
+              htmlFor="chain"
+              className="block text-sm font-medium text-gray-400 mb-1"
+              >
+              Chain
+              </label>
+              <select
+              required
+              id="chain"
+              value={chain}
+              onChange={(e) => setChain(e.target.value)}
+              className="w-full px-3 py-2 bg-[#1C2136] border border-[#3D435C] rounded-md text-white focus:outline-none focus:ring-2 focus:ring-aqwaGreen focus:border-transparent"
+              >
+              <option value="">Select a chain</option>
+              <option value="bitcoin">Bitcoin</option>
+              <option value="solana">Solana</option>
+              <option value="ethereum">Ethereum</option>
+              <option value="sonic">Sonic</option>
+              </select>
             </div>
           </div>
 

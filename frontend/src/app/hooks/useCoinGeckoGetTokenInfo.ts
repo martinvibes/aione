@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 
-export default function useFetchCoinInfo(tokenAddr: string) {
+export default function useFetchCoinInfo(tokenAddr: string, ecosystem: string) {
   const options = {
     method: "GET",
     headers: {
@@ -15,7 +15,7 @@ export default function useFetchCoinInfo(tokenAddr: string) {
     const fetchTokenInfo = async () => {
       try {
         const response = await fetch(
-          `https://api.coingecko.com/api/v3/coins/solana/contract/${tokenAddr}`,
+          `https://api.coingecko.com/api/v3/coins/${ecosystem}/contract/${tokenAddr}`,
           options
         );
         const data = await response.json();

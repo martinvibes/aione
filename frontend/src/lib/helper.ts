@@ -6,9 +6,21 @@ export function stringSlice(data: string) {
 }
 
 const sonicTokensAddress = [
-  { name: "sonic", address: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE" },
-  { name: "anon", address: "0x79bbF4508B1391af3A0F4B30bb5FC4aa9ab0E07C" },
-  { name: "wagmi", address: "0x0e0Ce4D450c705F8a0B6Dd9d5123e3df2787D16B" },
+  {
+    name: "sonic",
+    address: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+    chain: "sonic",
+  },
+  {
+    name: "anon",
+    address: "0x79bbF4508B1391af3A0F4B30bb5FC4aa9ab0E07C",
+    chain: "sonic",
+  },
+  {
+    name: "wagmi",
+    address: "0x0e0Ce4D450c705F8a0B6Dd95123e3df2787D16B",
+    chain: "sonic",
+  },
 ];
 export const getTransactionUrl = (hash: string) => {
   if (hash.includes("https")) {
@@ -20,6 +32,7 @@ export const getTransactionUrl = (hash: string) => {
 export type data = {
   name: string;
   address: string;
+  chain: string;
 }[];
 
 export function getLocalSstorageAddress() {
