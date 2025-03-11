@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./aionelogo.png" />
+<img src="./mylogo.jpg" />
 
 <h1>
    AI ONE
