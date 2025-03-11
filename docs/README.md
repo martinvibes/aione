@@ -71,6 +71,22 @@ AI One:
 
 ![image](https://hackmd.io/_uploads/BJLPzlPoyx.png)
 
+### Price prediction (Allora Integration Overview):
+
+We have successfully integrated the Allora API into our project to enhance price prediction capabilities for tokens. This integration allows our chatbot to provide users with precise price forecasts while offering a comprehensive user interface that displays essential data about each coin.
+
+The UI includes detailed analytics and visual charts for the tokens being analyzed, creating a holistic DeFi experience for traders. Users can easily access vital information and gain insights into market trends, effectively streamlining their trading decisions. With Allora's integration, we empower users with real-time predictions and a user-friendly platform to enhance their trading strategies.
+
+Future price, market data and chart for analysis on one prompt from user
+
+Example:
+
+```
+Predict the future price of btc
+```
+
+<img src="./pricepred.png">
+
 ### Balance Check
 
 This feature enables users to query and view token balances for any wallet address on the Sonic network. It provides real-time balance information for all compatible tokens associated with the specified wallet, including native tokens and ERC-20 tokens. The balance check functionality interfaces directly with the Sonic blockchain to ensure accurate and up-to-date information.
