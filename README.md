@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="./docs/mylogo.jpg" />
+  <img src="./docs/mylogo.jpg" style="border-radius: 100%; " />
 
 <h1>
    AI ONE
@@ -16,7 +16,7 @@ AI ONE is an all-in-one AI-powered chat platform designed for managing DeFi tran
 
 ## How does AI ONE WORK
 
-AI One makes it easy to use Web3 DeFi. It combines several secure platforms into one simple chat that uses AI. If you want to send Sonic tokens to a friend or another address, AI One can help. You won’t need to search through different platforms or learn how to use them. AI One simplifies the process to ensure your tokens are sent safely.
+AI One makes it easy to use Web3 DeFi. It combines several secure platforms into one simple chat that uses AI. If you want to send Sonic tokens to a friend or another address, AI One can he lp. You won’t need to search through different platforms or learn how to use them. AI One simplifies the process to ensure your tokens are sent safely.
 
 With automatic slippage for transfers and an easy way to collect data using natural language, users can quickly send Sonic tokens from one wallet to another. This is just one of the features that AI One offers.
 

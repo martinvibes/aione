@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./mylogo.jpg" />
+<img src="./mylogo.jpg" style="border-radius: 100%; " />
 
 <h1>
    AI ONE
