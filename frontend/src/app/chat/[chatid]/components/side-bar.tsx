@@ -65,21 +65,21 @@ export default function SideNavBar() {
           isSideBarOpen ? "w-[90px]" : "w-[315px]"
         } min-h-full bg-sideNavBg px-4 py-6 flex flex-col gap-8 transition-all duration-500 relative z-[555]`}
       >
-        <Link href="/"
-          className="bg-darkishBlue p-4 flex justify-between items-center w-full rounded-[8px] mx-auto h-16"
-        >
-          <Image
-            className={`${
-              isSideBarOpen ? "hidden" : "block"
-            } transition-all duration-500`}
-            width={80}
-            height={80}
-            src={logo}
-            alt="aione"
-            priority
-          />
+        <button className="bg-darkishBlue p-4 flex justify-between items-center w-full rounded-[8px] mx-auto h-16">
+          <Link href="/">
+            <Image
+              className={`${
+                isSideBarOpen ? "hidden" : "block"
+              } transition-all duration-500`}
+              width={80}
+              height={80}
+              src={logo}
+              alt="aione"
+              priority
+            />
+          </Link>
           <AlignJustify onClick={handleSideBar} />
-        </Link>
+        </button>
         <div className="flex flex-col gap-4">
           <button
             className={`${
