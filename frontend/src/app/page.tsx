@@ -180,40 +180,74 @@ export default function Home() {
           </motion.p>
 
           <div className="flex justify-center space-x-4">
-            {["Launch App"].map((buttonText, index) => (
-              <Link href={index == 0 ? `/chat/${Date.now().toString()}` : "/"} key={buttonText}>
-                <motion.button
-                  key={buttonText}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{
-                    opacity: 1,
-                    scale: 1,
-                    transition: {
-                      delay: 0.6 + index * 0.2,
-                      type: "spring",
-                      stiffness: 300,
-                    },
-                  }}
-                  whileHover={{
-                    scale: 1.05,
-                    boxShadow: "0 0 20px rgba(34, 211, 238, 0.5)",
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`
-                  ${
-                    index === 0
-                      ? "bg-cyan-500 text-black"
-                      : "border-2 border-cyan-400 text-cyan-400"
-                  }
-                  font-bold py-3 px-6 hover:text-black rounded-lg hover:bg-cyan-400 
+            {["Launch App", "Join Waitlist"].map((buttonText, index) =>
+              index == 0 ? (
+                <Link href={`/chat/${Date.now().toString()}`} key={buttonText}>
+                  <motion.button
+                    key={buttonText}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{
+                      opacity: 1,
+                      scale: 1,
+                      transition: {
+                        delay: 0.6 + index * 0.2,
+                        type: "spring",
+                        stiffness: 300,
+                      },
+                    }}
+                    whileHover={{
+                      scale: 1.05,
+                      boxShadow: "0 0 20px rgba(34, 211, 238, 0.5)",
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`
+                  ${"bg-cyan-500 text-black"}
+                  font-bold cursor-pointer py-3 px-6 hover:text-black rounded-lg hover:bg-cyan-400 
                   transition-colors flex items-center gap-2 group
                 `}
+                  >
+                    {buttonText}
+                    <ArrowUpRight className="w-5 h-5 group-hover:rotate-45 transition-transform" />
+                  </motion.button>
+                </Link>
+              ) : (
+                <Link
+                  href={`https://aione-waitlist.vercel.app/`}
+                  key={buttonText}
+                  passHref
+                  legacyBehavior
                 >
-                  {buttonText}
-                  <ArrowUpRight className="w-5 h-5 group-hover:rotate-45 transition-transform" />
-                </motion.button>
-              </Link>
-            ))}
+                  <a target="_blank" rel="noopener noreferrer">
+                    <motion.button
+                      key={buttonText}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{
+                        opacity: 1,
+                        scale: 1,
+                        transition: {
+                          delay: 0.6 + index * 0.2,
+                          type: "spring",
+                          stiffness: 300,
+                        },
+                      }}
+                      whileHover={{
+                        scale: 1.05,
+                        boxShadow: "0 0 20px rgba(34, 211, 238, 0.5)",
+                      }}
+                      whileTap={{ scale: 0.95 }}
+                      className={`
+                  ${"border-2 border-cyan-400 text-cyan-400"}
+                  font-bold cursor-pointer py-3 px-6 hover:text-black rounded-lg hover:bg-cyan-400 
+                  transition-colors flex items-center gap-2 group
+                `}
+                    >
+                      {buttonText}
+                      <ArrowUpRight className="w-5 h-5 group-hover:rotate-45 transition-transform" />
+                    </motion.button>
+                  </a>
+                </Link>
+              )
+            )}
           </div>
         </motion.header>
 
@@ -448,17 +482,17 @@ export default function Home() {
                 </motion.button>
               </Link>
               <Link href="https://aione-6m73.vercel.app/#/" target="_blank">
-              <motion.button
-                whileHover={{
-                  scale: 1.05,
-                  boxShadow: "0 0 20px rgba(255,255,255,0.2)",
-                }}
-                whileTap={{ scale: 0.95 }}
-                className="border-2 border-white text-white font-bold py-3 px-6 rounded-lg hover:bg-white hover:text-black transition-colors flex items-center gap-2"
-              >
-                Ai-One Docs
-                <ChevronRight className="w-5 h-5" />
-              </motion.button>
+                <motion.button
+                  whileHover={{
+                    scale: 1.05,
+                    boxShadow: "0 0 20px rgba(255,255,255,0.2)",
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                  className="border-2 border-white text-white font-bold py-3 px-6 rounded-lg hover:bg-white hover:text-black transition-colors flex items-center gap-2"
+                >
+                  Ai-One Docs
+                  <ChevronRight className="w-5 h-5" />
+                </motion.button>
               </Link>
             </div>
           </div>
